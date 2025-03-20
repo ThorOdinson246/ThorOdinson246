@@ -396,3 +396,255 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
     }
 });
+
+// Quiz Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Set up event listeners for quiz buttons
+    const quizButtons = document.querySelectorAll('.quiz-btn');
+    
+    quizButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const activityItem = this.closest('.activity-item');
+            const sessionTitle = activityItem.querySelector('h3').textContent;
+            showQuizModal(sessionTitle);
+        });
+    });
+    
+    // Quiz modal functionality
+    const quizModal = document.querySelector('.quiz-modal');
+    const closeQuizBtn = document.querySelector('.close-quiz');
+    const questionContainer = document.querySelector('.question-container');
+    const currentQuestionSpan = document.getElementById('current-question');
+    const totalQuestionsSpan = document.getElementById('total-questions');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    const submitBtn = document.querySelector('.nav-btn.submit');
+    
+    closeQuizBtn.addEventListener('click', function() {
+        quizModal.classList.remove('active');
+    });
+    
+    // Sample quiz questions (in a real app, these would come from an API or database)
+    const quizQuestions = {
+        'Completed Session: Calculus I': [
+            {
+                question: "What is the derivative of f(x) = x²?",
+                options: ["f'(x) = x", "f'(x) = 2x", "f'(x) = 2", "f'(x) = x²"],
+                answer: 1
+            },
+            {
+                question: "What is the limit of (1 + 1/n)^n as n approaches infinity?",
+                options: ["0", "1", "e", "Infinity"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is the chain rule?",
+                options: [
+                    "d/dx[f(g(x))] = f'(g(x)) · g'(x)",
+                    "d/dx[f(x) · g(x)] = f'(x) · g(x) + f(x) · g'(x)",
+                    "d/dx[f(x)/g(x)] = [f'(x) · g(x) - f(x) · g'(x)]/[g(x)]²",
+                    "d/dx[f(x) + g(x)] = f'(x) + g'(x)"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the indefinite integral of 2x?",
+                options: ["x² + C", "x² - C", "x² / 2 + C", "2x² + C"],
+                answer: 0
+            },
+            {
+                question: "The derivative of sin(x) is:",
+                options: ["cos(x)", "-cos(x)", "sin(x)", "-sin(x)"],
+                answer: 0
+            }
+        ],
+        'Completed Session: Java Programming': [
+            {
+                question: "What is inheritance in Java?",
+                options: [
+                    "The process where one class acquires the properties of another",
+                    "The ability to create multiple methods with the same name",
+                    "The concept of hiding the internal details and showing the functionality",
+                    "A way to create a new instance of a class"
+                ],
+                answer: 0
+            },
+            {
+                question: "Which keyword is used to inherit a class in Java?",
+                options: ["implements", "extends", "inherits", "using"],
+                answer: 1
+            },
+            {
+                question: "What does the 'super' keyword do in Java?",
+                options: [
+                    "It refers to the superclass object",
+                    "It creates a new instance of the parent class",
+                    "It overrides a method in the parent class",
+                    "It makes a class immutable"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is method overriding in Java?",
+                options: [
+                    "Defining a method in a subclass that has the same name as in the parent class",
+                    "Creating multiple methods with the same name but different parameters",
+                    "Hiding variables of the superclass",
+                    "Making a method inaccessible in the child class"
+                ],
+                answer: 0
+            },
+            {
+                question: "Which of the following is true about the 'final' keyword in Java?",
+                options: [
+                    "A final class can be inherited",
+                    "A final method can be overridden",
+                    "A final variable can be reassigned",
+                    "A final method cannot be overridden"
+                ],
+                answer: 3
+            }
+        ]
+    };
+    
+    let currentQuiz = null;
+    let currentQuestionIndex = 0;
+    let userAnswers = [];
+    
+    function showQuizModal(sessionTitle) {
+        // Set up the quiz based on the session title
+        if (quizQuestions[sessionTitle]) {
+            currentQuiz = sessionTitle;
+            currentQuestionIndex = 0;
+            userAnswers = new Array(quizQuestions[sessionTitle].length).fill(-1);
+            
+            // Update total questions count
+            totalQuestionsSpan.textContent = quizQuestions[sessionTitle].length;
+            
+            // Show the first question
+            showQuestion(0);
+            
+            // Show the modal
+            quizModal.classList.add('active');
+        } else {
+            alert('No quiz available for this session yet.');
+        }
+    }
+    
+    function showQuestion(index) {
+        const questions = quizQuestions[currentQuiz];
+        const question = questions[index];
+        
+        // Update current question number
+        currentQuestionSpan.textContent = index + 1;
+        
+        // Create the question HTML
+        let questionHTML = `
+            <div class="question">${index + 1}. ${question.question}</div>
+            <div class="options">
+        `;
+        
+        // Add each option
+        question.options.forEach((option, i) => {
+            const selected = userAnswers[index] === i ? 'selected' : '';
+            questionHTML += `<div class="option ${selected}" data-index="${i}">${option}</div>`;
+        });
+        
+        questionHTML += '</div>';
+        
+        // Update the question container
+        questionContainer.innerHTML = questionHTML;
+        
+        // Add event listeners to options
+        const optionElements = questionContainer.querySelectorAll('.option');
+        optionElements.forEach(option => {
+            option.addEventListener('click', function() {
+                const optionIndex = parseInt(this.dataset.index);
+                userAnswers[currentQuestionIndex] = optionIndex;
+                
+                // Remove selected class from all options
+                optionElements.forEach(opt => opt.classList.remove('selected'));
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+            });
+        });
+        
+        // Update navigation buttons
+        prevBtn.disabled = index === 0;
+        
+        if (index === questions.length - 1) {
+            nextBtn.style.display = 'none';
+            submitBtn.style.display = 'block';
+        } else {
+            nextBtn.style.display = 'block';
+            submitBtn.style.display = 'none';
+        }
+    }
+    
+    function showResults() {
+        const questions = quizQuestions[currentQuiz];
+        let correctAnswers = 0;
+        
+        // Count correct answers
+        userAnswers.forEach((answer, index) => {
+            if (answer === questions[index].answer) {
+                correctAnswers++;
+            }
+        });
+        
+        const score = Math.round((correctAnswers / questions.length) * 100);
+        let resultMessage = '';
+        
+        if (score >= 80) {
+            resultMessage = 'Excellent! You have a strong understanding of the material.';
+        } else if (score >= 60) {
+            resultMessage = 'Good job! You understand most of the concepts, but there\'s room for improvement.';
+        } else {
+            resultMessage = 'You might need to review the material again. Consider booking another session.';
+        }
+        
+        // Create results HTML
+        const resultsHTML = `
+            <div class="quiz-results">
+                <div class="score">${score}%</div>
+                <p class="result-message">${resultMessage}</p>
+                <button class="btn">Done</button>
+            </div>
+        `;
+        
+        // Update the question container with results
+        questionContainer.innerHTML = resultsHTML;
+        
+        // Hide navigation
+        document.querySelector('.quiz-footer').style.display = 'none';
+        
+        // Add event listener to Done button
+        const doneBtn = questionContainer.querySelector('.btn');
+        doneBtn.addEventListener('click', function() {
+            quizModal.classList.remove('active');
+            // Reset quiz footer display for next time
+            document.querySelector('.quiz-footer').style.display = 'flex';
+        });
+    }
+    
+    // Navigation event listeners
+    prevBtn.addEventListener('click', function() {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            showQuestion(currentQuestionIndex);
+        }
+    });
+    
+    nextBtn.addEventListener('click', function() {
+        if (currentQuestionIndex < quizQuestions[currentQuiz].length - 1) {
+            currentQuestionIndex++;
+            showQuestion(currentQuestionIndex);
+        }
+    });
+    
+    submitBtn.addEventListener('click', function() {
+        showResults();
+    });
+});
+

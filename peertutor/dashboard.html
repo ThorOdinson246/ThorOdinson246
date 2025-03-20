@@ -258,6 +258,44 @@
                                 <span class="activity-time">1 week ago</span>
                             </div>
                         </div>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <h3>Completed Session: Calculus I</h3>
+                                    <p>You rated Alex 5 stars</p>
+                                    <span class="activity-time">2 days ago</span>
+                                </div>
+                                <button class="quiz-btn"><i class="fas fa-question-circle"></i> Take Quiz</button>
+                            </div>
+                            
+                            <!-- Add quiz button to other completed sessions as well -->
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-calendar-plus"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <h3>Booked New Session: Physics 101</h3>
+                                    <p>With David Kim</p>
+                                    <span class="activity-time">3 days ago</span>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <h3>Completed Session: Java Programming</h3>
+                                    <p>You rated Maria 4.5 stars</p>
+                                    <span class="activity-time">1 week ago</span>
+                                </div>
+                                <button class="quiz-btn"><i class="fas fa-question-circle"></i> Take Quiz</button>
+                            </div>
+                        </div>
+                        
                     </div>
                 </section>
             </div>
@@ -272,6 +310,26 @@
             </section>
         </main>
     </div>
+    <!-- Quiz Modal -->
+<div class="quiz-modal">
+    <div class="quiz-content">
+        <div class="quiz-header">
+            <h3>Session Review Quiz</h3>
+            <button class="close-quiz"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="question-container">
+            <!-- Questions will be dynamically inserted here -->
+        </div>
+        <div class="quiz-footer">
+            <div class="quiz-progress">Question <span id="current-question">1</span> of <span id="total-questions">5</span></div>
+            <div class="quiz-navigation">
+                <button class="nav-btn prev-btn" disabled>Previous</button>
+                <button class="nav-btn next-btn">Next</button>
+                <button class="nav-btn submit" style="display: none;">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
 
     <script src="dashboard.js"></script>
 </body>
