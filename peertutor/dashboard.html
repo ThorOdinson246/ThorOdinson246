@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeerConnect - Student Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dark-theme">
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="https://via.placeholder.com/120x40/0a1929/87ceeb?text=PeerConnect" alt="Logo">
+            </div>
+            <div class="user-info">
+                <img src="https://via.placeholder.com/80x80/87ceeb/0a1929?text=JS" alt="User Profile" class="user-avatar">
+                <h3>John Smith</h3>
+                <p>Computer Science</p>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="#"><i class="fas fa-calendar-alt"></i> Appointments</a></li>
+                    <li><a href="#"><i class="fas fa-book"></i> My Courses</a></li>
+                    <li><a href="#"><i class="fas fa-history"></i> History</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="welcome">
+                    <h1>Welcome back, John!</h1>
+                    <p>Thursday, March 20, 2025</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn crisis-btn"><i class="fas fa-exclamation-circle"></i> Crisis Mode</button>
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Stats Overview -->
+            <section class="stats-cards">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Upcoming Sessions</h3>
+                        <p class="stat-value">4</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Hours Completed</h3>
+                        <p class="stat-value">12.5</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Average Rating</h3>
+                        <p class="stat-value">4.8</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Subjects</h3>
+                        <p class="stat-value">5</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Upcoming Appointments -->
+                <section class="upcoming-appointments">
+                    <div class="section-header">
+                        <h2>Upcoming Appointments</h2>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                    <div class="appointments-list">
+                        <div class="appointment-card">
+                            <div class="appointment-date">
+                                <span class="day">Today</span>
+                                <span class="time">7:00 PM</span>
+                            </div>
+                            <div class="appointment-details">
+                                <h3>Calculus II - Integrals Review</h3>
+                                <p>Tutor: Alex Johnson</p>
+                            </div>
+                            <div class="appointment-status">
+                                <span class="status confirmed">Confirmed</span>
+                            </div>
+                        </div>
+                        <div class="appointment-card">
+                            <div class="appointment-date">
+                                <span class="day">Mar 21</span>
+                                <span class="time">4:30 PM</span>
+                            </div>
+                            <div class="appointment-details">
+                                <h3>Data Structures - Binary Trees</h3>
+                                <p>Tutor: Maria Garcia</p>
+                            </div>
+                            <div class="appointment-status">
+                                <span class="status confirmed">Confirmed</span>
+                            </div>
+                        </div>
+                        <div class="appointment-card">
+                            <div class="appointment-date">
+                                <span class="day">Mar 23</span>
+                                <span class="time">6:00 PM</span>
+                            </div>
+                            <div class="appointment-details">
+                                <h3>Physics 101 - Kinematics</h3>
+                                <p>Tutor: David Kim</p>
+                            </div>
+                            <div class="appointment-status">
+                                <span class="status pending">Pending</span>
+                            </div>
+                        </div>
+                        <div class="appointment-card">
+                            <div class="appointment-date">
+                                <span class="day">Mar 25</span>
+                                <span class="time">8:00 PM</span>
+                            </div>
+                            <div class="appointment-details">
+                                <h3>Java Programming - Inheritance</h3>
+                                <p>Tutor: Alex Johnson</p>
+                            </div>
+                            <div class="appointment-status">
+                                <span class="status confirmed">Confirmed</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Progress Chart -->
+                <section class="progress-chart">
+                    <div class="section-header">
+                        <h2>Academic Progress</h2>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="progressChart"></canvas>
+                    </div>
+                </section>
+                
+                <!-- Subject Performance -->
+                <section class="subject-performance">
+                    <div class="section-header">
+                        <h2>Subject Performance</h2>
+                    </div>
+                    <div class="subjects-list">
+                        <div class="subject-item">
+                            <div class="subject-icon math">
+                                <i class="fas fa-square-root-alt"></i>
+                            </div>
+                            <div class="subject-details">
+                                <h3>Calculus II</h3>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 75%;"></div>
+                                </div>
+                                <p>75% Proficiency</p>
+                            </div>
+                        </div>
+                        <div class="subject-item">
+                            <div class="subject-icon cs">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <div class="subject-details">
+                                <h3>Data Structures</h3>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 60%;"></div>
+                                </div>
+                                <p>60% Proficiency</p>
+                            </div>
+                        </div>
+                        <div class="subject-item">
+                            <div class="subject-icon physics">
+                                <i class="fas fa-atom"></i>
+                            </div>
+                            <div class="subject-details">
+                                <h3>Physics 101</h3>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 42%;"></div>
+                                </div>
+                                <p>42% Proficiency</p>
+                            </div>
+                        </div>
+                        <div class="subject-item">
+                            <div class="subject-icon programming">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="subject-details">
+                                <h3>Java Programming</h3>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 85%;"></div>
+                                </div>
+                                <p>85% Proficiency</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Recent Activity -->
+                <section class="recent-activity">
+                    <div class="section-header">
+                        <h2>Recent Activity</h2>
+                    </div>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="activity-details">
+                                <h3>Completed Session: Calculus I</h3>
+                                <p>You rated Alex 5 stars</p>
+                                <span class="activity-time">2 days ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-calendar-plus"></i>
+                            </div>
+                            <div class="activity-details">
+                                <h3>Booked New Session: Physics 101</h3>
+                                <p>With David Kim</p>
+                                <span class="activity-time">3 days ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="activity-details">
+                                <h3>Completed Session: Java Programming</h3>
+                                <p>You rated Maria 4.5 stars</p>
+                                <span class="activity-time">1 week ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+            <!-- New Booking CTA -->
+            <section class="booking-cta">
+                <div class="cta-content">
+                    <h2>Need help with another subject?</h2>
+                    <p>Book a new tutoring session now</p>
+                </div>
+                <button class="btn book-btn">Book New Session</button>
+            </section>
+        </main>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

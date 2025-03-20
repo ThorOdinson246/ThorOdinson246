@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeerConnect - Find Tutors When You Need Them</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+</head>
+<body class="dark-theme">
+    <div class="website-container">
+        <!-- Home Section -->
+        <section class="home" id="home">
+            <div class="main-navbar">
+                <a href="#" class="logo">
+                    <img src="https://via.placeholder.com/120x40/0a1929/87ceeb?text=PeerConnect" alt="Logo">
+                </a>
+                <ul class="nav-list">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#tutors">Find Tutors</a></li>
+                    <li><a href="#subjects">Subjects</a></li>
+                    <li><a href="#testimonials">Reviews</a></li>
+                </ul>
+                <div class="get-started-btn-container">
+                    <button class="btn get-started-btn" id="open-login-modal">Login / Sign Up</button>
+                </div>
+                <div class="menu-btn">
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="banner">
+                <div class="banner-desc">
+                    <h2>Tutoring When You <span class="highlight">Need It</span>, Not Just When It's Available</h2>
+                    <p>Connect with USM students who've aced the courses you're taking. Get help evenings, weekends, or right before exams.</p>
+                    
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search by course code (e.g., CSC 101)">
+                        <button class="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+
+                <div class="banner-img">
+                    <div class="banner-img-container">
+                        <img src="https://via.placeholder.com/400x500/0a1929/87ceeb?text=Student+Studying" alt="Student">
+                        
+                        <div class="states">
+                            <div class="total-courses">
+                                <div class="icon">
+                                    <i class="fas fa-book-open"></i>
+                                </div>
+                                <div class="desc">
+                                    <span>250+</span>
+                                    <span>Courses Covered</span>
+                                </div>
+                            </div>
+                            
+                            <div class="courses-ratings">
+                                <span>4.8 <i class="fas fa-star"></i></span>
+                                <span>Tutor Rating</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="services" id="how-it-works">
+            <div class="section-header">
+                <h1>How PeerConnect Works</h1>
+                <p>Our platform makes finding and scheduling tutoring sessions easy. Get help when you need it most.</p>
+            </div>
+
+            <div class="services-contents">
+                <div class="service-box">
+                    <div class="service-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="service-desc">
+                        <h2>Find a Tutor</h2>
+                        <p>Search for tutors who've taken your specific course with your professor. Filter by availability, rating, and expertise.</p>
+                    </div>
+                </div>
+
+                <div class="service-box">
+                    <div class="service-icon">
+                        <i class="far fa-calendar-alt"></i>
+                    </div>
+                    <div class="service-desc">
+                        <h2>Schedule a Session</h2>
+                        <p>Book sessions for evenings, weekends, or whenever works for you – not just during business hours.</p>
+                    </div>
+                </div>
+
+                <div class="service-box">
+                    <div class="service-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="service-desc">
+                        <h2>Flexible Payment</h2>
+                        <p>Pay with meal swipes, exchange tutoring for subjects you excel in, or use tips – whatever works for both of you.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Crisis Mode Section -->
+        <section class="instructor" id="crisis">
+            <div class="instructor-container">
+                <h2>Need Help Right Now? Use Crisis Mode</h2>
+                <p>Exam tomorrow? Assignment due at midnight? Our Crisis Mode feature connects you with available tutors immediately. Don't panic – get help fast.</p>
+                <button class="btn crisis-btn">Activate Crisis Mode</button>
+            </div>
+        </section>
+
+        <!-- Featured Tutors Section -->
+        <section class="courses" id="tutors">
+            <div class="section-header">
+                <h1>Our Top-Rated Tutors</h1>
+                <p>All tutors have earned A or B+ in the courses they tutor and have been vetted for teaching ability.</p>
+                <button class="btn courses-btn">View All Tutors</button>
+            </div>
+
+            <div class="course-contents">
+                <div class="course-card">
+                    <div class="card-top">
+                        <img src="https://via.placeholder.com/300x250/0a1929/87ceeb?text=Tutor" alt="Tutor 1">
+                        <div class="availability online">Available Now</div>
+                    </div>
+                    <div class="category">
+                        <div class="subject">
+                            <h3>Math & Statistics</h3>
+                        </div>
+                        <img src="https://via.placeholder.com/50x50/87ceeb/0a1929?text=JD" alt="Tutor Profile">
+                    </div>
+                    <h3 class="course-title">Jamie Davis</h3>
+                    <div class="course-desc">
+                        <span><i class="fas fa-graduation-cap"></i> Calculus, Statistics</span>
+                        <span><i class="far fa-clock"></i> Evenings/Weekends</span>
+                    </div>
+                    <div class="course-ratings">
+                        <span>4.9 <i class="fas fa-star"></i></span>
+                        <span>$5 or <b>1</b> meal swipe</span>
+                    </div>
+                    <button class="btn book-btn">Book Now</button>
+                </div>
+
+                <div class="course-card">
+                    <div class="card-top">
+                        <img src="https://via.placeholder.com/300x250/0a1929/87ceeb?text=Tutor" alt="Tutor 2">
+                        <div class="availability">Available at 8PM</div>
+                    </div>
+                    <div class="category">
+                        <div class="subject">
+                            <h3>Computer Science</h3>
+                        </div>
+                        <img src="https://via.placeholder.com/50x50/87ceeb/0a1929?text=AT" alt="Tutor Profile">
+                    </div>
+                    <h3 class="course-title">Alex Thompson</h3>
+                    <div class="course-desc">
+                        <span><i class="fas fa-graduation-cap"></i> Java, Python, C++</span>
+                        <span><i class="far fa-clock"></i> Late Nights</span>
+                    </div>
+                    <div class="course-ratings">
+                        <span>4.8 <i class="fas fa-star"></i></span>
+                        <span>$7 or <b>2</b> meal swipes</span>
+                    </div>
+                    <button class="btn book-btn">Book Now</button>
+                </div>
+
+                <div class="course-card">
+                    <div class="card-top">
+                        <img src="https://via.placeholder.com/300x250/0a1929/87ceeb?text=Tutor" alt="Tutor 3">
+                        <div class="availability online">Available Now</div>
+                    </div>
+                    <div class="category">
+                        <div class="subject">
+                            <h3>Chemistry & Biology</h3>
+                        </div>
+                        <img src="https://via.placeholder.com/50x50/87ceeb/0a1929?text=MR" alt="Tutor Profile">
+                    </div>
+                    <h3 class="course-title">Morgan Reynolds</h3>
+                    <div class="course-desc">
+                        <span><i class="fas fa-graduation-cap"></i> Organic Chemistry, Bio</span>
+                        <span><i class="far fa-clock"></i> Mornings/Weekends</span>
+                    </div>
+                    <div class="course-ratings">
+                        <span>4.7 <i class="fas fa-star"></i></span>
+                        <span>Exchange tutoring available</span>
+                    </div>
+                    <button class="btn book-btn">Book Now</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Login/Signup Modal -->
+        <div class="modal" id="login-modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <div class="auth-container">
+                    <div class="auth-tabs">
+                        <div class="tab active" data-tab="login">Login</div>
+                        <div class="tab" data-tab="signup">Sign Up</div>
+                    </div>
+                    
+                    <div class="auth-form-container">
+                        <form id="login-form" class="auth-form active">
+                            <h2>Welcome Back</h2>
+                            <div class="form-group">
+                                <label for="login-email">Email</label>
+                                <input type="email" id="login-email" placeholder="your.email@usm.edu" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="login-password">Password</label>
+                                <input type="password" id="login-password" placeholder="••••••••" required>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="remember-me">
+                                <label for="remember-me">Remember me</label>
+                                <a href="#" class="forgot-password">Forgot Password?</a>
+                            </div>
+                            <button type="submit" class="btn auth-btn">Login</button>
+                            <div class="social-login">
+                                <p>Or login with</p>
+                                <div class="social-buttons">
+                                    <button type="button" class="social-btn google">
+                                        <i class="fab fa-google"></i>
+                                    </button>
+                                    <button type="button" class="social-btn facebook">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </button>
+                                    <button type="button" class="social-btn apple">
+                                        <i class="fab fa-apple"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        
+                        <form id="signup-form" class="auth-form">
+                            <h2>Create Account</h2>
+                            <div class="form-group">
+                                <label for="fullname">Full Name</label>
+                                <input type="text" id="fullname" placeholder="John Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="signup-email">USM Email</label>
+                                <input type="email" id="signup-email" placeholder="your.email@usm.edu" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="signup-password">Password</label>
+                                <input type="password" id="signup-password" placeholder="••••••••" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm-password">Confirm Password</label>
+                                <input type="password" id="confirm-password" placeholder="••••••••" required>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="terms">
+                                <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                            </div>
+                            <button type="submit" class="btn auth-btn">Sign Up</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<!-- Crisis Mode Modal -->
+<div class="modal2" id="crisis-modal">
+    <div class="modal-content crisis-modal-content">
+        <span class="close-modal" id="close-crisis-modal">&times;</span>
+        <div class="crisis-container">
+            <div class="crisis-header">
+                <h2>Crisis Mode Activated</h2>
+                <p class="crisis-subtitle">Finding tutors available right now...</p>
+            </div>
+            
+            <div class="search-animation-container">
+                <div class="ripple-container">
+                    <div class="ripple"></div>
+                </div>
+                <img src="https://via.placeholder.com/60x60/87ceeb/0a1929?text=USM" alt="University Logo" class="university-logo">
+            </div>
+            
+            <div class="searching-text">
+                <p>Contacting nearby tutors who are online...</p>
+                <div class="dot-typing"></div>
+            </div>
+            
+            <div class="tutor-results" style="display: none;">
+                <h3><span id="tutor-count">0</span> Tutors Available Now</h3>
+                <div class="available-tutors">
+                    <!-- Tutors will be inserted here -->
+                </div>
+            </div>
+            
+            <div class="crisis-footer">
+                <button class="btn" id="cancel-crisis-search">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+		
+
+		
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+	<script src="crisis-mode.js"></script>
+    <script src="script.js"></script>
+	
+</body>
+</html>
