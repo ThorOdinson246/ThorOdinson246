@@ -1,4 +1,4 @@
-# Sediment Flux Analysis Tool
+# Integrating Sediment Dynamics into Flood Risk Modeling in Koshi River Basin
 
 ## Overview
 Project Page for ongoing research on analyzing and integrating sediment flux in rivers and streams, focusing on erosion patterns, transport processes, and deposition dynamics especially in Nepal's Koshi river systems.
