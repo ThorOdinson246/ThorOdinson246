@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Koshi River Basin Research Project</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+        <!-- --------------- HEADER --------------- -->
+        <nav id="header">
+          <div class="nav-logo">
+            <p class="nav-name">Sediment Flux</p>            
+          </div>
+          <div class="nav-menu" id="myNavMenu">
+            
+          </div>
+          <div class="nav-menu-btn">
+          </div>
+          </div> 
+          
+        </nav>
+
+    <section id="hero" class="fullscreen-section">
+      <div class="overlay"></div>
+      <div class="hero-content fade-in">
+        <h1>Integrating Sediment Dynamics into Flood Risk Modeling</h1>
+        <p>
+          A machine learning-based approach to improve flood risk modeling in
+          the Koshi River Basin.
+        </p>
+        <a href="#problem" class="scroll-btn"
+          >Explore <i class="uil uil-arrow-down"></i
+        ></a>
+      </div>
+    </section>
+
+    <section id="problem" class="fullscreen-section">
+      <div class="section-content">
+        <p>**Ongoing project : Summer 2025 - Spring 2026</p>
+        <h1 class="fade-in">The Gap</h2>
+        <p class="fade-in">
+            The Koshi River Basin spans Nepal and northern India, and experiences recurring catastrophic floods that cause annual damages of approximately $14 million USD while impacting millions of lives. Current flood risk assessment methods in this region rely primarily on static parameters such as elevation, slope, drainage, and density which are analyzed through traditional GIS approaches. While these methods are valuable they fail to account for a crucial dynamic variable that fundamentally alters flood behavior: The Koshi River's immense sediment load i.e almost 12 times that of the Amazon River[<a href="#references">2</a
+          >].
+        </p>
+
+        <p class="fade-in">
+           This underscores the urgent need for sediment-aware models.[<a href="#references">3</a>].
+        </p>
+
+        <h3 class="fade-in">Key Challenges</h3>
+        <ul class="animated-list">
+          <li class="fade-in">
+            Traditional models' neglect of hydromorphological feedbacks
+          </li>
+          <li class="fade-in">
+            Stochastic nature of sediment deposition patterns
+          </li>
+          <li class="fade-in">
+            Computational complexity in modeling non-linear sediment-flow
+            interactions
+          </li>
+          <li class="fade-in">
+            Lack of high-resolution DEM data for accurate channel mapping
+          </li>
+          <li class="fade-in">
+            Integration of multi-temporal sediment flux measurements
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="objectives" class="fullscreen-section">
+        <div class="section-content">
+        <div class="objective fade-in">
+            <h3>Framework Development</h3>
+            <p>
+              Develop an integrated methodological framework that leverages Sentinel-2 multispectral imagery to quantify sediment dynamics and incorporate this data into flood risk models. Extract sediment concentration patterns using spectral indices and band ratio transformations to create sediment-adjusted digital elevation models that better represent actual flood behavior in the Koshi Basin[<a href="#references">4</a>].
+            </p>
+          </div>
+          
+          <div class="objective fade-in">
+            <h3>ML Algorithm Evaluation</h3>
+            <p>
+              Implement machine learning algorithms (Random Forest, XGBoost, SVMs) to establish reliable relationships between Sentinel-2 spectral signatures and sediment concentrations using the Normalized Difference Suspended Sediment Index (NDSSI). Apply these sediment-aware models to improve flood prediction accuracy by accounting for continuous channel morphology changes in high-sediment environments.
+            </p>
+          </div>
+          
+          <div class="objective fade-in">
+            <h3>Quantitative Assessment</h3>
+            <p>
+              Evaluate flood prediction improvements gained through sediment-integrated modeling using cross-validation techniques with F1-score, precision, recall, and AUC metrics. Quantify how the inclusion of Sentinel-2 derived sediment data enhances model performance compared to traditional GIS-based flood risk approaches that overlook sediment dynamics.
+            </p>
+          </div>
+          </div>
+          
+
+    </section>
+
+    <section id="methodology" class="fullscreen-section">
+      <div class="section-content">
+        <h2 class="fade-in">Technical Methodology</h2>
+
+        <div class="method-block fade-in">
+            <h3>Data Collection & Preprocessing</h3>
+            <p>
+              Process multi-temporal Sentinel-2 imagery to extract suspended sediment concentrations across the Koshi River Basin. Apply atmospheric correction cloud masking to ensure data quality. Calculate NDSSI using band ratios B4/B3 and B4/B2, while integrating traditional flood modeling inputs including SRTM and Copernicus DEMs (30m) processed through ArcGIS Hydrology tools[<a href="#references">5</a>].
+            </p>
+          </div>
+          
+          <div class="method-block fade-in">
+            <h3>Hydrodynamic Modeling</h3>
+            <p>
+              Integrate derived sediment data into hydrodynamic modeling frameworks to account for sediment-induced changes in channel morphology and water conveyance capacity. Configure simplified models with the Muskingum-Cunge routing method while incorporating sediment transport parameters to simulate the unique "super-elevated" channels characteristic of the Koshi system as identified in ICIMOD research.
+            </p>
+          </div>
+          
+          <div class="method-block fade-in">
+            <h3>Machine Learning Implementation</h3>
+            <p>
+              Develop a dual-approach machine learning system that: (1) accurately extracts sediment concentrations from Sentinel-2 spectral signatures through regression models, and (2) integrates these sediment inputs with hydrological variables to improve flood prediction. Engineer features combining satellite-derived sediment data with topographic and hydrologic parameters to create comprehensive flood risk models that account for dynamic channel changes[<a href="#references">6</a>].
+            </p>
+          </div>
+          
+          
+          
+      </div>
+    </section>
+
+    <section id="outcomes" class="fullscreen-section">
+      <div class="section-content">
+        <h2 class="fade-in">Expected Outcomes</h2>
+
+        <div class="outcome-grid">
+          <div class="outcome-card fade-in">
+            <h3>Sediment-Aware Flood Model</h3>
+            <p>
+              A comprehensive model adaptable to other Himalayan river systems,
+              leveraging advanced spectral indices for sediment quantification.
+            </p>
+          </div>
+
+          <div class="outcome-card fade-in">
+            <h3>Python Geospatial Library</h3>
+            <p>
+              Open-source toolset with sediment-adjusted modeling methodology
+              for researchers and emergency management agencies.
+            </p>
+          </div>
+
+          <div class="outcome-card fade-in">
+            <h3>Interactive Visualization</h3>
+            <p>
+              Web-based interface with Leaflet.js implementation allowing users
+              to visualize how sediment accumulation modifies flood behavior.
+            </p>
+          </div>
+
+          <div class="outcome-card fade-in">
+            <h3>Enhanced Prediction Accuracy</h3>
+            <p>
+              Quantifiable improvement in flood prediction metrics, reducing
+              false negatives in early warning systems.<br>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="top-footer">
+        <p>Mukesh Poudel .</p>
+      </div>
+      <div class="footer-contact-icons">
+        <a
+          href="mailto:mukeshpoudel246@gmail.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="contact-icon"
+        >
+          <i class="uil uil-envelope"></i>
+          <span class="tooltip">Email Me</span>
+        </a>
+        <a
+          href="https://linkedin.com/in/mukesh-poudel-246mp"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="contact-icon"
+        >
+          <i class="uil uil-linkedin"></i>
+          <span class="tooltip">LinkedIn</span>
+        </a>
+        <a
+          href="https://github.com/ThorOdinson246"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="contact-icon"
+        >
+          <i class="uil uil-github"></i>
+          <span class="tooltip">GitHub</span>
+        </a>
+        <a href="tel:+6013291495" class="contact-icon">
+          <i class="uil uil-phone"></i>
+          <span class="tooltip">Call Me</span>
+        </a>
+      </div>
+      <div class="middle-footer">
+        <ul class="footer-menu">
+          <li class="footer_menu_list">
+            <a href="#home">Home</a>
+          </li>
+          <li class="footer_menu_list">
+            <a href="#about">About</a>
+          </li>
+          <li class="footer_menu_list">
+            <a href="#projects">Projects</a>
+          </li>
+          <li class="footer_menu_list">
+            <a href="#contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+      <div class="bottom-footer">
+        <div class="footer-text">
+          <p>
+            Copyright &copy;
+            <a href="#home" style="text-decoration: none">Mukesh Poudel</a>
+            - All rights reserved
+          </p>
+        </div>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+    <script src="/assets/js/script.js"></script>
+    
+  </body>
+</html>

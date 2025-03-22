@@ -21,6 +21,16 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+/* Set anchor text color */
+a {
+  color: var(--first-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--text-color-second);
+}
 
 /* ----- SMOOTH SCROLL ----- */
 html {
@@ -121,7 +131,7 @@ nav {
   width: 100%;
   height: 90px;
   line-height: 90px;
-  background: var(--body-color);
+  background: #030e20;
   padding-inline: 9vw;
   transition: 0.3s;
   z-index: 100;

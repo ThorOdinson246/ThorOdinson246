@@ -1,0 +1,247 @@
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--body-color);
+  color: var(--text-color-second);
+}
+
+#header {
+  position: fixed;
+  z-index: 1000;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  transform: translateY(-100%);
+  
+}
+
+#header.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Full-screen sections */
+.fullscreen-section {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Hero section specific styles */
+#hero {
+  background-image: url("/assets/images/basemap-koshi.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  text-align: center;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(3, 14, 32, 0.7);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 20px;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: var(--text-color-second);
+}
+
+.scroll-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 30px;
+  background-color: var(--first-color);
+  color: var(--color-white);
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.scroll-btn i {
+  margin-left: 8px;
+}
+
+.scroll-btn:hover {
+  background-color: var(--first-color);
+}
+
+/* Section content */
+.section-content {
+  max-width: 1000px;
+  width: 85%;
+  padding: 50px 0;
+}
+
+h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: var(--first-color);
+  position: relative;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  color: var(--text-color-second);
+}
+
+p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+/* Animated list */
+.animated-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 30px 0;
+}
+
+.animated-list li {
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.animated-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 12px;
+  height: 12px;
+  background-color: var(--first-color);
+}
+
+/* Objectives section */
+.objective {
+  margin-bottom: 40px;
+}
+
+/* Methodology section */
+.method-block {
+  margin-bottom: 40px;
+}
+
+/* Outcomes section */
+.outcome-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.outcome-card {
+  background-color: rgba(3, 218, 198, 0.05);
+  padding: 25px;
+  border-left: 3px solid var(--first-color);
+  transition: transform 0.3s;
+}
+
+.outcome-card:hover {
+  transform: translateY(-5px);
+}
+
+.outcome-card h3 {
+  margin-top: 0;
+  font-size: 1.3rem;
+}
+
+/* References section */
+.references-section {
+  min-height: 50vh;
+  background-color: rgba(3, 14, 32, 0.8);
+  padding: 50px 0;
+}
+
+.reference-list {
+  padding-left: 20px;
+}
+
+.reference-list li {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+/* Animation classes */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .section-content {
+    width: 90%;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  .outcome-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+}
