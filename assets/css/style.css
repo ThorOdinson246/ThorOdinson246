@@ -431,18 +431,25 @@ h2 {
   font-size: 15px;
   color: var(--text-color-second);
 }
-
 .project-image {
   width: 100%;
-  height: 60%;
+  height: 150px; /* Fixed height */
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
   z-index: 2;
-  padding-bottom: 20px;
+  margin-bottom: 20px;
 }
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* This will crop/scale the image while maintaining aspect ratio */
+  object-position: center; /* Centers the image */
+}
+
 
 .project-img {
   width: 100%;

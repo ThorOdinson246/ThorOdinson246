@@ -1,4 +1,3 @@
-
 html {
   scroll-behavior: smooth;
 }
@@ -15,7 +14,6 @@ body {
   z-index: 1000;
   transition: transform 0.4s ease, opacity 0.4s ease;
   transform: translateY(-100%);
-  
 }
 
 #header.visible {
@@ -25,13 +23,14 @@ body {
 
 /* Full-screen sections */
 .fullscreen-section {
-  height: 100vh;
+  min-height: 100vh; /* Changed from height to min-height */
   width: 100%;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow: visible; /* Changed from hidden to visible */
+  padding: 50px 0; /* Add padding to ensure content doesn't touch edges */
 }
 
 /* Hero section specific styles */
@@ -207,6 +206,21 @@ p {
 
 /* Media Queries */
 @media (max-width: 768px) {
+  .fullscreen-section {
+    padding: 70px 0; /* Increased padding for mobile */
+  }
+
+  /* Ensure content doesn't overlap with fixed header */
+  #problem {
+    padding-top: 100px; /* Add padding at the top for the header */
+  }
+
+  /* Improve section spacing */
+  .section-content {
+    width: 90%;
+    padding: 30px 15px;
+    margin: 0 auto;
+  }
   .hero-content h1 {
     font-size: 2rem;
   }
