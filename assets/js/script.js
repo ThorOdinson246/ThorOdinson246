@@ -9,6 +9,24 @@ function myMenuFunction() {
   }
 }
 
+/* ----- CLOSE MENU WHEN CLICKING NAV LINKS ----- */
+document.addEventListener("DOMContentLoaded", function() {
+  // Get all navigation links
+  const navLinks = document.querySelectorAll(".nav-menu a");
+  
+  // Add click event to each link
+  navLinks.forEach(link => {
+    link.addEventListener("click", function() {
+      // Check if menu is in responsive (mobile) mode
+      const navMenu = document.getElementById("myNavMenu");
+      if (navMenu.className.includes("responsive")) {
+        // Reset the menu to default state (closed)
+        navMenu.className = "nav-menu";
+      }
+    });
+  });
+});
+
 /* ----- ADD SHADOW ON NAVIGATION BAR WHILE SCROLLING ----- */
 window.onscroll = function () {
   headerShadow();
@@ -103,6 +121,13 @@ window.addEventListener("scroll", scrollActive);
 
 document.getElementById('darkModeToggle').addEventListener('click', function() {
   document.body.classList.toggle('dark-mode');
+  
+  // Also toggle dark mode class on header
+  const header = document.getElementById('header');
+  if (header) {
+    header.classList.toggle('dark-mode-header');
+  }
+  
   const icon = this.querySelector('i');
   if (document.body.classList.contains('dark-mode')) {
       icon.classList.remove('uil-sun');

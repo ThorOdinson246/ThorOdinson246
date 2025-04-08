@@ -204,6 +204,8 @@ p {
   transform: translateY(0);
 }
 
+
+
 /* Media Queries */
 @media (max-width: 768px) {
   .fullscreen-section {

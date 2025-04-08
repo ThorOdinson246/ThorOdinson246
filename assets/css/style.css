@@ -776,6 +776,44 @@ body.dark-mode {
   font-size: 24px;
 }
 
+/* Dark mode header styles */
+.dark-mode-header {
+  background-color: #f0f0f0 !important; /* Light background for header in dark mode */
+}
+
+.dark-mode-header .nav-logo p,
+.dark-mode-header .nav-name {
+  color: var(--first-color) !important;
+}
+
+.dark-mode-header .nav-logo span {
+  color: var(--text-color-second) !important;
+}
+
+.dark-mode-header .nav-link {
+  color: var(--text-color-second) !important;
+}
+
+.dark-mode-header .active-link {
+  color: var(--first-color) !important;
+}
+
+.dark-mode-header .nav-menu-btn i {
+  color: var(--text-color-second) !important;
+}
+
+/* For mobile menu in dark mode */
+.dark-mode .nav-menu.responsive {
+  background: rgba(240, 240, 240, 0.9) !important;
+  backdrop-filter: blur(20px);
+}
+
+
+
+
+
+
+
 /* Sticky Contact Bar  */
 .vertical-contact-bar {
   position: fixed;
@@ -826,13 +864,13 @@ body.dark-mode {
 .tooltip {
   position: absolute;
   right: 50px;
-  background: rgba(255, 255, 255, 0.1);
+  color: #64ffda;
   padding: 5px 5px;
   border-radius: 4px;
   font-size: 14px;
   opacity: 0;
   pointer-events: none;
-  transition: all 0.3s ease;
+  transition: all 5s none;
   white-space: nowrap;
 }
 
