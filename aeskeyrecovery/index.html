@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Machine Learning-based AES Key Recovery via Side-Channel Analysis on the ASCAD Dataset. This project explores the use of ML and DL models to exploit EM side-channel leakage for AES key recovery." />
+    <meta name="keywords" content="AES, Key Recovery, Side-Channel Analysis, Machine Learning, Deep Learning, ASCAD Dataset, Cryptography" />
+    <meta name="author" content="Mukesh Poudel" />
+
+    <title>AES Key Recovery via Side-Channel Analysis</title>
+    <link rel="stylesheet" href="aes_style.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />  <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon" />    
+  </head>
+  <body>
+    <div class="container">
+        <nav id="header">
+          <div class="nav-logo">
+            <p class="nav-name">AES Key Recovery</p>            
+          </div>
+          <div class="nav-menu" id="myNavMenu">
+            
+          </div>
+          <div class="nav-menu-btn">
+          </div>
+          </div> 
+          
+        </nav>
+
+    <section id="hero" class="fullscreen-section">
+      <div class="overlay"></div>
+      <div class="hero-content fade-in">
+        <h1>Machine Learning-Based AES Key Recovery via Side-Channel Analysis on the ASCAD Dataset</h1>
+        <p>
+          Investigating the application of machine learning (ML) and Deep Learning (DL) models to exploit electromagnetic (EM) side-channel leakage for AES key recovery. This project uses the public ASCAD dataset and focuses on the Key Rank metric for evaluation.
+        </p>
+        <p style="font-size: 0.9em; margin-top: 10px;">
+            <em>A paper detailing this work is currently in progress.</em>
+            
+        </p>
+        <a href="#problem" class="scroll-btn"
+          >Explore <i class="uil uil-arrow-down"></i
+        ></a>
+      </div>
+    </section>
+
+    <section id="problem" class="fullscreen-section">
+      <div class="section-content">
+        <p style="text-align:center; font-style:italic; color: var(--first-color);">**Status: Paper in progress, preliminary results available.**</p>
+        <div style="text-align: center;">
+          <a href="https://github.com/ThorOdinson246/AES-Key-Recovery-using-Machine-Learning/" target="_blank" rel="noopener noreferrer" class="btn" style="display: inline-block; width: fit-content;">
+            View on Github <i class="uil uil-github"></i>
+          </a>
+        </div>
+        <h3 class="fade-in">The Vulnerability</h3>
+        <p class="fade-in">
+            Cryptographic algorithms like Advanced Encryption Standard (AES) are mathematically robust. However, their physical implementations on devices can leak information through side channels, such as power consumption or electromagnetic (EM) emissions. This leakage can potentially compromise theoretically secure algorithms. Electromagnetic analysis (EMA) is a potent form of side-channel analysis (SCA) where attackers measure EM fields radiating from a device during cryptographic operations. These emissions often contain subtle variations correlated with the intermediate data being processed, which can be linked to the secret key.
+        </p>
+
+        <p class="fade-in">
+           Recent advancements show Machine Learning (ML) and Deep Learning (DL) are powerful tools for automatically learning these complex correlations, often outperforming traditional statistical SCA techniques. This project focuses on leveraging ML/DL for AES key recovery using the ASCAD dataset.
+        </p>
+
+        <h3 class="fade-in">Key Challenges</h3>
+        <ul class="animated-list">
+          <li class="fade-in">
+            Low signal-to-noise ratio (SNR) in EM traces.
+          </li>
+          <li class="fade-in">
+            Standard classification metrics (e.g., accuracy) being uninformative for SCA.
+          </li>
+          <li class="fade-in">
+            High dimensionality of side-channel data (e.g., 700-1400 samples per trace).
+          </li>
+          <li class="fade-in">
+            Computational cost of training complex ML models.
+          </li>
+          <li class="fade-in">
+            Necessity of domain-specific evaluation metrics like Key Rank.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="objectives" class="fullscreen-section">
+        <div class="section-content">
+        <h2 class="fade-in">Key Aspects & Contributions</h2>
+        <div class="objective fade-in">
+            <h3>Comparative Model Analysis</h3>
+            <p>
+              A comparative performance analysis of standard classifiers (Random Forest, Support Vector Machine) and a tailored Convolutional Neural Network (CNN) for AES key byte recovery on the ASCAD fixed and variable key datasets.
+            </p>
+          </div>
+          
+          <div class="objective fade-in">
+            <h3>Feature Importance & Reduction</h3>
+            <p>
+              Exploration of Random Forest-based feature importance for dimensionality reduction and its impact on model efficiency and effectiveness in the SCA context.
+            </p>
+          </div>
+          
+          <div class="objective fade-in">
+            <h3>Key Rank Metric Demonstration</h3>
+            <p>
+              A clear demonstration of the necessity and superiority of the domain-specific Key Rank metric over standard accuracy for evaluating ML-based SCA success, especially in low Signal-to-Noise Ratio scenarios.
+            </p>
+          </div>
+
+          <div class="objective fade-in">
+            <h3>Successful Key Recovery</h3>
+            <p>
+              Confirmation of successful key recovery using both CNN and feature-selected RF models, highlighting the practical feasibility of ML-based side-channel attacks despite low per-trace classification accuracy.
+            </p>
+          </div>
+          </div>
+    </section>
+
+    <section id="methodology" class="fullscreen-section">
+      <div class="section-content">
+        <h2 class="fade-in">Technical Methodology</h2>
+
+        <div class="method-block fade-in">
+            <h3>Target: AES S-Box Operation</h3>
+            <p>
+              The attack targets the output of the first-round AES S-box operation. The S-box input for a byte $i$ is $\text{Plaintext}[i] \oplus \text{Key}[i]$. The output is:
+              <br>
+              <div style="text-align: center;">
+                $\textit{Sbox_Output}[i] =$ $\textit{Sbox} (\textit{Plaintext}[i] \oplus \textit{Key}[i])$
+              </div>
+              <br>
+              Predicting this 256-class output allows deduction of the key byte. We target the 3rd key byte (index 2).
+            </p>
+            <img src="images/fig1Aes.png" alt="AES Round Steps" style="max-width: 300px; margin:10px auto; display:block; border-radius: 8px;">
+            <p style="font-size:0.8em; text-align:center;">Fig 1: Basic Steps of an AES Encryption Round</p>
+          </div>
+
+          <div class="method-block fade-in">
+            <h3>Attack Mechanics in Detail</h3>
+            <p>
+              The side-channel leakage occurs primarily in the first masked multiplier of the S-box operation, where XOR gates absorb different numbers of transitions for different data inputs. This creates distinctive power consumption patterns that correlate directly with the processed data values.
+            </p>
+            <p>
+              Our attack adopts a value-based leakage model, assuming the EM trace contains information correlated with the specific value (0-255) of the S-box output. Since this output depends on both the known plaintext and unknown key, predicting it allows us to deduce the key byte through a 256-class classification problem.
+            </p>
+          </div>
+          
+          <div class="method-block fade-in">
+            <h3>Key Rank Metric: Technical Details</h3>
+            <p>
+              The superiority of Key Rank over standard accuracy stems from the nature of side-channel attacks. With low signal-to-noise ratio, perfect classification of every trace is unrealistic. Instead, our goal is to distinguish the correct key from 255 incorrect hypotheses by aggregating subtle evidence across numerous traces.
+            </p>
+            <p>
+              For each key hypothesis \(k_{guess}\) (0-255), we calculate:
+            </p>
+            <div style="text-align: center;">
+                $Score(k_{guess})\ =$ $\sum_{i=1}^{N} \log(P(label=Z\_hyp\_i | trace_i) + \varepsilon)$<br><br>
+            </div>
+            <p>
+              Where \(Z\_hyp\_i = Sbox(plaintext_i \oplus k_{guess})\) for each trace \(i\), and \(\varepsilon\) is a small constant to prevent \(\log(0)\). The logarithm converts probability multiplications to additions, improving computational efficiency.
+            </p>
+          </div>
+          
+          <div class="method-block fade-in">
+            <h3>Feature Importance Analysis</h3>
+            <p>
+              Our feature selection approach using Random Forest's Gini importance showed that EM leakage is distributed across the trace but concentrated in specific time regions. By selecting only the top 100 features, we reduced the number of attack traces required by approximately 50% for ASCADf and 40% for ASCADv.
+            </p>
+            <p>
+              This dimensionality reduction mitigates overfitting and focuses on the most informative leakage points, significantly improving model efficiency while maintaining attack effectiveness.
+            </p>
+          </div>
+          
+          
+          <div class="method-block fade-in">
+            <h3>Dataset & Preprocessing</h3>
+            <p>
+              Utilizes the public ASCAD 'fixed-key' (ASCADf: 50k training, 10k attack traces, 700 samples/trace) and 'variable-key' (ASCADv: 200k training, 100k attack traces, 1400 samples/trace) datasets. Raw EM traces are standardized (zero mean, unit variance) based on the profiling set.
+            </p>
+          </div>
+          
+          <div class="method-block fade-in">
+            <h3>Machine Learning Models</h3>
+            <p>
+              <!-- <strong>Random Forest (RF):</strong> Ensemble of decision trees <br>($n\_estimators=100, max\_depth=20, min\_samples\_leaf=10$).<br> Used for classification and Gini importance-based feature selection (top 100 features). -->
+              <strong>Random Forest(RF): </strong> Ensemble of decision trees $n\_estimators=100$, $max\_depth=20$, $min\_samples\_leaf=10$. Used for classification and Gini importance-based feature selection (top 100 features). 
+              <br>
+              <strong>Support Vector Machine (SVM):</strong> Trained on reduced features with RBF kernel.
+              <br>
+              <strong>Convolutional Neural Network (CNN):</strong> Custom PyTorch CNN with 4 convolutional blocks (Conv1D, BatchNorm, ReLU, AvgPool1D) followed by dense layers. Inspired by existing SCA literature.
+            </p>
+            <img src="images/Fig2cnnarchitecture.png" alt="CNN Architecture" style="max-width: 100%; margin:10px auto; display:block; border-radius: 8px;">
+            <p style="font-size:0.8em; text-align:center;">Fig 2: CNN Architecture for SCA</p>
+          </div>
+
+          <div class="method-block fade-in">
+            <h3>Evaluation: Key Rank</h3>
+            <p>
+              Primary metric is Key Rank. For N attack traces, it involves:
+              1. Obtaining model's probability distribution for S-box output for each trace.
+              2. For each key byte hypothesis (0-255), calculate hypothetical S-box outputs and sum log-probabilities from the model.
+              3. Rank key hypotheses by their total score.
+              Rank 0 for the true key means successful recovery. This metric aggregates evidence across traces, effective even with low per-trace accuracy.
+            </p>
+            <img src="images/Fig3keyRankExamplepng.png" alt="Key Rank Example" style="max-width: 100%; margin:10px auto; display:block; border-radius: 8px;">
+            <p style="font-size:0.8em; text-align:center;">Fig 3: Example Key Rank Chart</p>
+          </div>
+      </div>
+    </section>
+    <section id="outcomes" class="fullscreen-section">
+      <div class="section-content">
+        <h2 class="fade-in">Experimental Results & Outcomes</h2>
+        <p style="font-size: 0.8em;">ASCADf=ASCAD fixed-key dataset, ASCADv=ASCAD variable-key dataset<br>
+        Full Features=all 700 traces for ASCADf, 1400 for ASCADv, Reduced Features=top 100 features based on Gini importance<br>
+        </p>
+        
+        <table class="results-table fade-in" style="width:100%; border-collapse: collapse; margin-top:20px;">
+          <thead>
+            <tr style="background-color: #03dac584; text-align: left;">
+              <th style="padding: 8px; border: 1px solid #ddd;">Model</th>
+              <th style="padding: 8px; border: 1px solid #ddd;">Dataset</th>
+              <th style="padding: 8px; border: 1px solid #ddd;">Feature Type</th>
+              <th style="padding: 8px; border: 1px solid #ddd;">Attack Traces for Rank 0*</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #ddd;">CNN</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">ASCADf</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">Full Features</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">~65 traces</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #ddd;">CNN</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">ASCADv</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">Full Features</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">--</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #ddd;">Random Forest</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">ASCADf</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">Reduced Features</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">~200 traces</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #ddd;">Random Forest</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">ASCADf</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">Full Features</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">~492 traces</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #ddd;">Random Forest</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">ASCADv</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">Full Features</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">~750 traces</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #ddd;">Random Forest</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">ASCADv</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">Reduced Features</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">~470 traces</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #ddd;">SVM</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">ASCADf</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">Reduced Features</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">~320 traces</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #ddd;">SVM</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">ASCADv</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">Reduced Features</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">~320 traces</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <div class="fade-in" style="margin-top:20px;">
+          <p>
+            Note: The Key Rank metric is crucial for evaluating side-channel attacks, demonstrating that models with low per-trace classification accuracy can still recover the key when evidence is aggregated across multiple traces.
+          </p>
+          <p style="font-size:0.8em;">*The results are preliminary and may vary from the final paper.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contributions" class="fullscreen-section">
+        <div class="section-content">
+            <h2 class="fade-in">Key Contributions</h2>
+            <p>
+                Some of the key contributions of this work are:
+            </p>
+            <ul class="animated-list">
+                <li class="fade-in">
+                    <strong>Practical Model Comparison:</strong> A thorough comparison of traditional ML models (RF, SVM) against deep learning approaches (CNN) on standardized datasets, demonstrating that simpler models with feature selection can achieve competitive results.
+                </li>
+                <li class="fade-in">
+                    <strong>Feature Selection Impact:</strong> Quantitative evidence that RF-based feature selection can reduce attack trace requirements by 40-50%, offering a practical efficiency gain without the computational demands of deep learning.
+                </li>
+                <li class="fade-in">
+                    <strong>Evaluation Metrics Insight:</strong> Clear demonstration that conventional classification metrics can be misleading for SCA evaluation, with models achieving under 2% accuracy still successfully recovering encryption keys.
+                </li>
+                <li class="fade-in">
+                    <strong>Accessible Implementation:</strong> A proposed methodology that balances attack effectiveness with computational efficiency, making SCA more accessible for security research and evaluation.
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section id="references" class="fullscreen-section">
+        <div class="section-content">
+            <h2 class="fade-in">References & Further Reading</h2>
+            <p class="fade-in">
+                This work builds upon existing research in side-channel analysis and machine learning. Key references include:
+            </p>
+            <ul class="animated-list references-list">
+              <li class="fade-in">Obaid, Z.M., Ali Alheeti, K.M.: Enhancing malware detection through electromagnetic side-channel analysis using random forest classifier. Journal of Cybersecurity & Information Management 15(2) (2025)</li>
+              <li class="fade-in">Berreby, Y.E., Sauvage, L.: Investigating efficient deep learning architectures for side-channel attacks on aes. arXiv preprint arXiv:2309.13170 (2023)</li>
+              <li class="fade-in">Kocher, P., Jaffe, J., Jun, B.: Differential power analysis. In: Advances in Cryptology—CRYPTO'99: 19th Annual International Cryptology Conference Santa Barbara, California, USA, August 15–19, 1999 Proceedings 19. pp. 388–397. Springer (1999)</li>
+              <li class="fade-in">Benadjila, R., Prouff, E., Strullu, R., Cagli, E., Dumas, C.: Deep learning for side-channel analysis and introduction to ascad database. Journal of Cryptographic Engineering 10(2), 163–188 (2020)</li>
+              <li class="fade-in">Huang, H., Wu, J., Tang, X., Zhao, S., Liu, Z., Yu, B.: Deep learning-based improved side-channel attacks using data denoising and feature fusion. PloS one 20(4), e0315340 (2025)</li>
+              <li class="fade-in">Picek, S., Heuser, A., Jovic, A., Bhasin, S., Regazzoni, F.: The curse of class imbalance and conflicting metrics with machine learning for side-channel evaluations. IACR Transactions on Cryptographic Hardware and Embedded Systems pp. 209–237 (2019)</li>
+              <li class="fade-in">Zaid, G., Bossuet, L., Habrard, A., Venelli, A.: Methodology for efficient cnn architectures in profiling attacks. IACR Transactions on Cryptographic Hardware and Embedded Systems pp. 1–36 (2020)</li>
+            </ul>
+            <p class="fade-in" style="margin-top: 20px;">
+                For a comprehensive results and methodologies please <a href="mailto:mukeshpoudel246@gmail.com">request</a> a draft of the research paper.
+            </p>
+        </div>
+    </section>
+
+
+    <footer>
+      <div class="top-footer">
+        <p>Mukesh Poudel .</p>
+      </div>
+      <div class="footer-contact-icons">
+        <a
+          href="mailto:mukeshpoudel246@gmail.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="contact-icon"
+        >
+          <i class="uil uil-envelope"></i>
+          <span class="tooltip">Email Me</span>
+        </a>
+        <a
+          href="https://linkedin.com/in/mukesh-poudel-246mp"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="contact-icon"
+        >
+          <i class="uil uil-linkedin"></i>
+          <span class="tooltip">LinkedIn</span>
+        </a>
+        <a
+          href="https://github.com/ThorOdinson246"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="contact-icon"
+        >
+          <i class="uil uil-github"></i>
+          <span class="tooltip">GitHub</span>
+        </a>
+        <a href="tel:+6013291495" class="contact-icon">
+          <i class="uil uil-phone"></i>
+          <span class="tooltip">Call Me</span>
+        </a>
+      </div>
+
+
+  <div class="vertical-contact-bar">
+    <div class="contact-line"></div>
+    <div class="contact-icons">
+      <a href="mailto:mukeshpoudel246@gmail.com" class="contact-icon">
+        <i class="uil uil-envelope"></i>
+        <span class="tooltip">Email Me</span>
+      </a>
+      <a href="https://linkedin.com/in/mukesh-poudel-246mp" target="_blank" rel="noopener noreferrer"
+        class="contact-icon">
+        <i class="uil uil-linkedin"></i>
+        <span class="tooltip">LinkedIn</span>
+      </a>
+      <a href="https://github.com/ThorOdinson246" target="_blank" rel="noopener noreferrer" class="contact-icon">
+        <i class="uil uil-github"></i>
+        <span class="tooltip">GitHub</span>
+      </a>
+      <a href="tel:+6013291495" class="contact-icon">
+        <i class="uil uil-phone"></i>
+        <span class="tooltip">Call Me</span>
+      </a>
+    </div>
+  </div>
+
+
+      <div class="middle-footer">
+        <ul class="footer-menu">
+            <li class="footer_menu_list">
+                <a href="/">Home</a>
+          <li class="footer_menu_list">
+            <a href="/#about">About</a>
+          </li>
+          <li class="footer_menu_list">
+            <a href="/#projects">Projects</a>
+          </li>
+          <li class="footer_menu_list">
+            <a href="/#contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+      <div class="bottom-footer">
+        <div class="footer-text">
+          <p>
+            Copyright &copy;
+            <a href="/" style="text-decoration: none">Mukesh Poudel</a>
+            - All rights reserved
+          </p>
+        </div>
+      </div>
+    </footer>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        svg: {
+          fontCache: 'global'
+        }
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+    <script src="script.js"></script>
+    <script src="/assets/js/script.js"></script>
+    
+  </body>
+</html>

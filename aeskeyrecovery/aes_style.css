@@ -35,11 +35,12 @@ body {
 
 /* Hero section specific styles */
 #hero {
-  background-image: url("/assets/images/basemap-koshi.png");
+  background-image: url("/assets/images/basemap-aes.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
   text-align: center;
+  
 }
 
 .overlay {
@@ -48,7 +49,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(3, 14, 32, 0.7);
+  background-color: rgba(3, 14, 32, 0.85);
 }
 
 .hero-content {

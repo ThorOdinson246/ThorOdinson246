@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Sediment Flux - Koshi River Basin Research Project" />
+    <meta name="keywords" content="Sediment Flux, Koshi River, Flood Risk Modeling, Machine Learning, Remote Sensing" />
+    <meta name="author" content="Mukesh Poudel" />
+    
     <title>Koshi River Basin Research Project</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="/assets/css/style.css" />
@@ -43,15 +47,15 @@
 
     <section id="problem" class="fullscreen-section">
       <div class="section-content">
-        <p>**Ongoing project : Spring 2025 - Spring 2026</p>
+        <p>**Ongoing project : Summer/Fall 2025 - Spring 2026</p>
         <h3 class="fade-in">The Gap</h2>
         <p class="fade-in">
-            The Koshi River Basin spans Nepal and northern India, and experiences recurring catastrophic floods that cause annual damages of approximately $14 million USD while impacting millions of lives. Current flood risk assessment methods in this region rely primarily on static parameters such as elevation, slope, drainage, and density which are analyzed through traditional GIS approaches. While these methods are valuable they fail to account for a crucial dynamic variable that fundamentally alters flood behavior: The Koshi River's immense sediment load i.e almost 12 times that of the Amazon River[<a href="#references">2</a
+            The Koshi River Basin spans Nepal and northern India, and experiences recurring catastrophic floods that cause annual damages of approximately $14 million USD while impacting millions of lives.[<a href="#references">1</a>]. Current flood risk assessment methods in this region rely primarily on static parameters such as elevation, slope, drainage, and density which are analyzed through traditional GIS approaches. While these methods are valuable they fail to account for a crucial dynamic variable that fundamentally alters flood behavior: The Koshi River's immense sediment load i.e almost 12 times that of the Amazon River[<a href="#references">2</a
           >].
         </p>
 
         <p class="fade-in">
-           This underscores the urgent need for sediment-aware models.[<a href="#references">3</a>].
+           This underscores the urgent need for sediment-aware models.
         </p>
 
         <h3 class="fade-in">Key Challenges</h3>
@@ -81,7 +85,7 @@
         <div class="objective fade-in">
             <h3>Framework Development</h3>
             <p>
-              Develop an integrated methodological framework that leverages Sentinel-2 multispectral imagery to quantify sediment dynamics and incorporate this data into flood risk models. Extract sediment concentration patterns using spectral indices and band ratio transformations to create sediment-adjusted digital elevation models that better represent actual flood behavior in the Koshi Basin[<a href="#references">4</a>].
+              Develop an integrated methodological framework that leverages Sentinel-2 multispectral imagery to quantify sediment dynamics and incorporate this data into flood risk models. Extract sediment concentration patterns using spectral indices and band ratio transformations to create sediment-adjusted digital elevation models that better represent actual flood behavior in the Koshi Basin
             </p>
           </div>
           
@@ -110,7 +114,7 @@
         <div class="method-block fade-in">
             <h3>Data Collection & Preprocessing</h3>
             <p>
-              Process multi-temporal Sentinel-2 imagery to extract suspended sediment concentrations across the Koshi River Basin. Apply atmospheric correction cloud masking to ensure data quality. Calculate NDSSI using band ratios B4/B3 and B4/B2, while integrating traditional flood modeling inputs including SRTM and Copernicus DEMs (30m) processed through ArcGIS Hydrology tools[<a href="#references">5</a>].
+              Process multi-temporal Sentinel-2 imagery to extract suspended sediment concentrations across the Koshi River Basin. Apply atmospheric correction cloud masking to ensure data quality. Calculate NDSSI using band ratios B4/B3 and B4/B2, while integrating traditional flood modeling inputs including SRTM and Copernicus DEMs (30m) processed through ArcGIS Hydrology tools[<a href="#references">3</a>].
             </p>
           </div>
           
@@ -124,7 +128,7 @@
           <div class="method-block fade-in">
             <h3>Machine Learning Implementation</h3>
             <p>
-              Develop a dual-approach machine learning system that: (1) accurately extracts sediment concentrations from Sentinel-2 spectral signatures through regression models, and (2) integrates these sediment inputs with hydrological variables to improve flood prediction. Engineer features combining satellite-derived sediment data with topographic and hydrologic parameters to create comprehensive flood risk models that account for dynamic channel changes[<a href="#references">6</a>].
+              Develop a dual-approach machine learning system that: (1) accurately extracts sediment concentrations from Sentinel-2 spectral signatures through regression models, and (2) integrates these sediment inputs with hydrological variables to improve flood prediction. Engineer features combining satellite-derived sediment data with topographic and hydrologic parameters to create comprehensive flood risk models that account for dynamic channel changes[<a href="#references">4</a>].
             </p>
           </div>
           
@@ -170,6 +174,19 @@
             </p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section id="references" class="fullscreen-section">
+      <div class="section-content">
+        <h2 class="fade-in">References</h2>
+        <ol class="fade-in">
+          <li>ADB: Emergency Flood Damage Rehabilitation Project, Apr. 2009, www.adb.org/sites/default/files/project-documents/43001-nep-rrp_0.pdf. Accessed 15 Mar. 2025.</li>
+          <li>Sinha, Rajiv, et al. “Basin-Scale Hydrology and Sediment Dynamics of the Kosi River in the Himalayan Foreland.” Journal of Hydrology, vol. 570, Mar. 2019, pp. 156–166, doi:10.1016/j.jhydrol.2018.12.051.</li>
+          <li>Stull, Trevor, and Habib Ahmari. “Estimation of Suspended Sediment Concentration along the Lower Brazos River Using Satellite Imagery and Machine Learning.” Remote Sensing, vol. 16, no. 10, 13 May 2024, p. 1727, doi:10.3390/rs16101727.</li>
+          <li>ICIMOD: “Sediment Management in the Koshi Basin.” Sediment Management in the Koshi Basin, ICIMOD, Dec. 2021, www.icimod.org/wp-content/uploads/2021/12/1200g_20211202_PB_SedimentManagementInTheKoshiBasin_AF.pdf. Accessed 15 Mar. 2025.</li>
+          
+        </ol>
       </div>
     </section>
 
