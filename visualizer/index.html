@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Visualizer</title>
+    <title>Interactive Sphere Particle Visualizer</title>
+    <meta name="description"
+        content="Create stunning, interactive sphere particle animations with audio-reactive effects. Customize particle behavior, physics, and visual settings in real-time.">
     <style>
-        body, html {
+        body,
+        html {
             margin: 0;
             padding: 0;
             width: 100%;
@@ -12,34 +16,12 @@
             background: black;
             font-family: "Inter", sans-serif;
         }
+
         canvas {
             display: block;
             width: 100%;
             height: 100%;
             background-color: #000;
-        }
-        
-        #visualizerToggle {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 12px 20px;
-            font-family: "Inter", sans-serif;
-            font-size: 16px;
-            background-color: rgba(52, 73, 94, 0.8);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            z-index: 10;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            white-space: nowrap;
-        }
-
-        #visualizerToggle:hover {
-            background-color: rgba(41, 128, 185, 0.9);
         }
 
         @media (max-width: 600px) {
@@ -52,11 +34,188 @@
                 padding: 10px 15px;
             }
         }
-    </style>
-</head>
-<body>
-    <canvas id="particleCanvas"></canvas>
-    <script src="script.js"></script>
 
+        .info-btn {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .info-btn::after {
+            content: attr(title);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 5px;
+            border-radius: 3px;
+            white-space: nowrap;
+            font-size: 12px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+
+        .info-btn:hover::after {
+            opacity: 1;
+        }
+    </style>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="visualizerContainer" class="full-screen"></div>
+
+    <button id="menuToggle">⚙️</button>
+
+    <div id="controlsOverlay">
+        <h2>
+            Settings
+            <span id="guideBtn" class="info-btn" title="Click for customization guide">i</span>
+        </h2>
+
+        <fieldset>
+            <legend>Sphere</legend>
+            <label>Hollowness
+                <input type="range" data-option="hollowness" min="0" max="1" step="0.01" value="0.0">
+            </label>
+            <label>Thickness
+                <input type="range" data-option="sphereThickness" min="0.1" max="1" step="0.05" value="0.8">
+            </label>
+            <label>Rotation Speed
+                <input type="range" data-option="sphereRotationSpeed" min="0" max="0.01" step="0.0001"
+                    value="0.001">
+            </label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Particles</legend>
+            <label>Count
+                <input type="number" data-option="numParticles" min="100" max="5000" value="500">
+            </label>
+            <label>Size Min
+                <input type="number" data-option="particleBaseRadius.min" min="0.1" max="10" step="0.1" value="2.0">
+            </label>
+            <label>Size Max
+                <input type="number" data-option="particleBaseRadius.max" min="0.1" max="10" step="0.1" value="2.8">
+            </label>
+            <label>Orbit Speed
+                <input type="range" data-option="orbitSpeed" min="0" max="1" step="0.01" value="0.5">
+            </label>
+            <label>Return Velocity
+                <input type="range" data-option="returnVelocityScale" min="0" max="2" step="0.05" value="0.45">
+            </label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Touch</legend>
+            <label>Influence Radius
+                <input type="range" data-option="touchInfluenceRadius" min="50" max="500" step="10" value="200">
+            </label>
+            <label>Max Force
+                <input type="range" data-option="touchMaxForce" min="10" max="500" step="10" value="100">
+            </label>
+            <label>Force Increase
+                <input type="range" data-option="touchForceIncrease" min="0" max="5" step="0.1" value="0.9">
+            </label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Physics</legend>
+            <label>Friction
+                <input type="range" data-option="friction" min="0" max="1" step="0.01" value="0.2">
+            </label>
+            <label>Spring K
+                <input type="range" data-option="springConstant" min="0" max="0.1" step="0.001" value="0.018">
+            </label>
+            <label>Init Velocity
+                <input type="range" data-option="initialVelocityScale" min="0" max="1" step="0.01" value="0.4">
+            </label>
+            <label>Min Speed
+                <input type="range" data-option="minDesiredSpeed" min="0" max="0.1" step="0.001" value="0.01">
+            </label>
+            <label>Vibration Freq
+                <input type="range" data-option="vibrationFrequency" min="0" max="2" step="0.01" value="0.55">
+            </label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Visualizer</legend>
+            <label>
+                <input type="checkbox" data-option="enableVisualizer"> Enable Visualizer
+            </label>
+            <label>Smoothing
+                <input type="range" data-option="audioSmoothing" min="0" max="1" step="0.01" value="0.1">
+            </label>
+            <label>Volume Threshold
+                <input type="range" data-option="highVolumeThreshold" min="0" max="1" step="0.01" value="0.6">
+            </label>
+            <label>Min Pulse
+                <input type="range" data-option="minPulseMagnitude" min="0" max="1" step="0.01" value="0.05">
+            </label>
+            <label>Max Pulse
+                <input type="range" data-option="maxPulseMagnitude" min="0" max="1" step="0.01" value="0.45">
+            </label>
+        </fieldset>
+
+        <button id="resetBtn">Reset All</button>
+        <button id="exportBtn">Export Settings</button>
+    </div>
+
+    <div id="guideModal" class="modal">
+        <div class="modal-content">
+            <span id="closeGuide" class="modal-close">&times;</span>
+            <h3>Customization Guide</h3>
+            <p>This guide provides detailed explanations for each setting, allowing you to fine-tune the visualizer to
+                your preferences.</p>
+            <ul>
+                <li><strong>Hollowness</strong>: Adjusts the sphere's hollowness. 0 creates a solid sphere, while 1
+                    makes it fully hollow, affecting the visual density.</li>
+                <li><strong>Thickness</strong>: Controls the depth of the particle shell, influencing the sphere's
+                    apparent thickness.</li>
+                <li><strong>Rotation Speed</strong>: Determines how fast the sphere rotates, adding dynamic movement to
+                    the visualization.</li>
+                <li><strong>Count</strong>: Sets the number of particles, impacting the visual complexity and
+                    performance. Higher values increase density.</li>
+                <li><strong>Size Min/Max</strong>: Defines the range of particle sizes, affecting the visual texture and
+                    detail.</li>
+                <li><strong>Orbit Speed</strong>: Controls how quickly particles orbit around the sphere, influencing
+                    the flow and motion.</li>
+                <li><strong>Return Velocity</strong>: Sets the speed at which particles return to their origin after
+                    being displaced, affecting the responsiveness.</li>
+                <li><strong>Influence Radius</strong>: Determines the radius within which touch interactions affect
+                    particles, controlling the area of effect.</li>
+                <li><strong>Max Force</strong>: Sets the maximum force applied by touch interactions, influencing how
+                    far particles are displaced.</li>
+                <li><strong>Force Increase</strong>: Adjusts the rate at which touch force increases, affecting the
+                    sensitivity of touch interactions.</li>
+                <li><strong>Friction</strong>: Simulates friction between particles, influencing how quickly they slow
+                    down and settle.</li>
+                <li><strong>Spring K</strong>: Sets the spring constant for particle movement, affecting their
+                    elasticity and responsiveness.</li>
+                <li><strong>Init Velocity</strong>: Controls the initial velocity of particles, influencing their
+                    starting motion and energy.</li>
+                <li><strong>Min Speed</strong>: Sets the minimum desired speed of particles, preventing them from
+                    becoming completely static.</li>
+                <li><strong>Vibration Freq</strong>: Adjusts the vibration frequency of particles, adding subtle
+                    movement and liveliness.</li>
+                <li><strong>Smoothing</strong>: Applies smoothing to the audio input, reducing abrupt changes and
+                    creating a more fluid visual response.</li>
+                <li><strong>Volume Threshold</strong>: Sets the threshold for high audio volume, determining when the
+                    visualizer reacts more intensely.</li>
+                <li><strong>Min/Max Pulse</strong>: Controls the strength of audio-driven pulsation, influencing the
+                    visual impact of the music.</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <a href="https://github.com/ThorOdinson246/SphereParticles.js" target="_blank" rel="noopener noreferrer"
+            class="git-btn btn">View on Github<i class="uil uil-github"></i></a>
+    </footer>
+
+    <script type="module" src="demo.js"></script>
 </body>
+
 </html>

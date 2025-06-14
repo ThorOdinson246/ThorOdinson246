@@ -2,7 +2,7 @@
  * Particle Class
  * Defines the properties and behavior of a single particle.
  */
-class Particle {
+export class Particle {
     constructor(x, y, radius, color, z, options, initialDistFromCenter, initialAngle) {
         this.x = x;
         this.y = y;
@@ -22,12 +22,12 @@ class Particle {
 }
 
 /**
- * PerplexityParticleEffect Class
+ * SphereParticleEffect Class
  * Creates an interactive, audio-reactive particle animation.
  */
-class PerplexityParticleEffect {
-    constructor(options) {
-        // Default configuration options
+export class SphereParticleEffect {
+    constructor(containerOrId, options = {}) {
+        // --- merge defaults ---
         const defaultOptions = {
             canvasId: 'particleCanvas',
             width: window.innerWidth,
@@ -65,11 +65,17 @@ class PerplexityParticleEffect {
         };
 
         this.options = { ...defaultOptions, ...options };
-        this.canvas = document.getElementById(this.options.canvasId);
-        if (!this.canvas) {
-            console.error(`Canvas with ID '${this.options.canvasId}' not found.`);
-            return;
+
+        // --- resolve container ---
+        if (typeof containerOrId === 'string') {
+            this.container = document.getElementById(containerOrId);
+        } else {
+            this.container = containerOrId;
         }
+
+        // --- create & append canvas ---
+        this.canvas = document.createElement('canvas');
+        this.container.appendChild(this.canvas);
         this.ctx = this.canvas.getContext('2d');
 
         this.visualizerMode = false;
@@ -79,18 +85,6 @@ class PerplexityParticleEffect {
         this.smoothedAudioLevel = 0;
         this.baseHollowness = this.options.hollowness;
         this.toggleButton = null;
-
-        // --- Conditionally create and set up the visualizer button ---
-        if (this.options.enableVisualizer) {
-            const button = document.createElement('button');
-            button.id = 'visualizerToggle';
-            button.textContent = 'Turn On Visualizer';
-            document.body.appendChild(button); // Add button to the page
-            
-            // Find the button we just added and attach the listener
-            this.toggleButton = document.getElementById('visualizerToggle');
-            this.toggleButton.addEventListener('click', () => this.toggleVisualizerMode());
-        }
 
         this.setupCanvas();
         this.sphereCenter = { x: this.width / 2, y: this.height / 2 };
@@ -296,31 +290,3 @@ class PerplexityParticleEffect {
         }
     }
 }
-
-// --- Initialize the effect ---
-window.addEventListener('load', () => {
-    new PerplexityParticleEffect({
-        canvasId: 'particleCanvas',
-        // --- To show the button and enable the feature, set this to true ---
-        enableVisualizer: true, 
-        numParticles: 500,
-        particleBaseRadius: { min: 2.0, max: 2.8 },
-        touchInfluenceRadius: 200,
-        touchMaxForce: 100,
-        touchForceIncrease: 0.9,
-        friction: 0.2,
-        springConstant: 0.018,
-        orbitSpeed: 0.5,
-        initialVelocityScale: 0.4,
-        minDesiredSpeed: 0.01,
-        returnVelocityScale: 0.45,
-        vibrationFrequency: 0.55,
-        sphereRotationSpeed: 0.001,
-        hollowness: 0.0,
-        sphereThickness: 0.8,
-        audioSmoothing: 0.1,
-        highVolumeThreshold: 0.6,
-        minPulseMagnitude: 0.05,
-        maxPulseMagnitude: 0.45,
-    });
-});
