@@ -12,13 +12,11 @@ class Particle {
         this.vx = (Math.random() - 0.5) * options.initialVelocityScale;
         this.vy = (Math.random() - 0.5) * options.initialVelocityScale;
         this.vz = (Math.random() - 0.5) * options.zVelocityScale;
-
         this.friction = options.friction;
         this.springConstant = options.springConstant;
         this.orbitSpeed = options.orbitSpeed;
-
         this.initialOrbitRadius = initialDistFromCenter;
-        this.initialAngle = initialAngle; // Fixed angular position
+        this.initialAngle = initialAngle;
         this.pulseOffset = Math.random() * Math.PI * 2;
     }
 }
@@ -37,10 +35,7 @@ class PerplexityParticleEffect {
             numParticles: 1500,
             maxParticleOrbitRadius: Math.min(window.innerWidth, window.innerHeight) * 0.45,
             particleBaseRadius: { min: 0.6, max: 1.2 },
-            particleColors: [
-                'rgba(3, 218, 198, 1)',
-                'rgba(224, 224, 224, 1)'
-            ],
+            particleColors: ['rgba(3, 218, 198, 1)', 'rgba(224, 224, 224, 1)'],
             touchInfluenceRadius: 100,
             touchMaxForce: 15,
             touchForceIncrease: 0.2,
@@ -59,13 +54,14 @@ class PerplexityParticleEffect {
             sphereScale: 0.45,
             sphereThickness: 0.9,
             hollowness: 0,
-            visualizerMaxHollowness: 0.9,
+            // --- Visualizer Options ---
+            enableVisualizer: false, // Set to true to show the button and enable the feature
+            visualizerMaxHollowness: 0.95,
             audioSmoothing: 0.6,
             highVolumeColor: 'rgba(3, 218, 198, 1)',
             highVolumeThreshold: 0.5,
-            // --- NEW OPTIONS FOR VIBRATION CONTROL ---
-            minPulseMagnitude: 0.05, // Vibration at low volume
-            maxPulseMagnitude: 0.25, // Vibration at high volume
+            minPulseMagnitude: 0.05,
+            maxPulseMagnitude: 0.25,
         };
 
         this.options = { ...defaultOptions, ...options };
@@ -82,9 +78,17 @@ class PerplexityParticleEffect {
         this.audioDataArray = null;
         this.smoothedAudioLevel = 0;
         this.baseHollowness = this.options.hollowness;
+        this.toggleButton = null;
 
-        this.toggleButton = document.getElementById('visualizerToggle');
-        if (this.toggleButton) {
+        // --- Conditionally create and set up the visualizer button ---
+        if (this.options.enableVisualizer) {
+            const button = document.createElement('button');
+            button.id = 'visualizerToggle';
+            button.textContent = 'Turn On Visualizer';
+            document.body.appendChild(button); // Add button to the page
+            
+            // Find the button we just added and attach the listener
+            this.toggleButton = document.getElementById('visualizerToggle');
             this.toggleButton.addEventListener('click', () => this.toggleVisualizerMode());
         }
 
@@ -122,7 +126,7 @@ class PerplexityParticleEffect {
             source.connect(this.analyser);
         } catch (err) {
             console.error("Microphone access was denied.", err);
-            alert("Microphone access is required for the visualizer. Please allow access and try again.");
+            alert("Microphone access is required. Please allow access and try again.");
             this.visualizerMode = false;
             this.updateToggleButton();
         }
@@ -137,9 +141,9 @@ class PerplexityParticleEffect {
     }
     
     updateToggleButton() {
-        if (this.toggleButton) {
+        if (this.toggleButton) { // Only run if the button exists
             this.toggleButton.textContent = this.visualizerMode ? 'Turn Off Visualizer' : 'Turn On Visualizer';
-            this.toggleButton.style.backgroundColor = this.visualizerMode ? 'rgba(3, 218, 198, 0.4)' : 'rgba(255, 255, 255, 0.1)';
+            this.toggleButton.style.backgroundColor = this.visualizerMode ? 'rgba(3, 218, 198, 0.4)' : 'rgba(52, 73, 94, 0.8)';
         }
     }
     
@@ -155,7 +159,6 @@ class PerplexityParticleEffect {
         }
         const average = sum / this.audioDataArray.length;
         const normalizedLevel = average / 255;
-        
         this.smoothedAudioLevel = this.smoothedAudioLevel * this.options.audioSmoothing + normalizedLevel * (1 - this.options.audioSmoothing);
     }
 
@@ -183,21 +186,16 @@ class PerplexityParticleEffect {
         this.initParticles();
     }
 
-    // UPDATED to accept dynamicPulseMagnitude
     updateParticle(particle, initialMinR, maxR, dynamicMinR, dynamicPulseMagnitude) {
         const initialRange = maxR - initialMinR;
         const dynamicRange = maxR - dynamicMinR;
         const relativePos = initialRange > 0 ? (particle.initialOrbitRadius - initialMinR) / initialRange : 0;
         const newTargetOrbitRadius = dynamicMinR + (relativePos * dynamicRange);
-
-        // USE the dynamicPulseMagnitude passed from the animate loop
         const vib = Math.sin(this.globalPulseTime + particle.pulseOffset) * dynamicPulseMagnitude * newTargetOrbitRadius;
         const targetR = newTargetOrbitRadius + vib;
-
         const angle = particle.initialAngle + this.sphereRotation;
         const tx = this.sphereCenter.x + Math.cos(angle) * targetR;
         const ty = this.sphereCenter.y + Math.sin(angle) * targetR;
-
         const dx = particle.x - tx;
         const dy = particle.y - ty;
         const k = this.options.springConstant;
@@ -205,7 +203,6 @@ class PerplexityParticleEffect {
         const rvs = this.options.returnVelocityScale;
         particle.vx += (-dx * k - c * particle.vx) * rvs;
         particle.vy += (-dy * k - c * particle.vy) * rvs;
-
         const distToTarget = Math.hypot(dx, dy);
         if (distToTarget < targetR * 0.2) {
             const tangentX = -dy / targetR;
@@ -213,12 +210,10 @@ class PerplexityParticleEffect {
             particle.vx += tangentX * particle.orbitSpeed;
             particle.vy += tangentY * particle.orbitSpeed;
         }
-
         particle.x += particle.vx;
         particle.y += particle.vy;
         particle.vx *= 0.99;
         particle.vy *= 0.99;
-
         const currentSpeed = Math.hypot(particle.vx, particle.vy);
         if (currentSpeed < this.options.minDesiredSpeed) {
             particle.vx += (Math.random() - 0.5) * 0.002;
@@ -233,13 +228,10 @@ class PerplexityParticleEffect {
         } else {
             finalColor = particle.color;
         }
-
         const normalizedZ = (particle.z + 1) / 2;
         const displayRadius = particle.baseRadius * (this.options.displayRadiusScale.min + normalizedZ * this.options.displayRadiusScale.max);
-        
         const colorParts = finalColor.match(/\d+(\.\d+)?/g);
         this.ctx.fillStyle = `rgba(${colorParts[0]}, ${colorParts[1]}, ${colorParts[2]}, 1)`;
-        
         this.ctx.beginPath();
         this.ctx.arc(particle.x, particle.y, displayRadius, 0, Math.PI * 2);
         this.ctx.fill();
@@ -264,26 +256,20 @@ class PerplexityParticleEffect {
 
     animate() {
         requestAnimationFrame(this.animate.bind(this));
-        
-        this.processAudio();
-        
-        // --- CALCULATE DYNAMIC VALUES FOR THIS FRAME ---
+        if (this.options.enableVisualizer) {
+             this.processAudio();
+        }
         const dynamicHollowness = this.baseHollowness + this.smoothedAudioLevel * (this.options.visualizerMaxHollowness - this.baseHollowness);
         const dynamicPulseMagnitude = this.options.minPulseMagnitude + (this.smoothedAudioLevel * (this.options.maxPulseMagnitude - this.options.minPulseMagnitude));
-
         this.globalPulseTime += this.options.vibrationFrequency;
         this.sphereRotation += this.options.sphereRotationSpeed;
-
         this.ctx.clearRect(0, 0, this.width, this.height);
         this.applyTouchForce();
-        
         const o = this.options;
         const maxR = Math.min(o.width, o.height) * o.sphereScale;
         const initialMinR = maxR * this.baseHollowness;
         const dynamicMinR = maxR * dynamicHollowness;
-
         this.particles.forEach(particle => {
-            // Pass the new dynamic pulse magnitude to the update function
             this.updateParticle(particle, initialMinR, maxR, dynamicMinR, dynamicPulseMagnitude);
             this.drawParticle(particle);
         });
@@ -295,7 +281,6 @@ class PerplexityParticleEffect {
         } else {
             this.touchForce *= this.options.touchForceDecay;
         }
-
         if (this.touchForce > 0.1) {
             this.particles.forEach(particle => {
                 const dx = particle.x - this.touchX;
@@ -316,6 +301,8 @@ class PerplexityParticleEffect {
 window.addEventListener('load', () => {
     new PerplexityParticleEffect({
         canvasId: 'particleCanvas',
+        // --- To show the button and enable the feature, set this to true ---
+        enableVisualizer: true, 
         numParticles: 500,
         particleBaseRadius: { min: 2.0, max: 2.8 },
         touchInfluenceRadius: 200,
@@ -331,12 +318,9 @@ window.addEventListener('load', () => {
         sphereRotationSpeed: 0.001,
         hollowness: 0.0,
         sphereThickness: 0.8,
-        // --- TWEAK THE NEW SETTINGS HERE ---
-        // Lowered for a much faster, "snappier" reaction to audio.
-        // 0.0 is instant but can be jittery. 0.2 is very fast.
-        audioSmoothing: 0.2, 
+        audioSmoothing: 0.1,
         highVolumeThreshold: 0.6,
-        minPulseMagnitude: 0.05, // How much particles vibrate with low sound
-        maxPulseMagnitude: 0.25, // How much they vibrate with high sound
+        minPulseMagnitude: 0.05,
+        maxPulseMagnitude: 0.45,
     });
 });
