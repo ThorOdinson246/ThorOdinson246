@@ -1,439 +1,342 @@
 /**
- * Particle Class - Yo, check it!
+ * Particle Class
  * Defines the properties and behavior of a single particle.
- * We're defining this class separately to avoid any weird nesting syntax issues.
  */
 class Particle {
-    /**
-     * @param {number} x - Initial X position.
-     * @param {number} y - Initial Y position.
-     * @param {number} radius - Base radius of the particle.
-     * @param {string} color - RGBA color string of the particle.
-     * @param {number} z - Z-coordinate for 3D illusion (-1 to 1).
-     * @param {object} options - Reference to the main effect's options.
-     * @param {number} initialDistFromCenter - The distance from the center at which this particle was initially placed.
-     * @param {number} initialAngle - The initial angle of the particle.
-     */
     constructor(x, y, radius, color, z, options, initialDistFromCenter, initialAngle) {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-            this.baseRadius = radius;
-            this.color = color;
-            this.vx = (Math.random() - 0.5) * options.initialVelocityScale;
-            this.vy = (Math.random() - 0.5) * options.initialVelocityScale;
-            this.vz = (Math.random() - 0.5) * options.zVelocityScale;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.baseRadius = radius;
+        this.color = color;
+        this.vx = (Math.random() - 0.5) * options.initialVelocityScale;
+        this.vy = (Math.random() - 0.5) * options.initialVelocityScale;
+        this.vz = (Math.random() - 0.5) * options.zVelocityScale;
 
-            this.friction = options.friction;
-            this.springConstant = options.springConstant;
-            this.orbitSpeed = options.orbitSpeed;
+        this.friction = options.friction;
+        this.springConstant = options.springConstant;
+        this.orbitSpeed = options.orbitSpeed;
 
-            this.initialOrbitRadius = initialDistFromCenter;
-            this.initialAngle = initialAngle; // Fixed angular position
-            this.pulseOffset = Math.random() * Math.PI * 2;
+        this.initialOrbitRadius = initialDistFromCenter;
+        this.initialAngle = initialAngle; // Fixed angular position
+        this.pulseOffset = Math.random() * Math.PI * 2;
     }
 }
 
 /**
-* PerplexityParticleEffect Class - Get ready for some particle magic!
-*
-* This class creates an interactive particle animation on an HTML Canvas.
-* Particles move in subtle orbits, pulsate individually, and react elastically
-* to mouse/touch interactions, creating a dynamic, spherical visual effect.
-*
-* It's designed to be modular, so you can customize it with different parameters
-* through an options object.
-*/
+ * PerplexityParticleEffect Class
+ * Creates an interactive, audio-reactive particle animation.
+ */
 class PerplexityParticleEffect {
-    /**
-     * @param {object} options - Configuration options for the particle effect.
-     * @param {string} options.canvasId - The ID of the HTML canvas element.
-     * @param {number} [options.width=window.innerWidth] - Canvas width.
-     * @param {number} [options.height=window.innerHeight] - Canvas height.
-     * @param {number} [options.numParticles=1000] - Total number of particles.
-     * @param {number} [options.maxParticleOrbitRadius=600] - Max radius for individual particle orbits from center.
-     * @param {object} [options.particleBaseRadius={min:0.7,max:1.5}] - Min/Max base size of individual particles.
-     * @param {string[]} [options.particleColors=['rgba(255,255,255,0.8)',...]] - Array of particle colors (RGBA strings).
-     * @param {number} [options.touchInfluenceRadius=80] - Radius of mouse/touch interaction effect.
-     * @param {number} [options.touchMaxForce=15] - Maximum force applied by touch.
-     * @param {number} [options.touchForceIncrease=0.25] - Rate at which touch force builds up.
-     * @param {number} [options.touchForceDecay=0.8] - Rate at which touch force decays after release.
-     * @param {number} [options.initialVelocityScale=1.5] - Multiplier for initial random particle velocities.
-     * @param {number} [options.friction=0.96] - Damping factor for particle movement.
-     * @param {number} [options.springConstant=0.007] - Strength of elastic force pulling particles to orbit.
-     * @param {number} [options.orbitSpeed=0.015] - Speed of tangential (circular) particle motion.
-     * @param {number} [options.minDesiredSpeed=0.08] - Minimum speed to prevent particles from stopping.
-     * @param {number} [options.zVelocityScale=0.005] - Multiplier for random Z-axis velocity.
-     * @param {object} [options.displayRadiusScale={min:0.9,max:0.6}] - Scaling for display radius based on Z.
-     * @param {object} [options.displayAlphaScale={min:0.4,max:0.4}] - Scaling for display alpha based on Z.
-     * @param {number} [options.globalPulseSpeed=0.02] - Speed of the global pulse affecting individual particles.
-     * @param {number} [options.individualPulseMagnitude=0.1] - Magnitude of individual particle pulsation.
-     * @param {number} [options.returnVelocityScale=1] - Scales how quickly particles snap back.
-     * @param {number} [options.vibrationFrequency=0.02] - Speed of the ongoing particle vibration.
-     * @param {number} [options.snapTolerance=1] - Pixel tolerance for snap-back.
-     * @param {number} [options.sphereRotationSpeed=0.001] - Speed of global sphere rotation in radians/frame.
-     * @param {number} [options.sphereScale=0.45] - Scale of the sphere relative to canvas size.
-     * @param {number} [options.sphereThickness=0.9] - Thickness of the sphere.
-     * @param {number} [options.hollowness=0] - Hollowness of the sphere (0 = full disc, 1 = empty).
-     */
     constructor(options) {
-            // Default configuration options - tweak these to your liking!
-            const defaultOptions = {
-                    canvasId: 'particleCanvas',
-                    width: window.innerWidth,
-                    height: window.innerHeight,
-                    numParticles: 1500,         // Overall density
-                    maxParticleOrbitRadius: Math.min(window.innerWidth, window.innerHeight) * 0.45, // Adapts to screen size
-                    particleBaseRadius: { min: 0.6, max: 1.2 }, // Slightly smaller for finer detail
-                    particleColors: [
-                            'rgba(255, 255, 255, 0.8)',
-                            'rgba(200, 220, 255, 0.7)',
-                            'rgba(255, 200, 220, 0.7)',
-                            'rgba(180, 255, 255, 0.6)'
-                    ],
-                    touchInfluenceRadius: 100,  // Good size for interactive push
-                    touchMaxForce: 15,          // Increased to ensure a good bounce
-                    touchForceIncrease: 0.2,    // Faster force buildup
-                    touchForceDecay: 0.92,      // Slower decay, allowing spring to work
-                    initialVelocityScale: 0.5,  // Adjusted for XY random speed
-                    friction: 0.85,             // Higher damping (removed in updateParticle logic)
-                    springConstant: 0.02,       // Lower spring stiffness
-                    orbitSpeed: 0.002,          // Slightly faster uniform orbit
-                    minDesiredSpeed: 0.0001,    // Extremely low to allow particles to almost settle
-                    zVelocityScale: 0.002,      // Adjusted for Z random speed
-                    displayRadiusScale: { min: 0.7, max: 0.8 },
-                    displayAlphaScale: { min: 0.1, max: 0.6 },
-                    globalPulseSpeed: 0.025,    // Increased for faster, more frequent wobble
-                    individualPulseMagnitude: 0.01, // Increased for slightly more noticeable wobble
-                    returnVelocityScale: 1,     // Scales how quickly particles snap back
-                    vibrationFrequency: 0.02,   // Speed of the ongoing particle vibration
-                    snapTolerance: 1,           // Pixel tolerance for snap-back
-                    sphereRotationSpeed: 0.001, // Speed of global sphere rotation
-                    sphereScale: 0.45,          // Scale of the sphere relative to canvas size
-                    sphereThickness: 0.9,       // Thickness of the sphere
-                    hollowness: 0             // Hollowness of the sphere (0 = full disc, 1 = empty)
-            };
+        // Default configuration options
+        const defaultOptions = {
+            canvasId: 'particleCanvas',
+            width: window.innerWidth,
+            height: window.innerHeight,
+            numParticles: 1500,
+            maxParticleOrbitRadius: Math.min(window.innerWidth, window.innerHeight) * 0.45,
+            particleBaseRadius: { min: 0.6, max: 1.2 },
+            particleColors: [
+                'rgba(3, 218, 198, 1)',
+                'rgba(224, 224, 224, 1)'
+            ],
+            touchInfluenceRadius: 100,
+            touchMaxForce: 15,
+            touchForceIncrease: 0.2,
+            touchForceDecay: 0.92,
+            initialVelocityScale: 0.5,
+            friction: 0.85,
+            springConstant: 0.02,
+            orbitSpeed: 0.002,
+            minDesiredSpeed: 0.0001,
+            zVelocityScale: 0.002,
+            displayRadiusScale: { min: 0.7, max: 0.8 },
+            globalPulseSpeed: 0.025,
+            returnVelocityScale: 1,
+            vibrationFrequency: 0.02,
+            sphereRotationSpeed: 0.001,
+            sphereScale: 0.45,
+            sphereThickness: 0.9,
+            hollowness: 0,
+            visualizerMaxHollowness: 0.9,
+            audioSmoothing: 0.6,
+            highVolumeColor: 'rgba(3, 218, 198, 1)',
+            highVolumeThreshold: 0.5,
+            // --- NEW OPTIONS FOR VIBRATION CONTROL ---
+            minPulseMagnitude: 0.05, // Vibration at low volume
+            maxPulseMagnitude: 0.25, // Vibration at high volume
+        };
 
-            // Merge default options with user-provided options
-            this.options = { ...defaultOptions, ...options };
+        this.options = { ...defaultOptions, ...options };
+        this.canvas = document.getElementById(this.options.canvasId);
+        if (!this.canvas) {
+            console.error(`Canvas with ID '${this.options.canvasId}' not found.`);
+            return;
+        }
+        this.ctx = this.canvas.getContext('2d');
 
-            // Get canvas element and its 2D rendering context
-            this.canvas = document.getElementById(this.options.canvasId);
-            if (!this.canvas) {
-                    console.error(`Canvas with ID '${this.options.canvasId}' not found. Please ensure the HTML element exists.`);
-                    return; // Exit constructor if canvas is not found
-            }
-            this.ctx = this.canvas.getContext('2d');
-            if (!this.ctx) {
-                    console.error('2D rendering context not found. Your browser might not support Canvas.');
-                    return; // Exit constructor if context is not available
-            }
+        this.visualizerMode = false;
+        this.audioContext = null;
+        this.analyser = null;
+        this.audioDataArray = null;
+        this.smoothedAudioLevel = 0;
+        this.baseHollowness = this.options.hollowness;
 
-            // Set canvas dimensions
-            this.width = this.options.width;
-            this.height = this.options.height;
-            this.canvas.width = this.width;
-            this.canvas.height = this.height;
+        this.toggleButton = document.getElementById('visualizerToggle');
+        if (this.toggleButton) {
+            this.toggleButton.addEventListener('click', () => this.toggleVisualizerMode());
+        }
 
-            // Center of the particle sphere on the canvas
-            this.sphereCenter = { x: this.width / 2, y: this.height / 2 };
-            this.particles = []; // Array to hold all particle objects
-            this.globalPulseTime = 0; // Global time counter for pulsation effect
-            this.sphereRotation = 0; // Track global sphere rotation
+        this.setupCanvas();
+        this.sphereCenter = { x: this.width / 2, y: this.height / 2 };
+        this.particles = [];
+        this.globalPulseTime = 0;
+        this.sphereRotation = 0;
+        this.touchActive = false;
+        this.touchX = 0;
+        this.touchY = 0;
+        this.touchForce = 0;
 
-            // Touch/Mouse interaction state variables
-            this.touchActive = false;
-            this.touchX = 0;
-            this.touchY = 0;
-            this.touchForce = 0; // Accumulated force based on touch duration
-
-            // Initialize event listeners for interactivity and responsiveness
-            this.initEventListeners();
-            // Create initial particles
-            this.initParticles();
-            // Start the animation loop
-            this.animate();
+        this.initEventListeners();
+        this.initParticles();
+        this.animate();
     }
 
-    /**
-     * Initializes all necessary event listeners (resize, mouse, touch).
-     */
+    setupCanvas() {
+        this.width = this.canvas.width = this.options.width;
+        this.height = this.canvas.height = this.options.height;
+    }
+
+    async initAudioVisualizer() {
+        if (this.audioContext) return;
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const source = this.audioContext.createMediaStreamSource(stream);
+            this.analyser = this.audioContext.createAnalyser();
+            this.analyser.fftSize = 256;
+            this.analyser.smoothingTimeConstant = 0.3;
+            const bufferLength = this.analyser.frequencyBinCount;
+            this.audioDataArray = new Uint8Array(bufferLength);
+            source.connect(this.analyser);
+        } catch (err) {
+            console.error("Microphone access was denied.", err);
+            alert("Microphone access is required for the visualizer. Please allow access and try again.");
+            this.visualizerMode = false;
+            this.updateToggleButton();
+        }
+    }
+
+    toggleVisualizerMode() {
+        this.visualizerMode = !this.visualizerMode;
+        if (this.visualizerMode && !this.audioContext) {
+            this.initAudioVisualizer();
+        }
+        this.updateToggleButton();
+    }
+    
+    updateToggleButton() {
+        if (this.toggleButton) {
+            this.toggleButton.textContent = this.visualizerMode ? 'Turn Off Visualizer' : 'Turn On Visualizer';
+            this.toggleButton.style.backgroundColor = this.visualizerMode ? 'rgba(3, 218, 198, 0.4)' : 'rgba(255, 255, 255, 0.1)';
+        }
+    }
+    
+    processAudio() {
+        if (!this.visualizerMode || !this.analyser) {
+            this.smoothedAudioLevel *= this.options.audioSmoothing;
+            return;
+        }
+        this.analyser.getByteFrequencyData(this.audioDataArray);
+        let sum = 0;
+        for (let i = 0; i < this.audioDataArray.length; i++) {
+            sum += this.audioDataArray[i];
+        }
+        const average = sum / this.audioDataArray.length;
+        const normalizedLevel = average / 255;
+        
+        this.smoothedAudioLevel = this.smoothedAudioLevel * this.options.audioSmoothing + normalizedLevel * (1 - this.options.audioSmoothing);
+    }
+
     initEventListeners() {
-            window.addEventListener('resize', this.handleResize.bind(this));
-            this.canvas.addEventListener('mousedown', this.handleMouseDown.bind(this));
-            this.canvas.addEventListener('mouseup', this.handleMouseUp.bind(this));
-            this.canvas.addEventListener('mousemove', this.handleMouseMove.bind(this));
-            // Use { passive: false } for touch events to allow preventDefault() for scrolling
-            this.canvas.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: false });
-            this.canvas.addEventListener('touchend', this.handleTouchEnd.bind(this));
-            this.canvas.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false });
+        window.addEventListener('resize', this.handleResize.bind(this));
+        this.canvas.addEventListener('mousedown', (e) => this.handleInteractionStart(e.clientX, e.clientY));
+        this.canvas.addEventListener('mouseup', () => this.handleInteractionEnd());
+        this.canvas.addEventListener('mousemove', (e) => this.handleInteractionMove(e.clientX, e.clientY));
+        this.canvas.addEventListener('mouseleave', () => this.handleInteractionEnd());
+        this.canvas.addEventListener('touchstart', (e) => { e.preventDefault(); this.handleInteractionStart(e.touches[0].clientX, e.touches[0].clientY); }, { passive: false });
+        this.canvas.addEventListener('touchend', () => this.handleInteractionEnd());
+        this.canvas.addEventListener('touchmove', (e) => { e.preventDefault(); this.handleInteractionMove(e.touches[0].clientX, e.touches[0].clientY); }, { passive: false });
     }
 
-    /**
-     * Handles window resize events to adjust canvas dimensions and re-initialize particles.
-     */
+    handleInteractionStart(x, y) { this.touchActive = true; this.touchX = x; this.touchY = y; }
+    handleInteractionEnd() { this.touchActive = false; }
+    handleInteractionMove(x, y) { if (this.touchActive) { this.touchX = x; this.touchY = y; } }
+
     handleResize() {
-            this.width = this.canvas.width = window.innerWidth;
-            this.height = this.canvas.height = window.innerHeight;
-            this.sphereCenter.x = this.width / 2;
-            this.sphereCenter.y = this.height / 2;
-            // Reajusta maxParticleOrbitRadius en caso de redimensionamiento
-            this.options.maxParticleOrbitRadius = Math.min(this.width, this.height) * 0.45;
-            this.initParticles(); // Re-create particles to fit new dimensions
+        this.options.width = window.innerWidth;
+        this.options.height = window.innerHeight;
+        this.setupCanvas();
+        this.sphereCenter = { x: this.width / 2, y: this.height / 2 };
+        this.options.maxParticleOrbitRadius = Math.min(this.width, this.height) * this.options.sphereScale;
+        this.initParticles();
     }
 
-    /** Handles mouse down event. */
-    handleMouseDown(e) {
-            this.touchActive = true;
-            this.touchX = e.clientX;
-            this.touchY = e.clientY;
+    // UPDATED to accept dynamicPulseMagnitude
+    updateParticle(particle, initialMinR, maxR, dynamicMinR, dynamicPulseMagnitude) {
+        const initialRange = maxR - initialMinR;
+        const dynamicRange = maxR - dynamicMinR;
+        const relativePos = initialRange > 0 ? (particle.initialOrbitRadius - initialMinR) / initialRange : 0;
+        const newTargetOrbitRadius = dynamicMinR + (relativePos * dynamicRange);
+
+        // USE the dynamicPulseMagnitude passed from the animate loop
+        const vib = Math.sin(this.globalPulseTime + particle.pulseOffset) * dynamicPulseMagnitude * newTargetOrbitRadius;
+        const targetR = newTargetOrbitRadius + vib;
+
+        const angle = particle.initialAngle + this.sphereRotation;
+        const tx = this.sphereCenter.x + Math.cos(angle) * targetR;
+        const ty = this.sphereCenter.y + Math.sin(angle) * targetR;
+
+        const dx = particle.x - tx;
+        const dy = particle.y - ty;
+        const k = this.options.springConstant;
+        const c = 2 * Math.sqrt(k);
+        const rvs = this.options.returnVelocityScale;
+        particle.vx += (-dx * k - c * particle.vx) * rvs;
+        particle.vy += (-dy * k - c * particle.vy) * rvs;
+
+        const distToTarget = Math.hypot(dx, dy);
+        if (distToTarget < targetR * 0.2) {
+            const tangentX = -dy / targetR;
+            const tangentY = dx / targetR;
+            particle.vx += tangentX * particle.orbitSpeed;
+            particle.vy += tangentY * particle.orbitSpeed;
+        }
+
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        particle.vx *= 0.99;
+        particle.vy *= 0.99;
+
+        const currentSpeed = Math.hypot(particle.vx, particle.vy);
+        if (currentSpeed < this.options.minDesiredSpeed) {
+            particle.vx += (Math.random() - 0.5) * 0.002;
+            particle.vy += (Math.random() - 0.5) * 0.002;
+        }
     }
 
-    /** Handles mouse up event. */
-    handleMouseUp() {
-            this.touchActive = false;
-    }
-
-    /** Handles mouse move event. */
-    handleMouseMove(e) {
-            if (this.touchActive) {
-                    this.touchX = e.clientX;
-                    this.touchY = e.clientY;
-            }
-    }
-
-    /** Handles touch start event. */
-    handleTouchStart(e) {
-            this.touchActive = true;
-            this.touchX = e.touches[0].clientX;
-            this.touchY = e.touches[0].clientY;
-            e.preventDefault(); // Prevent default touch behavior (e.g., scrolling)
-    }
-
-    /** Handles touch end event. */
-    handleTouchEnd() {
-            this.touchActive = false;
-    }
-
-    /** Handles touch move event. */
-    handleTouchMove(e) {
-            if (this.touchActive) {
-                    this.touchX = e.touches[0].clientX;
-                    this.touchY = e.touches[0].clientY;
-            }
-            e.preventDefault(); // Prevent default touch behavior (e.g., scrolling)
-    }
-
-    /**
-     * Updates the position and forces of a single particle.
-     * This method is called for each particle in the animation loop.
-     * @param {object} particle - The particle object to update.
-     */
-    updateParticle(particle) {
-            // 1. Compute vibrating target coordinate
-            const vib = Math.sin(this.globalPulseTime + particle.pulseOffset)
-                    * this.options.individualPulseMagnitude
-                    * particle.initialOrbitRadius;
-            const targetR = particle.initialOrbitRadius + vib;
-
-            // Use rotated angle for global spin
-            const angle = particle.initialAngle + this.sphereRotation;
-            const tx = this.sphereCenter.x + Math.cos(angle) * targetR;
-            const ty = this.sphereCenter.y + Math.sin(angle) * targetR;
-
-            // 2. Spring + damper toward (tx, ty)
-            const dx = particle.x - tx;
-            const dy = particle.y - ty;
-            const k = this.options.springConstant;
-            const c = 2 * Math.sqrt(k);
-            const rvs = this.options.returnVelocityScale;
-            particle.vx += (-dx * k - c * particle.vx) * rvs;
-            particle.vy += (-dy * k - c * particle.vy) * rvs;
-
-            // 3. Optional orbital/tangential motion (preserve existing effect)
-            const distToTarget = Math.hypot(dx, dy);
-            if (distToTarget < targetR * 0.2) {
-                    const tangentX = -dy / targetR;
-                    const tangentY = dx / targetR;
-                    particle.vx += tangentX * particle.orbitSpeed;
-                    particle.vy += tangentY * particle.orbitSpeed;
-            }
-
-            // 4. Update position & rest of existing logic
-            particle.x += particle.vx;
-            particle.y += particle.vy;
-
-            // Apply a very small friction to allow movement
-            particle.vx *= 0.99; // Less damping than original
-            particle.vy *= 0.99;
-
-            // Ensure a minimum speed for constant motion
-            const currentSpeed = Math.sqrt(particle.vx * particle.vx + particle.vy * particle.vy);
-            if (currentSpeed < this.options.minDesiredSpeed) {
-                    // Give a tiny, random "kick" if speed drops below the minimum threshold
-                    particle.vx += (Math.random() - 0.5) * 0.002; // Slightly stronger kick
-                    particle.vy += (Math.random() - 0.5) * 0.002;
-            }
-    }
-
-    /**
-     * Draws a single particle on the canvas.
-     * @param {object} particle - The particle object to draw.
-     */
     drawParticle(particle) {
-            // Calculate scaled radius and alpha based on Z for 3D illusion
-            const normalizedZ = (particle.z + 1) / 2; // Normalize Z from [-1, 1] to [0, 1]
-            // Scale radius based on Z for depth perception
-            const displayRadius = particle.baseRadius * (this.options.displayRadiusScale.min + normalizedZ * this.options.displayRadiusScale.max);
+        let finalColor;
+        if (this.visualizerMode && this.smoothedAudioLevel > this.options.highVolumeThreshold) {
+            finalColor = this.options.highVolumeColor;
+        } else {
+            finalColor = particle.color;
+        }
 
-            // Force solid circle
-            const displayAlpha = 1;
-
-            this.ctx.beginPath();
-            this.ctx.arc(particle.x, particle.y, displayRadius, 0, Math.PI * 2);
-
-            // Parse existing RGBA string to apply dynamic alpha
-            const colorParts = particle.color.match(/\d+(\.\d+)?/g);
-            this.ctx.fillStyle = `rgba(${colorParts[0]}, ${colorParts[1]}, ${colorParts[2]}, ${displayAlpha})`;
-            this.ctx.fill();
-            this.ctx.closePath();
+        const normalizedZ = (particle.z + 1) / 2;
+        const displayRadius = particle.baseRadius * (this.options.displayRadiusScale.min + normalizedZ * this.options.displayRadiusScale.max);
+        
+        const colorParts = finalColor.match(/\d+(\.\d+)?/g);
+        this.ctx.fillStyle = `rgba(${colorParts[0]}, ${colorParts[1]}, ${colorParts[2]}, 1)`;
+        
+        this.ctx.beginPath();
+        this.ctx.arc(particle.x, particle.y, displayRadius, 0, Math.PI * 2);
+        this.ctx.fill();
     }
 
-    /**
-     * Initializes the array of particles.
-     * Clears existing particles and creates new ones based on current options.
-     */
     initParticles() {
-            this.particles.length = 0; // Clear any existing particles
-            const o = this.options;
-            const maxR = Math.min(o.width, o.height) * o.sphereScale;
-            const minR = maxR * o.hollowness; // Inner cut
-            for (let i = 0; i < o.numParticles; i++) {
-                    const angle = Math.random() * Math.PI * 2; // Random angle for distribution
-                    // Generate a random distance that creates a visually uniform density
-                    // This uses sqrt(random) to bias particles towards larger radii, counteracting visual clumping
-                    const dist = minR + Math.sqrt(Math.random()) * (maxR - minR) * o.sphereThickness;
-
-                    const x = this.sphereCenter.x + Math.cos(angle) * dist;
-                    const y = this.sphereCenter.y + Math.sin(angle) * dist;
-                    // Random particle radius within defined range
-                    const radius = Math.random() * (this.options.particleBaseRadius.max - this.options.particleBaseRadius.min) + this.options.particleBaseRadius.min;
-                    // Randomly select a color from the defined palette
-                    const color = this.options.particleColors[Math.floor(Math.random() * this.options.particleColors.length)];
-                    const z = (Math.random() * 2) - 1; // Random Z-coordinate for 3D effect
-
-                    // Create a new Particle instance and add it to the array
-                    // Pass 'this.options', the calculated 'dist', and 'angle' to the Particle constructor
-                    this.particles.push(new Particle(x, y, radius, color, z, this.options, dist, angle));
-            }
+        this.particles.length = 0;
+        const o = this.options;
+        const maxR = Math.min(o.width, o.height) * o.sphereScale;
+        const minR = maxR * this.baseHollowness;
+        for (let i = 0; i < o.numParticles; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const dist = minR + Math.sqrt(Math.random()) * (maxR - minR) * o.sphereThickness;
+            const x = this.sphereCenter.x + Math.cos(angle) * dist;
+            const y = this.sphereCenter.y + Math.sin(angle) * dist;
+            const radius = o.particleBaseRadius.min + Math.random() * (o.particleBaseRadius.max - o.particleBaseRadius.min);
+            const color = o.particleColors[Math.floor(Math.random() * o.particleColors.length)];
+            const z = (Math.random() * 2) - 1;
+            this.particles.push(new Particle(x, y, radius, color, z, o, dist, angle));
+        }
     }
 
-    /**
-     * The main animation loop.
-     * Calls itself recursively via requestAnimationFrame.
-     */
     animate() {
-            // Request the next animation frame, binding 'this' to maintain context
-            requestAnimationFrame(this.animate.bind(this));
+        requestAnimationFrame(this.animate.bind(this));
+        
+        this.processAudio();
+        
+        // --- CALCULATE DYNAMIC VALUES FOR THIS FRAME ---
+        const dynamicHollowness = this.baseHollowness + this.smoothedAudioLevel * (this.options.visualizerMaxHollowness - this.baseHollowness);
+        const dynamicPulseMagnitude = this.options.minPulseMagnitude + (this.smoothedAudioLevel * (this.options.maxPulseMagnitude - this.options.minPulseMagnitude));
 
-            // Update global time counter for pulsation
-            this.globalPulseTime += this.options.vibrationFrequency;
+        this.globalPulseTime += this.options.vibrationFrequency;
+        this.sphereRotation += this.options.sphereRotationSpeed;
 
-            // Advance global sphere rotation
-            this.sphereRotation += this.options.sphereRotationSpeed;
+        this.ctx.clearRect(0, 0, this.width, this.height);
+        this.applyTouchForce();
+        
+        const o = this.options;
+        const maxR = Math.min(o.width, o.height) * o.sphereScale;
+        const initialMinR = maxR * this.baseHollowness;
+        const dynamicMinR = maxR * dynamicHollowness;
 
-            // Clear the entire canvas for the new frame
-            this.ctx.clearRect(0, 0, this.width, this.height);
-
-            // Apply forces from mouse/touch interaction
-            this.applyTouchForce();
-
-            // Update and draw each particle
-            this.particles.forEach(particle => {
-                    this.updateParticle(particle); // Update particle physics
-                    this.drawParticle(particle);   // Draw particle on canvas
-            });
+        this.particles.forEach(particle => {
+            // Pass the new dynamic pulse magnitude to the update function
+            this.updateParticle(particle, initialMinR, maxR, dynamicMinR, dynamicPulseMagnitude);
+            this.drawParticle(particle);
+        });
     }
 
-    /**
-     * Applies force to particles based on mouse/touch interaction.
-     * The force builds up while active and decays when inactive.
-     */
     applyTouchForce() {
-            // Increase touch force if interaction is active
-            if (this.touchActive) {
-                    this.touchForce = Math.min(this.options.touchMaxForce, this.touchForce + this.options.touchForceIncrease);
-            } else {
-                    // Decay touch force if interaction is inactive
-                    this.touchForce *= this.options.touchForceDecay;
-                    if (this.touchForce < 0.1) { // Reset if force is very small
-                            this.touchForce = 0;
-                    }
-            }
+        if (this.touchActive) {
+            this.touchForce = Math.min(this.options.touchMaxForce, this.touchForce + this.options.touchForceIncrease);
+        } else {
+            this.touchForce *= this.options.touchForceDecay;
+        }
 
-            // Only apply force if there's significant touch interaction
-            if (this.touchForce > 0) {
-                    this.particles.forEach(particle => {
-                            const dx = particle.x - this.touchX;
-                            const dy = particle.y - this.touchY;
-                            const distance = Math.sqrt(dx * dx + dy * dy);
-
-                            // Apply force if particle is within the influence radius and not exactly at the touch point
-                            if (distance < this.options.touchInfluenceRadius && distance > 0) {
-                                    // Calculate force magnitude with exponential decay: stronger closer to touch point
-                                    const forceMagnitude = Math.pow(1 - (distance / this.options.touchInfluenceRadius), 2) * this.touchForce * 0.8;
-
-                                    // Apply force in the direction away from the touch point
-                                    const angle = Math.atan2(dy, dx);
-                                    particle.vx += Math.cos(angle) * forceMagnitude;
-                                    particle.vy += Math.sin(angle) * forceMagnitude;
-                            }
-                    });
-            }
-    }
-
-    /**
-     * Updates the options of the instance of the particle effect.
-     * This allows dynamic changes to the animation's behavior.
-     * @param {object} newOptions - New options to apply.
-     */
-    updateOptions(newOptions) {
-            // Merge new options, ensuring existing options are maintained unless overridden
-            this.options = { ...this.options, ...newOptions };
-            // Update canvas dimensions and center if width/height changed
-            this.width = this.options.width;
-            this.height = this.options.height;
-            this.canvas.width = this.width;
-            this.canvas.height = this.height;
-            this.sphereCenter = { x: this.width / 2, y: this.height / 2 };
-            // Re-initialize particles with the new configuration
-            this.initParticles();
+        if (this.touchForce > 0.1) {
+            this.particles.forEach(particle => {
+                const dx = particle.x - this.touchX;
+                const dy = particle.y - this.touchY;
+                const distance = Math.hypot(dx, dy);
+                if (distance < this.options.touchInfluenceRadius && distance > 0) {
+                    const forceMagnitude = Math.pow(1 - (distance / this.options.touchInfluenceRadius), 2) * this.touchForce;
+                    const angle = Math.atan2(dy, dx);
+                    particle.vx += Math.cos(angle) * forceMagnitude;
+                    particle.vy += Math.sin(angle) * forceMagnitude;
+                }
+            });
+        }
     }
 }
 
-// --- How to use the PerplexityParticleEffect class ---
-// This ensures the DOM is fully loaded before trying to create the animation.
+// --- Initialize the effect ---
 window.addEventListener('load', () => {
-    // Instantiate the particle effect with default options, or customize it:
-    const myPerplexityEffect = new PerplexityParticleEffect({
-            canvasId: 'particleCanvas',
-            numParticles: 900,
-            maxParticleOrbitRadius: Math.min(window.innerWidth, window.innerHeight) * 0.45,
-            particleBaseRadius: { min: 1.6, max: 2 },
-            touchInfluenceRadius: 150,
-            touchMaxForce: 65,
-            touchForceIncrease: 0.9,
-            friction: 0.9, // Increased damping
-            springConstant: 0.0088, // Much stronger spring for faster return to position
-            orbitSpeed: 0.5,
-            initialVelocityScale: 0.4,
-            minDesiredSpeed: 0.01,
-            globalPulseSpeed: 0.35,
-            individualPulseMagnitude: 0.25,
-            returnVelocityScale: 0.45, // Adjust return speed
-            vibrationFrequency: 0.55, // Increase for faster bobble
-            sphereRotationSpeed: 0.001, // Adjusted global spin speed
-            hollowness:0.05, // Adjusted inner void size
-            sphereThickness: 0.9
+    new PerplexityParticleEffect({
+        canvasId: 'particleCanvas',
+        numParticles: 500,
+        particleBaseRadius: { min: 2.0, max: 2.8 },
+        touchInfluenceRadius: 200,
+        touchMaxForce: 100,
+        touchForceIncrease: 0.9,
+        friction: 0.2,
+        springConstant: 0.018,
+        orbitSpeed: 0.5,
+        initialVelocityScale: 0.4,
+        minDesiredSpeed: 0.01,
+        returnVelocityScale: 0.45,
+        vibrationFrequency: 0.55,
+        sphereRotationSpeed: 0.001,
+        hollowness: 0.0,
+        sphereThickness: 0.8,
+        // --- TWEAK THE NEW SETTINGS HERE ---
+        // Lowered for a much faster, "snappier" reaction to audio.
+        // 0.0 is instant but can be jittery. 0.2 is very fast.
+        audioSmoothing: 0.2, 
+        highVolumeThreshold: 0.6,
+        minPulseMagnitude: 0.05, // How much particles vibrate with low sound
+        maxPulseMagnitude: 0.25, // How much they vibrate with high sound
     });
 });
