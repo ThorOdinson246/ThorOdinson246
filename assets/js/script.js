@@ -63,7 +63,7 @@ const sr = ScrollReveal({
   origin: "top",
   distance: "80px",
   duration: 2000,
-  reset: true,
+  reset: false,
 });
 
 sr.reveal(".featured-text-card", {});
@@ -81,7 +81,7 @@ const srLeft = ScrollReveal({
   origin: "left",
   distance: "80px",
   duration: 2000,
-  reset: true,
+  reset: false,
 });
 srLeft.reveal(".about-info", { delay: 100 });
 srLeft.reveal(".contact-info", { delay: 100 });
@@ -90,7 +90,7 @@ const srRight = ScrollReveal({
   origin: "right",
   distance: "80px",
   duration: 1000,
-  reset: true,
+  reset: false,
 });
 srRight.reveal(".skills-box", { delay: 100 });
 srRight.reveal(".form-control", { delay: 100 });

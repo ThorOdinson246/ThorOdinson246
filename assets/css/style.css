@@ -861,17 +861,20 @@ html, body {
 }
 
 body.dark-mode {
-  --body-color: rgb(250, 250, 250);
-  --color-white: rgb(255, 255, 255);
+  --body-color: #ffffff; /* Pure white background */
+  --color-white: #f8fafc; /* Subtle off-white sections */
 
-  --text-color-second: rgb(68, 68, 68);
-  --first-color: rgb(30, 159, 171);
-
-  --first-color: rgb(110, 87, 224);
-  --first-color-hover: rgb(40, 91, 212);
-
-  --second-color: rgb(0, 201, 255);
-  --third-color: rgb(192, 166, 49);
+  --text-color-second: #374151; /* Charcoal gray for body text */
+  --heading-color: #1f2937; /* Near-black for headings */
+  --border-color: #d1d5db; /* Light gray for borders & dividers */
+  
+  --first-color: #3b82f6; /* Deep quantum blue */
+  --first-color-hover: #06b6d4; /* Scientific teal for hover */
+  --second-color: #06b6d4; /* Scientific teal */
+  --third-color: #a855f7; /* Soft purple */
+  --accent-coral: #fb923c; /* Warm coral */
+  --accent-sage: #34d399; /* Sage green */
+  
   --first-shadow-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -1060,4 +1063,175 @@ body.dark-mode {
   .contact-info {
     padding: 15px;
   }
+}
+
+/* Fix horizontal scroll for all screen sizes */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+
+/* Dark Mode Button  */
+.dark-mode-toggle {
+  position: fixed;
+  bottom: 40px;
+  left: 70px;
+  width: 50px;
+  height: 50px;
+  background: var(--first-color);
+  color: var(--color-white);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s;
+  z-index: 4000;
+}
+
+.dark-mode-toggle:hover {
+  background: var(--first-color-hover);
+}
+
+.dark-mode-toggle i {
+  font-size: 24px;
+}
+
+/* Dark mode header styles */
+.dark-mode-header {
+  background-color: #f0f0f0 !important; /* Light background for header in dark mode */
+}
+
+.dark-mode-header .nav-logo p,
+.dark-mode-header .nav-name {
+  color: var(--first-color) !important;
+}
+
+.dark-mode-header .nav-logo span {
+  color: var(--text-color-second) !important;
+}
+
+.dark-mode-header .nav-link {
+  color: var(--text-color-second) !important;
+}
+
+.dark-mode-header .active-link {
+  color: var(--first-color) !important;
+}
+
+.dark-mode-header .nav-menu-btn i {
+  color: var(--text-color-second) !important;
+}
+
+/* For mobile menu in dark mode */
+.dark-mode .nav-menu.responsive {
+  background: rgba(240, 240, 240, 0.9) !important;
+  backdrop-filter: blur(20px);
+}
+
+/* Sticky Contact Bar  */
+.vertical-contact-bar {
+  position: fixed;
+  right: 40px;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.contact-line {
+  position: absolute;
+  width: 2px;
+  height: 90px;
+  background: var(--text-color-second);
+  right: 50%;
+  transform: translateX(50%);
+  bottom: 0;
+}
+
+.contact-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  position: relative;
+  padding-bottom: 110px;
+}
+
+.contact-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #00f7ff;
+  font-size: 20px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.contact-icon:hover {
+  background: #64ffda;
+  color: #0a192f;
+  transform: translateY(-3px);
+}
+
+.tooltip {
+  position: absolute;
+  right: 50px;
+  color: #64ffda;
+  padding: 5px 5px;
+  border-radius: 4px;
+  font-size: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 5s none;
+  white-space: nowrap;
+}
+
+.contact-icon:hover .tooltip {
+  opacity: 1;
+  right: 60px;
+}
+
+.uil {
+  font-size: 25px;
+}
+
+
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .vertical-contact-bar {
+    display: none;
+  }
+  .dark-mode-toggle {
+    left: 20px;
+  }
+}
+
+/* Light mode heading color overrides */
+body.dark-mode .top-header h1,
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+  color: var(--heading-color);
+}
+
+/* Light mode border overrides */
+body.dark-mode .project-box,
+body.dark-mode .skills-box {
+  border-color: var(--border-color);
+}
+
+/* Light mode subtle background sections */
+body.dark-mode .featured-text-card,
+body.dark-mode .about-container,
+body.dark-mode .contact-content {
+  background-color: var(--color-white);
 }

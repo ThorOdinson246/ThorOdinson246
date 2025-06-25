@@ -1,3 +1,19 @@
+/* ----- VARIABLES ----- */
+:root {
+  --body-color: #030e20;
+  --color-white: #1e1e1e;
+  --text-color-second: #e0e0e0;
+  --heading-color: #e0e0e0;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --first-color: #03dac6;
+  --first-color-hover: #1eb534;
+  --second-color: #03dac6;
+  --third-color: #cf6679;
+  --accent-coral: #ff6b35;
+  --accent-sage: #4ecdc4;
+  --first-shadow-color: rgba(255, 255, 255, 0.1);
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -111,7 +127,7 @@ h3 {
   font-size: 1.5rem;
   margin-top: 30px;
   margin-bottom: 15px;
-  color: var(--text-color-second);
+  color: var(--heading-color);
 }
 
 p {
@@ -165,6 +181,7 @@ p {
   background-color: rgba(3, 218, 198, 0.05);
   padding: 25px;
   border-left: 3px solid var(--first-color);
+  border: 1px solid var(--border-color);
   transition: transform 0.3s;
 }
 
@@ -204,8 +221,6 @@ p {
   opacity: 1;
   transform: translateY(0);
 }
-
-
 
 /* Media Queries */
 @media (max-width: 768px) {
