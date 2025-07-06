@@ -7,6 +7,17 @@
 
   <!-- --------- UNICONS ---------- -->
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css" />
+  <!-- Devicons -->
+  <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+
+  <!-- --------- FONT AWESOME ---------- -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+  <!-- --------- GOOGLE FONTS ---------- -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <!-- --------- CSS ---------- -->
   <link rel="stylesheet" href="assets/css/style.css" />
@@ -15,7 +26,8 @@
   <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon" />
 
   <meta name="description" content="Mukesh Poudel - Portfolio. Explore my projects, skills, and contact information." />
-  <meta name="keywords" content="Mukesh Poudel, Software Engineer, Artificial Intelligence, Portfolio, Projects, Skills, Contact" />
+  <meta name="keywords"
+    content="Mukesh Poudel, Software Engineer, Artificial Intelligence, Portfolio, Projects, Skills, Contact" />
   <meta name="author" content="Mukesh Poudel" />
   <meta property="og:title" content="Mukesh Poudel - Portfolio" />
   <meta property="og:description"
@@ -57,9 +69,9 @@
       <div class="nav-menu-btn">
         <i class="uil uil-bars" onclick="myMenuFunction()"></i>
       </div>
-  </div> -->
+  </div>
   <div class="dark-mode-toggle" id="darkModeToggle">
-    <i class="uil uil-sun"></i>
+    <i class="uil uil-moon"></i>
   </div>
 
   </nav>
@@ -69,9 +81,6 @@
     <!-- -------------- FEATURED BOX ---------------- -->
     <section class="featured-box" id="home">
       <div class="featured-text">
-        <div class="featured-text-card">
-          <span>Mukesh Poudel</span>
-        </div>
         <div class="featured-name">
           <p>I'm <span class="typedText"></span></p>
         </div>
@@ -79,7 +88,6 @@
           <p>
             Looking for ways to combine creativity and technology to make a
             difference.<br />
-
           </p>
         </div>
         <div class="featured-text-btn">
@@ -91,76 +99,80 @@
         </div>
 
       </div>
-      <div class="featured-image">
-        <div class="image">
-          <img src="assets/images/me.jpg" alt="avatar" />
+      <div class="featured-image-container">
+        <div class="featured-image">
+          <div class="image">
+            <img src="assets/images/me.jpg" alt="Mukesh Poudel" id="me-img">
+          </div>
         </div>
-      </div>
-      <div class="scroll-icon-box">
-        <a href="#about" class="scroll-btn">
-          <i class="uil uil-mouse-alt"></i>
-          <p>Scroll Down</p>
-        </a>
+        <!-- Particle System Controls -->
+        <div class="particle-controls">
+          <div class="particle-toggle-container">
+            <label class="toggle-switch">
+              <input type="checkbox" id="particleToggle" checked>
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label">Particles</span>
+            <a href="#" id="particleInfoLink" target="_blank" rel="noopener noreferrer" class="github-link"
+              title="Here's how I did this">
+              <i class="uil uil-github"></i>
+            </a>
+          </div>
+        </div>
       </div>
     </section>
     <!-- -------------- ABOUT BOX ---------------- -->
     <section class="section" id="about">
-      <div class="top-header">
-        <h1>About Me</h1>
-      </div>
-      <div class="row">
-        <div class="col">
-          <div class="about-info">
-            <h3>INTRO</h3>
-            <p>
-             I enjoy exploring diverse technical domains,to create meaningful solution, and sometimes abstract stuffs too. I have a strong foundation in Python and cloud technologies like Azure and a growing interest in AI, Machine Learning and GIS tools.
-            </p>
-
-          </div>
+      <div class="about-container">
+        <div class="about-intro">
+          <h2>INTRO</h2>
+          <p>
+            I love exploring how technology can be used to solve real-life problems and transform complex challenges into elegant solutions. I excel at applying tech in interdisciplinary industries and projects. Most of my projects are in Software development, AI or Geospatial Analysis and Intelligence. I thrive on finding creative ways to make technology work for people.
+          </p>
         </div>
-        <div class="col">
-          <div class="skills-box ">
-            <div class="skills-header">
-              <h3>Languages</h3>
-            </div>
-            <div class="skills-list">
-              <span>Python</span>
-              <span>C/C++</span>
-              <span>JavaScript</span>
-              <span>Dart</span>
-            </div>
-          </div>
-          <div class="skills-box">
-            <div class="skills-header">
-              <h3>Tools</h3>
-            </div>
-            <div class="skills-list">
-              <span>PyTorch</span>
-              <span>Scikit-Learn</span>
-              <span>Pandas</span>
-              <span>NumPy</span>
-              <span>Flask</span>
-              <span>Flutter</span>
-              <span>ArcGIS</span>
-              <span>QGIS</span>
-              <span>Typo3</span>
-              <span>Wordpress</span>
-              <span>Photoshop</span>
-              <span>InDesign</span>
+
+        <div class="about-skills">
+          <div class="skill-category">
+            <h3>Languages</h3>
+            <div class="skill-items">
+              <span class="skill-chip">Python</span>
+              <span class="skill-chip">C++</span>
+              <span class="skill-chip">JavaScript</span>
+              <span class="skill-chip">Dart</span>
             </div>
           </div>
-          <div class="skills-box">
-            <div class="skills-header">
-              <h3>Cloud & Utils</h3>
+
+          <div class="skill-category">
+            <h3>Tools</h3>
+            <div class="skill-items">
+              <span class="skill-chip">PyTorch</span>
+              <span class="skill-chip">Pandas</span>
+              <span class="skill-chip">Scikit-Learn</span>
+              <span class="skill-chip">NumPy</span>
+              <span class="skill-chip">Flask</span>
+              <span class="skill-chip">Flutter</span>
+              <span class="skill-chip">React.js</span>
+              <span class="skill-chip">Next.js</span>
+              <span class="skill-chip">Node.js</span>
+              <span class="skill-chip">ArcGIS</span>
+              <span class="skill-chip">QGIS</span>
+              <span class="skill-chip">Typo3</span>
+              <span class="skill-chip">Wordpress</span>
+              <span class="skill-chip">Photoshop</span>
+              <span class="skill-chip">InDesign</span>
             </div>
-            <div class="skills-list">
-              <span>Azure</span>
-              <span>Google CLoud</span>
-              <span>Apache</span>
-              <span>nginx</span>
-              <span>Git</span>
-              <span>Docker</span>
-              <span>Composer</span>
+          </div>
+
+          <div class="skill-category">
+            <h3>Cloud & Utils</h3>
+            <div class="skill-items">
+              <span class="skill-chip">Azure</span>
+              <span class="skill-chip">Google Cloud</span>
+              <span class="skill-chip">Apache</span>
+              <span class="skill-chip">nginx</span>
+              <span class="skill-chip">Git</span>
+              <span class="skill-chip">Docker</span>
+              <span class="skill-chip">Composer</span>
             </div>
           </div>
         </div>
@@ -170,70 +182,274 @@
     <!-- -------------- PROJECT BOX ---------------- -->
     <section class="section" id="projects">
       <div class="top-header">
-        <h1>Projects</h1>
+        <h1>Personal Projects</h1>
       </div>
       <div class="project-container">
-        <div class="project-box">
-          <div class="project-image">
-            <img src="assets/images/mldl-sca.png" class="project-img" alt="side-channel-analysis" />
+        <div class="project-item">
+          <div class="project-content">
+            <div class="project-info">
+              <div class="project-badge">Full Stack</div>
+              <h2>CrisisLens</h2>
+              <p class="project-description">
+                An attempt to document and geo-tag crisis-related incidents, conflicts, wars, humanitarian disasters,
+                and infrastructure damage through careful collection and analysis of publicly available information,
+                satellite imagery, and open-source intelligence to get an enhanced understanding of global politics,
+                conflict dynamics, and civilian impact.
+              </p>
+              <div class="tech-stack">
+                <div class="tech-icon" title="Next.js">
+                  <i class="devicon-nextjs-plain"></i>
+                </div>
+                <div class="tech-icon" title="React.js">
+                  <i class="devicon-react-original"></i>
+                </div>
+                <div class="tech-icon" title="TypeScript">
+                  <i class="devicon-typescript-plain"></i>
+                </div>
+                <div class="tech-icon" title="Node.js">
+                  <i class="devicon-nodejs-plain"></i>
+                </div>
+              </div>
+              <a href="https://crisislens.mukeshpoudel.com.np" target="_blank" rel="noopener noreferrer"
+                class="project-btn">
+                <i class="uil uil-external-link-alt"></i>
+                View Project
+              </a>
+            </div>
+            <div class="project-visual">
+              <img src="assets/images/crisislens.png" alt="CrisisLens" />
+            </div>
           </div>
-          <h2>Machine Learning Based AES Key Recovery via Side-Channel Analysis</h2>
-          <label class="project-label"> A machine learning-based approach using RF, SVC and CNNs for AES key recovery using side-channel analysis on the ASCAD dataset.</label>
-          <a href="/aeskeyrecovery/" target="_blank" rel="noopener noreferrer"
-            class="git-btn btn">PROJECT PAGE<i class="uil uil-external-link-alt"></i></a>
         </div>
-        <div class="project-box">
-          <div class="project-image">
-            <img src="assets/images/basemap-koshi.png" class="project-img" alt="sediment-flux" />
-          </div>
-          <h2>Integrating Sediment Dynamics into Flood Risk Modeling</h2>
-          <label class="project-label"> A Machine learning based approach to integrate sediment dynamics to model flood risk in Koshi River Basin. </label>
-          <a href="/sedimentflux/" target="_blank" rel="noopener noreferrer"
-            class="git-btn btn">PROJECT PAGE<i class="uil uil-external-link-alt"></i></a>
-        </div>
-        <div class="project-box">
-          <div class="project-image">
-            <img src="assets/images/unet-segmentation.png" class="project-img" alt="unet-segmentation" />
-          </div>
-          <h2>Satellite Water Body Segmentation: U-Net with PyTorch</h2>
-          <label class="project-label"> Water body segmentation using U-Net and PyTorch on satellite imagery.</label>
-          <a href="https://github.com/ThorOdinson246/UNet-Water-Segmentation" target="_blank" rel="noopener noreferrer"
-            class="git-btn btn">Github<i class="uil uil-github"></i></a>
-        </div>
-        <div class="project-box">
-          <div class="project-image">
-            <img src="assets/images/hubcityv2.png" class="project-img" alt="hubcity" />
-          </div>
-          <h2>Hub City Transit v2</h2>
-          <label class="project-label">Redesigning the city's bus tracking platform to enhance usability and add
-            real-time ETA calculations with traffic considerations.</label>
-          <a href="https://github.com/ThorOdinson246/hubcitytransitv2" target="_blank" rel="noopener noreferrer"
-            class="git-btn btn">Github <i class="uil uil-github"></i></a>
-        </div>
-        <div class="project-box">
-          <div class="project-image">
-            <img src="assets/images/meroswasthya.png" class="project-img" alt="mero-swasthya" />
-          </div>
-          <h2>Mero Swasthya</h2>
-          <label class="project-label">Developed a prototype for a digital health solution in Nepal to enhance health
-            literacy and accessibility.</label>
-          <a href="https://github.com/ThorOdinson246/Mero-Swasthya" target="_blank" rel="noopener noreferrer"
-            class="git-btn btn">Github <i class="uil uil-github"></i></a>
 
-        </div>
-        <div class="project-box">
-          <div class="project-image">
-            <img src="assets/images/bionet-project.png" class="project-img" alt="bionet" />
+        <div class="project-item">
+          <div class="project-content">
+            <div class="project-info">
+              <div class="project-badge">Research</div>
+              <h2>Machine Learning Based AES Key Recovery via Side-Channel Analysis</h2>
+              <p class="project-description">
+                A machine learning-based approach using RF, SVC and CNNs for AES key recovery using side-channel
+                analysis on the ASCAD dataset. This project explores the use of ML and DL models to exploit EM
+                side-channel leakage for cryptographic key recovery.
+              </p>
+              <div class="tech-stack">
+                <div class="tech-icon" title="Python">
+                  <i class="devicon-python-plain"></i>
+                </div>
+                <div class="tech-icon" title="PyTorch">
+                  <i class="devicon-pytorch-plain"></i>
+                </div>
+                <div class="tech-icon" title="Scikit-learn">
+                  <i class="devicon-scikitlearn-plain"></i>
+                </div>
+                <div class="tech-icon" title="Jupyter">
+                  <i class="devicon-jupyter-plain"></i>
+                </div>
+              </div>
+              <a href="/aeskeyrecovery/" target="_blank" rel="noopener noreferrer" class="project-btn">
+                <i class="uil uil-external-link-alt"></i>
+                View Project
+              </a>
+            </div>
+            <div class="project-visual">
+              <img src="assets/images/mldl-sca.png" alt="AES Key Recovery" />
+            </div>
           </div>
-          <h2>BIONET Project</h2>
-          <label class="project-label">Developed and deployed a TYPO3-based website for the Bionet Project- part of the
-            Euro-African Biomonitoring Network for assessing environmental exposure in populations.</label>
-          <a href="https://bionet-project.org" target="_blank" rel="noopener noreferrer" class="git-btn btn">LINK <i
-              class="uil uil-external-link-alt"></i></a>
+        </div>
 
+        <div class="project-item">
+          <div class="project-content reverse">
+            <div class="project-info">
+              <div class="project-badge">Research</div>
+              <h2>Integrating Sediment Dynamics into Flood Risk Modeling</h2>
+              <p class="project-description">
+                A Machine learning based approach to integrate sediment dynamics to model flood risk in Koshi River
+                Basin. This project leverages advanced spectral indices and machine learning techniques for improved
+                flood prediction accuracy.
+              </p>
+              <div class="tech-stack">
+                <div class="tech-icon" title="Python">
+                  <i class="devicon-python-plain"></i>
+                </div>
+                <div class="tech-icon" title="PyTorch">
+                  <i class="devicon-pytorch-plain"></i>
+                </div>
+                <div class="tech-icon" title="GIS">
+                  <i class="fas fa-map"></i>
+                </div>
+                <div class="tech-icon" title="Azure">
+                  <i class="devicon-azure-plain"></i>
+                </div>
+              </div>
+              <a href="/sedimentflux/" target="_blank" rel="noopener noreferrer" class="project-btn">
+                <i class="uil uil-external-link-alt"></i>
+                View Project
+              </a>
+            </div>
+            <div class="project-visual">
+              <img src="assets/images/basemap-koshi.png" alt="Sediment Flux Modeling" />
+            </div>
+          </div>
+        </div>
+
+        <div class="project-item">
+          <div class="project-content">
+            <div class="project-info">
+              <div class="project-badge">Computer Vision</div>
+              <h2>Satellite Water Body Segmentation: U-Net with PyTorch</h2>
+              <p class="project-description">
+                Water body segmentation using U-Net and PyTorch on satellite imagery. This project implements
+                state-of-the-art deep learning techniques for accurate water body detection and segmentation from
+                satellite data.
+              </p>
+              <div class="tech-stack">
+                <div class="tech-icon" title="Python">
+                  <i class="devicon-python-plain"></i>
+                </div>
+                <div class="tech-icon" title="PyTorch">
+                  <i class="devicon-pytorch-plain"></i>
+                </div>
+                <div class="tech-icon" title="Computer Vision">
+                  <i class="fas fa-eye"></i>
+                </div>
+                <div class="tech-icon" title="Jupyter">
+                  <i class="devicon-jupyter-plain"></i>
+                </div>
+              </div>
+              <a href="https://github.com/ThorOdinson246/UNet-Water-Segmentation" target="_blank"
+                rel="noopener noreferrer" class="project-btn">
+                <i class="uil uil-github"></i>
+                View on GitHub
+              </a>
+            </div>
+            <div class="project-visual">
+              <img src="assets/images/unet-segmentation.png" alt="U-Net Segmentation" />
+            </div>
+          </div>
+        </div>
+
+        <div class="project-item">
+          <div class="project-content reverse">
+            <div class="project-info">
+              <div class="project-badge">Full Stack</div>
+              <h2>Hub City Transit v2</h2>
+              <p class="project-description">
+                Redesigning the city's bus tracking platform to enhance usability and add real-time ETA calculations
+                with traffic considerations. A complete overhaul of the public transit tracking system with modern web
+                technologies.
+              </p>
+              <div class="tech-stack">
+                <div class="tech-icon" title="Python">
+                  <i class="devicon-python-plain"></i>
+                </div>
+                <div class="tech-icon" title="Flask">
+                  <i class="devicon-flask-plain"></i>
+                </div>
+                <div class="tech-icon" title="Google Cloud">
+                  <i class="devicon-googlecloud-plain"></i>
+                </div>
+                <div class="tech-icon" title="Docker">
+                  <i class="devicon-docker-plain"></i>
+                </div>
+                <div class="tech-icon" title="HTML5">
+                  <i class="devicon-html5-plain"></i>
+                </div>
+              </div>
+              <a href="https://github.com/ThorOdinson246/hubcitytransitv2" target="_blank" rel="noopener noreferrer"
+                class="project-btn">
+                <i class="uil uil-github"></i>
+                View on GitHub
+              </a>
+            </div>
+            <div class="project-visual">
+              <img src="assets/images/hubcityv2.png" alt="Hub City Transit" />
+            </div>
+          </div>
+        </div>
+
+        <div class="project-item">
+          <div class="project-content">
+            <div class="project-info">
+              <div class="project-badge">Health Tech</div>
+              <h2>Mero Swasthya</h2>
+              <p class="project-description">
+                Developed a prototype for a digital health solution in Nepal to enhance health literacy and
+                accessibility. This platform bridges the gap between healthcare providers and patients through
+                innovative digital solutions.
+              </p>
+              <div class="tech-stack">
+                <div class="tech-icon" title="Flutter">
+                  <i class="devicon-flutter-plain"></i>
+                </div>
+                <div class="tech-icon" title="Firebase">
+                  <i class="devicon-firebase-plain"></i>
+                </div>
+                <div class="tech-icon" title="Dart">
+                  <i class="devicon-dart-plain"></i>
+                </div>
+                <div class="tech-icon" title="Rest API">
+                  <i class="fas fa-code"></i>
+                </div>
+              </div>
+              <a href="https://github.com/ThorOdinson246/Mero-Swasthya" target="_blank" rel="noopener noreferrer"
+                class="project-btn">
+                <i class="uil uil-github"></i>
+                View on GitHub
+              </a>
+            </div>
+            <div class="project-visual">
+              <img src="assets/images/meroswasthya.png" alt="Mero Swasthya" />
+            </div>
+          </div>
+        </div>
+
+      
+
+      <div class="top-header">
+        <h1>Client Projects</h1>
+      </div>
+      <div class="project-container">
+        <div class="project-item">
+          <div class="project-content reverse">
+            <div class="project-info">
+              <div class="project-badge">Web Development</div>
+              <h2>BIONET Project</h2>
+              <p class="project-description">
+                Developed and deployed a TYPO3-based website for the Bionet Project- part of the Euro-African
+                Biomonitoring Network for assessing environmental exposure in populations. A comprehensive web solution
+                for environmental monitoring data.
+              </p>
+              <div class="tech-stack">
+                <div class="tech-icon" title="TYPO3">
+                  <i class="devicon-typo3-plain"></i>
+                </div>
+                <div class="tech-icon" title="PHP">
+                  <i class="devicon-php-plain"></i>
+                </div>
+                <div class="tech-icon" title="MySQL">
+                  <i class="devicon-mysql-plain"></i>
+                </div>
+                <div class="tech-icon" title="Azure">
+                  <i class="devicon-azure-plain"></i>
+                </div>
+                <div class="tech-icon" title="Apache">
+                  <i class="devicon-apache-plain"></i>
+                </div>
+              </div>
+              <a href="https://bionet-project.org" target="_blank" rel="noopener noreferrer" class="project-btn">
+                <i class="uil uil-external-link-alt"></i>
+                Visit Website
+              </a>
+            </div>
+            <div class="project-visual">
+              <img src="assets/images/bionet-project.png" alt="BIONET Project" />
+            </div>
+          </div>
         </div>
       </div>
+      </div>
     </section>
+
 
     <!-- -------------- CONTACT BOX ---------------- -->
     <section class="section" id="contact">
@@ -338,7 +554,6 @@
   </footer>
 
 
-
   <!-- --------------- VERTICAL CONTACT BAR --------------- -->
   <div class="vertical-contact-bar">
     <div class="contact-line"></div>
@@ -372,6 +587,18 @@
 
   <!-- ----- MAIN JS ----- -->
   <script src="assets/js/script.js"></script>
+  <script src="assets/js/photo-particles.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // The controller now finds the container via the selector
+      const photoController = new PhotoParticleController({
+        containerSelector: '.image', // Default, but explicit for clarity
+        imageSrc: 'assets/images/me.jpg',
+        touchInfluenceRadius: 120,
+        particleSamplingStep: 2,
+      });
+    });
+  </script>
 </body>
 
 </html>
