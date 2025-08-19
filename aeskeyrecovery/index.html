@@ -99,7 +99,7 @@
         <div class="objective fade-in">
             <h3>Comparative Model Analysis</h3>
             <p>
-              A comparative performance analysis of standard classifiers (Random Forest, Support Vector Machine) and a tailored Convolutional Neural Network (CNN) for AES key byte recovery on the ASCAD fixed and variable key datasets.
+              A comparative performance analysis of standard classifiers (Random Forest, Support Vector Machine), tailored Convolutional Neural Network (CNN) and Residual Neural Network (ResNet) for AES key byte recovery on the ASCAD fixed and variable key datasets.
             </p>
           </div>
           
@@ -192,15 +192,19 @@
           <div class="method-block fade-in">
             <h3>Machine Learning Models</h3>
             <p>
-              <!-- <strong>Random Forest (RF):</strong> Ensemble of decision trees <br>($n\_estimators=100, max\_depth=20, min\_samples\_leaf=10$).<br> Used for classification and Gini importance-based feature selection (top 100 features). -->
               <strong>Random Forest(RF): </strong> Ensemble of decision trees $n\_estimators=100$, $max\_depth=20$, $min\_samples\_leaf=10$. Used for classification and Gini importance-based feature selection (top 100 features). 
               <br>
               <strong>Support Vector Machine (SVM):</strong> Trained on reduced features with RBF kernel.
               <br>
               <strong>Convolutional Neural Network (CNN):</strong> Custom PyTorch CNN with 4 convolutional blocks (Conv1D, BatchNorm, ReLU, AvgPool1D) followed by dense layers. Inspired by existing SCA literature.
+              <br>
             </p>
             <img src="images/Fig2cnnarchitecture.png" alt="CNN Architecture" style="max-width: 100%; margin:10px auto; display:block; border-radius: 8px;">
             <p style="font-size:0.8em; text-align:center;">Fig 2: CNN Architecture for SCA</p>
+            <strong>Residual Neural Network (ResNet):</strong> Custom ResNet with 4 residual blocks  designed to capture complex leakage patterns.
+            <img src="images/fig2ResNet.png" alt="ResNet Architecture" style="max-width: 100%; margin:10px auto; display:block; border-radius: 8px;">
+            <p style="font-size:0.8em; text-align:center;">Fig 3: ResNet Architecture for SCA</p>
+
           </div>
 
           <div class="method-block fade-in">
@@ -282,6 +286,18 @@
               <td style="padding: 8px; border: 1px solid #ddd;">Reduced Features</td>
               <td style="padding: 8px; border: 1px solid #ddd;">~320 traces</td>
             </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #ddd;">ResNet</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">ASCADv</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">Full Features</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">30 traces</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #ddd;">ResNet</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">ASCADf</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">Full Features</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">110 traces</td>
+            </tr>
           </tbody>
         </table>
         
@@ -332,7 +348,7 @@
               <li class="fade-in">Zaid, G., Bossuet, L., Habrard, A., Venelli, A.: Methodology for efficient cnn architectures in profiling attacks. IACR Transactions on Cryptographic Hardware and Embedded Systems pp. 1–36 (2020)</li>
             </ul>
             <p class="fade-in" style="margin-top: 20px;">
-                For a comprehensive results and methodologies please <a href="mailto:mukeshpoudel246@gmail.com">request</a> a draft of the research paper.
+                For a comprehensive results and methodologies please refer <a href="https://arxiv.org/abs/2508.11817">arXiv</a>.
             </p>
         </div>
     </section>
