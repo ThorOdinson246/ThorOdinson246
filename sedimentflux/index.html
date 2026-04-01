@@ -7,7 +7,7 @@
     <meta name="keywords" content="Sediment Flux, Koshi River, Flood Risk Modeling, Machine Learning, Remote Sensing" />
     <meta name="author" content="Mukesh Poudel" />
     
-    <title>Koshi River Basin Research Project</title>
+    <title>Koshi Sediment Flux Research | Mukesh Poudel</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="/assets/css/style.css" />
     <link
@@ -40,139 +40,104 @@
       <div class="hero-content fade-in">
         <h1>Integrating Sediment Dynamics into Flood Risk Modeling in Koshi River Basin</h1>
         <p>
-          A machine learning-based approach to improve flood risk modeling to overcome static parameters and traditional GIS approaches and integrate sediment dynamics.
+          In many hydrological workflows, reliable sediment observations are sparse or uneven. This project tests whether satellite imagery can estimate SSC well enough to support more robust flood-risk modeling.
         </p>
       </div>
     </section>
 
     <section id="problem" class="fullscreen-section">
       <div class="section-content">
-        <p>**Ongoing project : Fall 2025 - Spring 2026</p>
-        <h3 class="fade-in">The Gap</h2>
+        <p class="conference-note">Presented at <a href="https://asprs.org/iCore/Events/Event_display.aspx?EventKey=MIDSOUTH26&WebsiteKey=e8e7bedc-f8a0-4a72-9989-95fd785baf8a" target="_blank" rel="noopener noreferrer">ASPRS Mid-South Region Conference 2026</a>.</p>
+        <h3 class="fade-in">Project Context</h3>
         <p class="fade-in">
-            The Koshi River Basin spans Nepal and northern India, and experiences recurring catastrophic floods that cause annual damages of approximately $14 million USD while impacting millions of lives.[<a href="#references">1</a>]. Current flood risk assessment methods in this region rely primarily on static parameters such as elevation, slope, drainage, and density which are analyzed through traditional GIS approaches. While these methods are valuable they fail to account for a crucial dynamic variable that fundamentally alters flood behavior: The Koshi River's immense sediment load i.e almost 12 times that of the Amazon River[<a href="#references">2</a
-          >].
+          The Koshi River Basin is one of the most flood-prone regions in Nepal and northern India, with recurring flood events that cause major social and economic losses [<a href="#references">1</a>]. Existing flood-risk literature and workflows often emphasize static predictors such as elevation, slope, and drainage, but they do not consistently account for one critical dynamic factor in Koshi: sediment behavior [<a href="#references">2</a>]. This project was designed to complement those methods by testing whether satellite-only spectral information can estimate SSC reliably enough to support more robust flood-risk modeling.
         </p>
 
-        <p class="fade-in">
-           This underscores the urgent need for sediment-aware models.
-        </p>
-
-        <h3 class="fade-in">Key Challenges</h3>
+        <h3 class="fade-in">Key Constraints</h3>
         <ul class="animated-list">
-          <li class="fade-in">
-            Traditional models' neglect of hydromorphological feedbacks
-          </li>
-          <li class="fade-in">
-            Stochastic nature of sediment deposition patterns
-          </li>
-          <li class="fade-in">
-            Computational complexity in modeling non-linear sediment-flow
-            interactions
-          </li>
-          <li class="fade-in">
-            Lack of high-resolution DEM data for accurate channel mapping
-          </li>
-          <li class="fade-in">
-            Integration of multi-temporal sediment flux measurements
-          </li>
+          <li class="fade-in">Event-driven sediment behavior in a steep Himalayan setting</li>
+          <li class="fade-in">Limited usable scenes due to revisit timing and cloud cover</li>
+          <li class="fade-in">Sensor differences (Landsat vs Sentinel) and resolution mismatch</li>
+          <li class="fade-in">Cross-period transfer remains harder than within-period fitting</li>
         </ul>
       </div>
     </section>
 
-    <section id="objectives" class="fullscreen-section">
-        <div class="section-content">
-        <div class="objective fade-in">
-            <h3>Framework Development</h3>
-            <p>
-              Develop an integrated methodological framework that leverages Sentinel-2 multispectral imagery to quantify sediment dynamics and incorporate this data into flood risk models. Extract sediment concentration patterns using spectral indices and band ratio transformations to create sediment-adjusted digital elevation models that better represent actual flood behavior in the Koshi Basin
-            </p>
-          </div>
-          
-          <div class="objective fade-in">
-            <h3>ML Algorithm Evaluation</h3>
-            <p>
-              Implement machine learning algorithms (Random Forest, XGBoost, SVMs) to establish reliable relationships between Sentinel-2 spectral signatures and sediment concentrations using the Normalized Difference Suspended Sediment Index (NDSSI). Apply these sediment-aware models to improve flood prediction accuracy by accounting for continuous channel morphology changes in high-sediment environments.
-            </p>
-          </div>
-          
-          <div class="objective fade-in">
-            <h3>Quantitative Assessment</h3>
-            <p>
-              Evaluate flood prediction improvements gained through sediment-integrated modeling using cross-validation techniques with F1-score, precision, recall, and AUC metrics. Quantify how the inclusion of Sentinel-2 derived sediment data enhances model performance compared to traditional GIS-based flood risk approaches that overlook sediment dynamics.
-            </p>
-          </div>
-          </div>
-          
-
-    </section>
-
     <section id="methodology" class="fullscreen-section">
       <div class="section-content">
-        <h2 class="fade-in">Technical Methodology</h2>
-
+        <h2 class="fade-in">Information & Methodology</h2>
         <div class="method-block fade-in">
-            <h3>Data Collection & Preprocessing</h3>
-            <p>
-              Process multi-temporal Sentinel-2 imagery to extract suspended sediment concentrations across the Koshi River Basin. Apply atmospheric correction cloud masking to ensure data quality. Calculate NDSSI using band ratios B4/B3 and B4/B2, while integrating traditional flood modeling inputs including SRTM and Copernicus DEMs (30m) processed through ArcGIS Hydrology tools[<a href="#references">3</a>].
-            </p>
-          </div>
-          
-          <div class="method-block fade-in">
-            <h3>Hydrodynamic Modeling</h3>
-            <p>
-              Integrate derived sediment data into hydrodynamic modeling frameworks to account for sediment-induced changes in channel morphology and water conveyance capacity. Configure simplified models with the Muskingum-Cunge routing method while incorporating sediment transport parameters to simulate the unique "super-elevated" channels characteristic of the Koshi system as identified in ICIMOD research.
-            </p>
-          </div>
-          
-          <div class="method-block fade-in">
-            <h3>Machine Learning Implementation</h3>
-            <p>
-              Develop a dual-approach machine learning system that: (1) accurately extracts sediment concentrations from Sentinel-2 spectral signatures through regression models, and (2) integrates these sediment inputs with hydrological variables to improve flood prediction. Engineer features combining satellite-derived sediment data with topographic and hydrologic parameters to create comprehensive flood risk models that account for dynamic channel changes[<a href="#references">4</a>].
-            </p>
-          </div>
-          
-          
-          
+          <h3>Data Source</h3>
+          <p>
+            In-situ SSC observations were provided by the Department of Hydrology and Meteorology (DHM), Nepal.
+            Satellite imagery was retrieved through Google Earth Engine using Landsat 5, Landsat 7, Landsat 8, Landsat 9, and Sentinel-2 collections.
+          </p>
+        </div>
+        <div class="method-block fade-in">
+          <h3>Data Inputs</h3>
+          <p>
+            The SSC estimation workflow uses multispectral surface-reflectance bands from Landsat and Sentinel imagery: Blue, Green, Red, NIR, SWIR1, and SWIR2.
+            These bands are chosen because suspended sediment alters visible/NIR reflectance patterns in water.
+          </p>
+        </div>
+        <div class="method-block fade-in">
+          <h3>Sensor Harmonization + Feature Space</h3>
+          <p>
+            Landsat and Sentinel have different native characteristics and spatial resolution, so scenes are harmonized/resampled before modeling.
+            We then build spectral feature sets (raw bands + engineered transforms) and compare model families across time periods.
+          </p>
+        </div>
+        <div class="method-block fade-in">
+          <h3>Aggregation and Mapping Logic</h3>
+          <p>
+            In-situ SSC dates are paired with nearby satellite overpasses using a constrained lag window.
+            For mapping, NDWI-first masking is used to isolate water-focused pixels before spatial SSC prediction.
+          </p>
+        </div>
       </div>
     </section>
 
     <section id="outcomes" class="fullscreen-section">
       <div class="section-content">
-        <h2 class="fade-in">Expected Outcomes</h2>
+        <h2 class="fade-in">Results</h2>
 
-        <div class="outcome-grid">
-          <div class="outcome-card fade-in">
-            <h3>Sediment-Aware Flood Model</h3>
-            <p>
-              A comprehensive model adaptable to other Himalayan river systems,
-              leveraging advanced spectral indices for sediment quantification.
-            </p>
-          </div>
+        <div class="result-highlight fade-in">
+          <h3>Best Model Performance by Time Period</h3>
+          <p>
+            The strongest model behavior appears in 2009-2016, while transfer to other periods is weaker.
+            This indicates period-sensitive learning behavior and supports using cross-period diagnostics instead of relying on one best-case score.
+          </p>
+        </div>
 
-          <div class="outcome-card fade-in">
-            <h3>Python Geospatial Library</h3>
-            <p>
-              Open-source toolset with sediment-adjusted modeling methodology
-              for researchers and emergency management agencies.
-            </p>
-          </div>
+        <div class="figure-grid fade-in">
+          <figure class="figure-card">
+            <img src="images/Fig6C_NOffsetSE_GroupedBars_HiRes.png" alt="Best model performance per time period" loading="lazy">
+            <figcaption>Model-family comparison across time periods.</figcaption>
+          </figure>
+          <figure class="figure-card">
+            <img src="images/spatial_sscfig1.jpg" alt="Spatial SSC figure 1" loading="lazy">
+            <figcaption>Spatial expansion check #1: NDWI-based masking identifies likely water pixels, then SSC is predicted spatially within that mask.</figcaption>
+          </figure>
+          <figure class="figure-card">
+            <img src="images/spatialsscfig2.jpg" alt="Spatial SSC figure 2" loading="lazy">
+            <figcaption>Spatial expansion check #2: repeating the same workflow on another case verifies that predicted high-SSC zones remain physically plausible along active channel areas.</figcaption>
+          </figure>
+        </div>
 
-          <div class="outcome-card fade-in">
-            <h3>Interactive Visualization</h3>
-            <p>
-              Web-based interface with Leaflet.js implementation allowing users
-              to visualize how sediment accumulation modifies flood behavior.
-            </p>
-          </div>
+        <div class="method-block fade-in">
+          <h3>Why Spatial Expansion Helps</h3>
+          <p>
+            Point-based SSC values are useful for calibration, but they do not show spatial sediment structure.
+            Expanding to NDWI-masked spatial prediction helps reveal where sediment concentration is likely elevated across the river corridor, which is more informative for flood-risk interpretation.
+          </p>
+        </div>
 
-          <div class="outcome-card fade-in">
-            <h3>Enhanced Prediction Accuracy</h3>
-            <p>
-              Quantifiable improvement in flood prediction metrics, reducing
-              false negatives in early warning systems.<br>
-            </p>
-          </div>
+        <div class="method-block fade-in">
+          <h3>Next Steps</h3>
+          <p>
+            Address data scarcity by filling temporal and seasonal gaps with additional usable scenes, improve atmospheric correction robustness, and explore SAR-supported alternatives for cloud-heavy periods.
+            The next phase focuses on improving cross-period transfer stability with better gap-filled training coverage.
+          </p>
         </div>
       </div>
     </section>
@@ -187,6 +152,18 @@
           <li>ICIMOD: “Sediment Management in the Koshi Basin.” Sediment Management in the Koshi Basin, ICIMOD, Dec. 2021, www.icimod.org/wp-content/uploads/2021/12/1200g_20211202_PB_SedimentManagementInTheKoshiBasin_AF.pdf. Accessed 15 Mar. 2025.</li>
           
         </ol>
+      </div>
+    </section>
+
+    <section id="acknowledgements" class="fullscreen-section">
+      <div class="section-content">
+        <h2 class="fade-in">Acknowledgements</h2>
+        <p class="fade-in">
+          This work was supported by the Drapeau Center for Undergraduate Research (DCUR), University of Southern Mississippi (USM).
+        </p>
+        <p class="fade-in">
+          The authors acknowledge HPC at The University of Southern Mississippi supported by the National Science Foundation under the Major Research Instrumentation (MRI) program via Grant #ACI 1626217.
+        </p>
       </div>
     </section>
 

@@ -1,9 +1,16 @@
 # Integrating Sediment Dynamics into Flood Risk Modeling in Koshi River Basin
 
 ## Overview
-Project Page for ongoing research on analyzing and integrating sediment flux in rivers and streams, focusing on erosion patterns, transport processes, and deposition dynamics especially in Nepal's Koshi river systems.
+Project page for ongoing research on integrating sediment dynamics into flood-risk modeling in Nepal's Koshi Basin.
 
-Additional Overiview available at [mukeshpoudel.com.np/sedimentflux](https://mukeshpoudel.com.np/sedimentflux)
+The page now includes:
+- conference milestone (ASPRS Mid-South 2026)
+- updated period-wise model results
+- sampling-bias diagnostics
+- observed vs predicted SSC visual summaries
+- spatial SSC validation figures (RGB + NDWI + predicted SSC)
+
+Additional overview available at [mukeshpoudel.com.np/sedimentflux](https://mukeshpoudel.com.np/sedimentflux)
 
 ## License
 MIT License
