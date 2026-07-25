@@ -16,6 +16,7 @@ const titles: Record<string, string> = {
 export function Sidebar({ mobile = false }: { mobile?: boolean }) {
   const collapsed = useEditorStore((s) => s.sidebarCollapsed);
   const activePanel = useEditorStore((s) => s.activePanel);
+  const setSidebarCollapsed = useEditorStore((s) => s.setSidebarCollapsed);
 
   if (collapsed) return null;
 
@@ -26,8 +27,19 @@ export function Sidebar({ mobile = false }: { mobile?: boolean }) {
         mobile ? "absolute right-0 top-0 z-30 h-full w-64 shadow-2xl" : "w-64"
       )}
     >
-      <div className="px-4 pt-4 pb-1 text-[11px] font-semibold tracking-wide text-text-muted">
-        {titles[activePanel]}
+      <div className="flex items-center justify-between px-4 pt-4 pb-1 text-[11px] font-semibold tracking-wide text-text-muted">
+        <span>{titles[activePanel]}</span>
+        {mobile && (
+          <button
+            onClick={() => setSidebarCollapsed(true)}
+            aria-label="Close sidebar"
+            className="flex h-5 w-5 items-center justify-center rounded hover:bg-white/10 hover:text-text-body"
+          >
+            <svg width="13" height="13" viewBox="0 0 16 16">
+              <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+            </svg>
+          </button>
+        )}
       </div>
       {activePanel === "explorer" && <FileTree root={fileTree} />}
       {activePanel === "account" && <AccountPanel />}

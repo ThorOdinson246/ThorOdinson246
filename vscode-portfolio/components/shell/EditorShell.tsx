@@ -16,6 +16,7 @@ import { Terminal } from "./Terminal";
 export function EditorShell({ rounded = false }: { rounded?: boolean }) {
   const isMobile = useIsMobile();
   const setSidebarCollapsed = useEditorStore((s) => s.setSidebarCollapsed);
+  const sidebarCollapsed = useEditorStore((s) => s.sidebarCollapsed);
   const terminalOpen = useEditorStore((s) => s.terminalOpen);
   const toggleTerminal = useEditorStore((s) => s.toggleTerminal);
   const prevMobile = useRef<boolean | null>(null);
@@ -53,6 +54,13 @@ export function EditorShell({ rounded = false }: { rounded?: boolean }) {
             </div>
           )}
         </main>
+        {isMobile && !sidebarCollapsed && (
+          <div
+            onClick={() => setSidebarCollapsed(true)}
+            className="absolute inset-0 z-20 bg-black/50"
+            aria-hidden="true"
+          />
+        )}
         <Sidebar mobile={isMobile} />
         <ActivityBar />
       </div>
