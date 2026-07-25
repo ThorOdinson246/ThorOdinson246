@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useEditorStore } from "@/lib/store";
+import { getLofi } from "@/lib/lofi";
 
 function WifiGlyph() {
   return (
@@ -13,11 +14,15 @@ function WifiGlyph() {
   );
 }
 
-function VolumeGlyph() {
+function VolumeGlyph({ on }: { on: boolean }) {
   return (
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
       <path d="M4 9v6h3.5L13 19V5L7.5 9H4z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-      <path d="M16 9.5a3.5 3.5 0 0 1 0 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      {on ? (
+        <path d="M16 9.5a3.5 3.5 0 0 1 0 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      ) : (
+        <path d="M16.5 9.5l4 5M20.5 9.5l-4 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      )}
     </svg>
   );
 }
@@ -35,6 +40,8 @@ function BatteryGlyph() {
 export function TopBar() {
   const windowState = useEditorStore((s) => s.windowState);
   const setWindowState = useEditorStore((s) => s.setWindowState);
+  const musicOn = useEditorStore((s) => s.musicOn);
+  const setMusicOn = useEditorStore((s) => s.setMusicOn);
   const [now, setNow] = useState<Date | null>(null);
   const [net, setNet] = useState("0 B/s");
   const [ghz, setGhz] = useState("2.9 GHz");
@@ -59,6 +66,13 @@ export function TopBar() {
 
   const toggleActivities = () =>
     setWindowState(windowState === "minimized" || windowState === "closed" ? "maximized" : "minimized");
+
+  function toggleMusic() {
+    const next = !musicOn;
+    setMusicOn(next);
+    if (next) getLofi().start();
+    else getLofi().stop();
+  }
 
   return (
     <div className="flex h-7 shrink-0 items-center justify-between bg-[#1b1b1b] px-2 text-[12.5px] font-medium text-white/85">
@@ -85,7 +99,13 @@ export function TopBar() {
         <span className="hidden tabular-nums lg:inline">60°C</span>
         <span className="hidden tabular-nums lg:inline">6.9 GB</span>
         <WifiGlyph />
-        <VolumeGlyph />
+        <button
+          onClick={toggleMusic}
+          title={musicOn ? "Lo-fi: on — click to mute" : "Lo-fi coding music: click to play"}
+          className={musicOn ? "text-accent-link" : "hover:text-white"}
+        >
+          <VolumeGlyph on={musicOn} />
+        </button>
         <span className="flex items-center gap-1">
           <BatteryGlyph />
           <span className="tabular-nums">46%</span>
