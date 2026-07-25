@@ -11,10 +11,13 @@ import { TabsBar } from "./TabsBar";
 import { EditorPane } from "./EditorPane";
 import { StatusBar } from "./StatusBar";
 import { CommandPalette } from "./CommandPalette";
+import { Terminal } from "./Terminal";
 
 export function EditorShell({ rounded = false }: { rounded?: boolean }) {
   const isMobile = useIsMobile();
   const setSidebarCollapsed = useEditorStore((s) => s.setSidebarCollapsed);
+  const terminalOpen = useEditorStore((s) => s.terminalOpen);
+  const toggleTerminal = useEditorStore((s) => s.toggleTerminal);
   const prevMobile = useRef<boolean | null>(null);
 
   useEffect(() => {
@@ -23,6 +26,17 @@ export function EditorShell({ rounded = false }: { rounded?: boolean }) {
       setSidebarCollapsed(isMobile);
     }
   }, [isMobile, setSidebarCollapsed]);
+
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      if ((e.ctrlKey || e.metaKey) && e.key === "`") {
+        e.preventDefault();
+        toggleTerminal();
+      }
+    }
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [toggleTerminal]);
 
   return (
     <div className={clsx("flex h-full flex-col bg-editor-bg", rounded && "overflow-hidden rounded-lg")}>
@@ -33,6 +47,11 @@ export function EditorShell({ rounded = false }: { rounded?: boolean }) {
           <div className="min-h-0 flex-1">
             <EditorPane />
           </div>
+          {terminalOpen && (
+            <div className="h-[38%] min-h-[180px] shrink-0">
+              <Terminal />
+            </div>
+          )}
         </main>
         <Sidebar mobile={isMobile} />
         <ActivityBar />
