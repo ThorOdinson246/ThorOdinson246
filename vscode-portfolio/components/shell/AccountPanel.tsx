@@ -22,7 +22,7 @@ export function AccountPanel() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/images/me.jpg" alt={identity.name} className="h-20 w-20 rounded-full object-cover ring-2 ring-accent-focus/40" />
         <p className="mt-3 text-[14px] font-semibold text-text-body">{identity.name}</p>
-        <p className="mt-1 text-[12px] text-text-muted">Software · AI · Geospatial</p>
+        <p className="mt-1 text-[12px] text-text-muted">Software · AI · Web · Geospatial</p>
       </div>
       <Row label="GitHub" href={identity.github} value={identity.github.replace("https://", "")} />
       <Row label="LinkedIn" href={identity.linkedin} value={identity.linkedin.replace("https://", "")} />

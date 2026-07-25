@@ -32,7 +32,7 @@ export function DesktopWidget() {
           <span className="text-accent-link">editor</span>  VS Code
         </div>
         <div>
-          <span className="text-accent-link">focus</span>   Software · AI · Geospatial
+          <span className="text-accent-link">focus</span>   Software · AI · Web · Geospatial
         </div>
         <div className="text-white/50">{identity.name}</div>
       </div>

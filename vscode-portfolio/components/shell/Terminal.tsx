@@ -123,7 +123,7 @@ export function Terminal() {
       case "whoami":
         return (
           <div className="space-y-1 text-text-muted">
-            <p className="text-text-body">{identity.name} — Software · AI · Geospatial</p>
+            <p className="text-text-body">{identity.name} — Software · AI · Web · Geospatial</p>
             <p>{identity.intro}</p>
           </div>
         );
@@ -340,7 +340,7 @@ function Neofetch() {
     ["Editor", "VS Code"],
     ["DE", "Portfolio.app"],
     ["Languages", "Python, C++, JavaScript, Dart"],
-    ["Focus", "Software · AI · Geospatial"],
+    ["Focus", "Software · AI · Web · Geospatial"],
     ["Contact", identity.email],
   ];
   return (
