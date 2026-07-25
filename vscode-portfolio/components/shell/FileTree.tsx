@@ -39,12 +39,20 @@ function FileRow({ fileId, depth }: { fileId: string; depth: number }) {
   const file = fileMap[fileId];
   const activeTabId = useEditorStore((s) => s.activeTabId);
   const openFile = useEditorStore((s) => s.openFile);
+  const setSidebarCollapsed = useEditorStore((s) => s.setSidebarCollapsed);
   if (!file) return null;
   const active = activeTabId === fileId;
 
+  function handleOpen() {
+    openFile(fileId);
+    if (typeof window !== "undefined" && window.matchMedia("(max-width: 899px)").matches) {
+      setSidebarCollapsed(true);
+    }
+  }
+
   return (
     <button
-      onClick={() => openFile(fileId)}
+      onClick={handleOpen}
       className={clsx(
         "flex w-full items-center gap-1.5 px-2 py-[3px] text-left text-[13px] hover:bg-white/5",
         active ? "bg-white/10 text-text-body" : "text-text-muted"

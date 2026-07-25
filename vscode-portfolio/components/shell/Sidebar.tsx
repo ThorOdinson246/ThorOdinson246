@@ -13,15 +13,17 @@ const titles: Record<string, string> = {
   settings: "SETTINGS",
 };
 
-export function Sidebar() {
+export function Sidebar({ mobile = false }: { mobile?: boolean }) {
   const collapsed = useEditorStore((s) => s.sidebarCollapsed);
   const activePanel = useEditorStore((s) => s.activePanel);
+
+  if (collapsed) return null;
 
   return (
     <aside
       className={clsx(
         "no-scrollbar shrink-0 overflow-y-auto border-l border-border bg-sidebar-bg text-text-muted",
-        collapsed ? "w-0 overflow-hidden border-l-0" : "w-64"
+        mobile ? "absolute right-0 top-0 z-30 h-full w-64 shadow-2xl" : "w-64"
       )}
     >
       <div className="px-4 pt-4 pb-1 text-[11px] font-semibold tracking-wide text-text-muted">
