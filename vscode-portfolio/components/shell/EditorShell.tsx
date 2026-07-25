@@ -40,7 +40,10 @@ export function EditorShell({ rounded = false }: { rounded?: boolean }) {
   }, [toggleTerminal]);
 
   return (
-    <div className={clsx("flex h-full flex-col bg-editor-bg", rounded && "overflow-hidden rounded-lg")}>
+    <div
+      className={clsx("flex h-full w-full flex-col bg-editor-bg", rounded && "overflow-hidden rounded-lg")}
+      style={{ zoom: 1.1 }}
+    >
       <TitleBar />
       <div className="relative flex min-h-0 flex-1">
         <main className="flex min-w-0 flex-1 flex-col">
