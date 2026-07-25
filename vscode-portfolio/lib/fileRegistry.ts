@@ -65,3 +65,4 @@ export const fileMap: Record<string, FileEntry> = Object.fromEntries(files.map((
 
 export const defaultOpenTabIds = ["home", "projects", "contact"];
 export const defaultActiveTabId = "home";
+export const pinnedTabIds = new Set(["home", "projects", "contact"]);

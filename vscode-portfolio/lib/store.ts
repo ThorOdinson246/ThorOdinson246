@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { defaultOpenTabIds, defaultActiveTabId } from "./fileRegistry";
+import { defaultOpenTabIds, defaultActiveTabId, pinnedTabIds } from "./fileRegistry";
 
 export type WindowState = "normal" | "maximized" | "minimized" | "closed";
 
@@ -17,6 +17,7 @@ interface EditorStore {
   setActiveTab: (id: string) => void;
   reorderTabs: (fromIndex: number, toIndex: number) => void;
   toggleSidebar: () => void;
+  setSidebarCollapsed: (collapsed: boolean) => void;
   setPanel: (panel: "explorer" | "settings" | "account") => void;
   togglePalette: (open?: boolean) => void;
   toggleFolder: (id: string) => void;
@@ -35,7 +36,7 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
     "projects/research",
     "involvements",
   ]),
-  windowState: "normal",
+  windowState: "maximized",
   activePanel: "explorer",
 
   openFile: (id) => {
@@ -48,6 +49,7 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
   },
 
   closeTab: (id) => {
+    if (pinnedTabIds.has(id)) return;
     const { openTabIds, activeTabId } = get();
     const index = openTabIds.indexOf(id);
     if (index === -1) return;
@@ -69,6 +71,8 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
   },
 
   toggleSidebar: () => set((s) => ({ sidebarCollapsed: !s.sidebarCollapsed })),
+
+  setSidebarCollapsed: (collapsed) => set({ sidebarCollapsed: collapsed }),
 
   setPanel: (panel) =>
     set((s) => {
