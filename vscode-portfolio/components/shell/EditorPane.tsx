@@ -56,7 +56,7 @@ export function EditorPane() {
   if (!activeTabId) return <EmptyState />;
 
   return (
-    <div className="h-full overflow-y-auto bg-editor-bg">
+    <div className="h-full overflow-y-auto overflow-x-hidden bg-editor-bg">
       {openTabIds.map((id) => {
         const file = fileMap[id];
         if (!file || !file.componentKey) return null;

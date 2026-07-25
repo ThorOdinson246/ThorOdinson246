@@ -36,20 +36,20 @@ export function TitleBar() {
   const activeFile = activeTabId ? fileMap[activeTabId] : null;
 
   return (
-    <header className="flex h-8 shrink-0 items-center justify-between border-b border-border bg-titlebar-bg px-3 text-[13px] text-text-muted">
-      <div className="flex min-w-[70px] items-center gap-2">
+    <header className="flex h-8 shrink-0 items-center justify-between gap-2 overflow-hidden border-b border-border bg-titlebar-bg px-3 text-[13px] text-text-muted">
+      <div className="flex shrink-0 items-center gap-2">
         <VscodeLogo size={16} />
         <span className="hidden text-text-muted sm:inline">Portfolio</span>
       </div>
 
       <button
         onClick={() => togglePalette(true)}
-        className="min-w-[40%] rounded bg-white/5 px-3 py-0.5 text-center text-[12px] text-text-muted transition-colors hover:bg-white/10"
+        className="min-w-0 max-w-md flex-1 truncate whitespace-nowrap rounded bg-white/5 px-3 py-0.5 text-center text-[12px] text-text-muted transition-colors hover:bg-white/10"
       >
         {activeFile ? `mukesh-poudel — ${activeFile.name}` : "mukesh-poudel"}
       </button>
 
-      <div className="flex min-w-[70px] items-center justify-end gap-2">
+      <div className="flex shrink-0 items-center justify-end gap-2">
         <WindowButton onClick={() => setWindowState("minimized")} title="Minimize">
           <svg width="10" height="10" viewBox="0 0 16 16">
             <path d="M3 8h10" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
