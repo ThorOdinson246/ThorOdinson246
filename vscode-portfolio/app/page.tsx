@@ -1,5 +1,5 @@
-import { EditorShell } from "@/components/shell/EditorShell";
+import { Desktop } from "@/components/desktop/Desktop";
 
 export default function Home() {
-  return <EditorShell />;
+  return <Desktop />;
 }
