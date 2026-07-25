@@ -2,6 +2,7 @@
 
 import { useEditorStore } from "@/lib/store";
 import { fileMap } from "@/lib/fileRegistry";
+import { VscodeLogo } from "./VscodeLogo";
 
 function WindowButton({
   onClick,
@@ -37,10 +38,7 @@ export function TitleBar() {
   return (
     <header className="flex h-8 shrink-0 items-center justify-between border-b border-border bg-titlebar-bg px-3 text-[13px] text-text-muted">
       <div className="flex min-w-[70px] items-center gap-2">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" className="text-accent-link">
-          <path d="M17 3l4 2v14l-4 2-9-8 9-10z" fill="currentColor" opacity="0.85" />
-          <path d="M7 8.5L9 7.5l4 4.5-4 4.5-2-1v-7z" fill="currentColor" opacity="0.5" />
-        </svg>
+        <VscodeLogo size={16} />
         <span className="hidden text-text-muted sm:inline">Portfolio</span>
       </div>
 

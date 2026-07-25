@@ -2,6 +2,7 @@
 
 import { useEditorStore } from "@/lib/store";
 import { identity } from "@/lib/content/identity";
+import { VscodeLogo } from "../shell/VscodeLogo";
 
 function IconTile({
   label,
@@ -57,10 +58,7 @@ export function DesktopIcons() {
   return (
     <div className="absolute left-4 top-4 flex flex-col gap-4 sm:left-6 sm:top-6">
       <IconTile label="Portfolio" onClick={() => setWindowState("maximized")}>
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-          <path d="M16 3l5 2.5v13L16 21l-9-8 9-10z" fill="#58a6ff" />
-          <path d="M7 8.5L9 7.5l4 4.5-4 4.5-2-1v-7z" fill="#8b949e" />
-        </svg>
+        <VscodeLogo size={28} />
       </IconTile>
       <IconTile label="Projects" onClick={() => open("projects")}>
         <FolderGlyph />
