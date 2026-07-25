@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { StandalonePage } from "@/components/content/StandalonePage";
-import { SedimentFlux } from "@/components/content/research/SedimentFlux";
+import { Desktop } from "@/components/desktop/Desktop";
 
 export const metadata: Metadata = {
   title: "Integrating Sediment Dynamics into Flood Risk Modeling in Koshi River Basin — Mukesh Poudel",
@@ -17,9 +16,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return (
-    <StandalonePage>
-      <SedimentFlux />
-    </StandalonePage>
-  );
+  return <Desktop />;
 }

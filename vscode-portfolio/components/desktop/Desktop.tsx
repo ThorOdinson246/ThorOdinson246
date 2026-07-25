@@ -8,6 +8,7 @@ import { EditorShell } from "../shell/EditorShell";
 import { TopBar } from "./TopBar";
 import { DesktopIcons } from "./DesktopIcons";
 import { DesktopWidget } from "./DesktopWidget";
+import { UrlSync } from "../UrlSync";
 
 export function Desktop() {
   const windowState = useEditorStore((s) => s.windowState);
@@ -22,6 +23,7 @@ export function Desktop() {
 
   return (
     <div className="relative flex h-full flex-col overflow-hidden bg-[radial-gradient(circle_at_75%_15%,#772953_0%,#3b1f34_38%,#1a1420_100%)]">
+      <UrlSync />
       <TopBar />
 
       <div className="relative flex-1 overflow-hidden">

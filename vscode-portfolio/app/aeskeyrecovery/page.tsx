@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { StandalonePage } from "@/components/content/StandalonePage";
-import { AesKeyRecovery } from "@/components/content/research/AesKeyRecovery";
+import { Desktop } from "@/components/desktop/Desktop";
 
 export const metadata: Metadata = {
   title: "Machine Learning-Based AES Key Recovery via Side-Channel Analysis — Mukesh Poudel",
@@ -17,9 +16,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return (
-    <StandalonePage>
-      <AesKeyRecovery />
-    </StandalonePage>
-  );
+  return <Desktop />;
 }
