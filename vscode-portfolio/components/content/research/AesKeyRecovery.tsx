@@ -12,7 +12,7 @@ function OutLink({ href, children }: { href: string; children: React.ReactNode }
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-2 rounded-md border border-border bg-white/[0.04] px-3 py-1.5 text-[13px] text-text-body transition-colors hover:border-accent-focus hover:text-accent-link"
+      className="inline-flex items-center gap-2 rounded-sm border border-border bg-black/30 px-3 py-1.5 text-[13px] text-text-body transition-colors hover:border-accent-focus hover:text-accent-link"
     >
       {children}
     </a>
@@ -232,9 +232,9 @@ export function AesKeyRecovery() {
           Full Features=all 700 traces for ASCADf, 1400 for ASCADv, Reduced Features=top 100 features based on Gini
           importance
         </p>
-        <div className="overflow-x-auto rounded-lg border border-border" data-reveal>
+        <div className="overflow-x-auto rounded border border-border" data-reveal>
           <table className="w-full text-left text-[13px]">
-            <thead className="bg-white/[0.04] text-text-body">
+            <thead className="bg-black/30 text-text-body">
               <tr>
                 <th className="px-4 py-2 font-semibold">Model</th>
                 <th className="px-4 py-2 font-semibold">Dataset</th>

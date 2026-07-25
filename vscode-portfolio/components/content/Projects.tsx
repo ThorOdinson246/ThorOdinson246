@@ -8,7 +8,7 @@ export function Projects() {
   const ref = useReveal();
 
   return (
-    <div ref={ref} className="mx-auto max-w-5xl px-8 py-12">
+    <div ref={ref} className="mx-auto max-w-5xl px-5 py-10 sm:px-8 sm:py-12">
       <p className="mb-2 font-mono text-[13px] text-text-muted">{"// projects.tsx"}</p>
       <h1 className="text-3xl font-semibold text-text-body">Projects</h1>
       <p className="mt-2 max-w-2xl text-[14px] text-text-muted">

@@ -32,13 +32,13 @@ export function ProjectCard({ project }: { project: Project }) {
 
   return (
     <article
-      className="flex flex-col overflow-hidden rounded-lg border border-border bg-white/[0.02] transition-colors hover:border-accent-focus/50"
+      className="flex flex-col overflow-hidden rounded border border-border bg-sidebar-bg transition-colors hover:border-accent-focus/60"
       data-reveal
     >
-      <div className="relative aspect-video overflow-hidden border-b border-border bg-black/30">
+      <div className="relative aspect-video overflow-hidden border-b border-border bg-black/40">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={project.image} alt={project.title} className="h-full w-full object-cover" loading="lazy" />
-        <span className="absolute left-3 top-3 rounded-full border border-accent-focus/40 bg-black/60 px-2.5 py-0.5 text-[11px] font-medium text-accent-link backdrop-blur">
+        <span className="absolute left-3 top-3 rounded-sm border border-border bg-black/70 px-2 py-0.5 text-[11px] font-medium text-accent-link backdrop-blur">
           {project.badge}
         </span>
       </div>
@@ -49,7 +49,7 @@ export function ProjectCard({ project }: { project: Project }) {
 
         <div className="mt-4 flex flex-wrap gap-1.5">
           {project.tech.map((t) => (
-            <span key={t} className="rounded border border-border bg-white/[0.03] px-2 py-0.5 text-[11px] text-text-body">
+            <span key={t} className="rounded-sm border border-border bg-black/30 px-2 py-0.5 text-[11px] text-text-body">
               {t}
             </span>
           ))}
@@ -59,7 +59,7 @@ export function ProjectCard({ project }: { project: Project }) {
           {project.pageTabId && (
             <button
               onClick={() => openFile(project.pageTabId!)}
-              className="flex items-center gap-2 rounded-md bg-accent-focus px-3 py-1.5 text-[12px] font-medium text-white transition-colors hover:bg-accent-hover"
+              className="flex items-center gap-2 rounded-sm bg-accent-focus px-3 py-1.5 text-[12px] font-medium text-white transition-colors hover:bg-accent-hover"
             >
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                 <path d="M2 4.5h12M2 8h12M2 11.5h8" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
@@ -73,7 +73,7 @@ export function ProjectCard({ project }: { project: Project }) {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-md border border-border bg-white/[0.04] px-3 py-1.5 text-[12px] text-text-body transition-colors hover:border-accent-focus hover:text-accent-link"
+              className="flex items-center gap-2 rounded-sm border border-border bg-black/30 px-3 py-1.5 text-[12px] text-text-body transition-colors hover:border-accent-focus hover:text-accent-link"
             >
               <LinkIcon kind={link.icon} />
               {link.label}

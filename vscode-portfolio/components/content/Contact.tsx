@@ -19,7 +19,7 @@ function ThanksPanel({ onReset }: { onReset: () => void }) {
       </p>
       <button
         onClick={onReset}
-        className="mt-6 rounded-md border border-border bg-white/[0.04] px-4 py-2 text-[13px] text-text-body transition-colors hover:border-accent-focus hover:text-accent-link"
+        className="mt-6 rounded-sm border border-border bg-black/30 px-4 py-2 text-[13px] text-text-body transition-colors hover:border-accent-focus hover:text-accent-link"
       >
         Send another message
       </button>
@@ -54,7 +54,7 @@ export function Contact() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-8 py-12">
+    <div className="mx-auto max-w-2xl px-5 py-10 sm:px-8 sm:py-12">
       <p className="mb-2 font-mono text-[13px] text-text-muted">{"// contact.tsx"}</p>
       <h1 className="text-3xl font-semibold text-text-body">Let&apos;s get in touch</h1>
 
@@ -86,14 +86,14 @@ export function Contact() {
                 name="name"
                 placeholder="Name"
                 required
-                className="rounded-md border border-border bg-white/[0.03] px-3 py-2.5 text-[14px] text-text-body outline-none transition-colors focus:border-accent-focus"
+                className="rounded-sm border border-border bg-black/30 px-3 py-2.5 text-[14px] text-text-body outline-none transition-colors focus:border-accent-focus"
               />
               <input
                 type="email"
                 name="email"
                 placeholder="Email"
                 required
-                className="rounded-md border border-border bg-white/[0.03] px-3 py-2.5 text-[14px] text-text-body outline-none transition-colors focus:border-accent-focus"
+                className="rounded-sm border border-border bg-black/30 px-3 py-2.5 text-[14px] text-text-body outline-none transition-colors focus:border-accent-focus"
               />
             </div>
             <textarea
@@ -101,13 +101,13 @@ export function Contact() {
               placeholder="Message"
               required
               rows={6}
-              className="w-full rounded-md border border-border bg-white/[0.03] px-3 py-2.5 text-[14px] text-text-body outline-none transition-colors focus:border-accent-focus"
+              className="w-full rounded-sm border border-border bg-black/30 px-3 py-2.5 text-[14px] text-text-body outline-none transition-colors focus:border-accent-focus"
             />
 
             <button
               type="submit"
               disabled={status === "sending"}
-              className="rounded-md bg-accent-focus px-5 py-2.5 text-[14px] font-medium text-white transition-colors hover:bg-accent-hover disabled:opacity-60"
+              className="rounded-sm bg-accent-focus px-5 py-2.5 text-[14px] font-medium text-white transition-colors hover:bg-accent-hover disabled:opacity-60"
             >
               {status === "sending" ? "Sending..." : "Send"}
             </button>

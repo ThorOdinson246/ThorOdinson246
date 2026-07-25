@@ -15,7 +15,7 @@ export function ResearchLayout({
   const ref = useReveal();
 
   return (
-    <div ref={ref} className="mx-auto max-w-3xl px-8 py-12">
+    <div ref={ref} className="mx-auto max-w-3xl px-5 py-10 sm:px-8 sm:py-12">
       <p className="mb-6 font-mono text-[13px] text-text-muted">{`// ${sourceFile}`}</p>
       <header className="border-b border-border pb-10" data-reveal>
         {hero}
@@ -36,7 +36,7 @@ export function Section({ title, children }: { title: string; children: ReactNod
 
 export function Block({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <div className="rounded-lg border border-border bg-white/[0.02] p-5" data-reveal>
+    <div className="rounded border border-border bg-sidebar-bg p-5" data-reveal>
       <h3 className="mb-2 text-[14px] font-semibold text-accent-link">{title}</h3>
       <div className="space-y-3 text-[14px] leading-relaxed text-text-muted">{children}</div>
     </div>
@@ -46,7 +46,7 @@ export function Block({ title, children }: { title: string; children: ReactNode 
 export function Figure({ src, alt, caption, maxWidth }: { src: string; alt: string; caption: string; maxWidth?: number }) {
   return (
     <figure className="my-6 flex flex-col items-center" data-reveal>
-      <div className="overflow-hidden rounded-lg border border-border bg-black/30 p-2" style={maxWidth ? { maxWidth } : undefined}>
+      <div className="overflow-hidden rounded border border-border bg-black/40 p-2" style={maxWidth ? { maxWidth } : undefined}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={src} alt={alt} className="w-full rounded" loading="lazy" />
       </div>
@@ -61,7 +61,7 @@ export function FigureGrid({ children }: { children: ReactNode }) {
 
 export function StatusNote({ children }: { children: ReactNode }) {
   return (
-    <p className="rounded-md border border-diag-warning/40 bg-diag-warning/10 px-4 py-2 text-center text-[13px] italic text-diag-warning" data-reveal>
+    <p className="rounded border border-border bg-sidebar-bg px-4 py-2 text-center text-[13px] italic text-text-muted" data-reveal>
       {children}
     </p>
   );
