@@ -152,42 +152,57 @@ export class PhotoParticleController {
     this.featuredImageEl.style.position = "relative";
     this.featuredImageEl.appendChild(this.canvas);
     this.ctx = this.canvas.getContext("2d");
-
-    this.sizeCanvas();
+    this.setupEventListeners();
 
     try {
       await this.extractImageColors();
-      this.createParticles();
-
-      if (this.particles.length > 0) {
-        this.originalImage.style.opacity = "0";
-        this.setupEventListeners();
-        this.animate();
-      } else {
-        this.canvas.remove();
-      }
     } catch {
       this.canvas.remove();
+      return;
     }
 
-    this.resizeHandler = () => this.handleResize();
+    this.resizeHandler = () => this.refresh();
     window.addEventListener("resize", this.resizeHandler);
 
     this.observer = new IntersectionObserver(
       (entries) => {
-        const nowVisible = entries[0]?.isIntersecting ?? true;
-        if (nowVisible === this.visible) return;
+        const nowVisible = entries[0]?.isIntersecting ?? false;
         this.visible = nowVisible;
-        if (nowVisible && this.particlesEnabled && this.animationId === null) {
-          this.animate();
-        } else if (!nowVisible && this.animationId !== null) {
-          cancelAnimationFrame(this.animationId);
-          this.animationId = null;
+        if (nowVisible) {
+          this.refresh();
+        } else {
+          this.pause();
         }
       },
       { threshold: 0 }
     );
     this.observer.observe(this.featuredImageEl);
+
+    this.refresh();
+  }
+
+  // Build the canvas and particles for the container's current size, then run
+  // the loop. Safe to call repeatedly; recomputes whenever the container
+  // becomes visible so a hidden (zero-size) tab never leaves it broken.
+  private refresh() {
+    if (!this.imageData || !this.canvas || !this.particlesEnabled) return;
+    const rect = this.featuredImageEl.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return;
+
+    this.sizeCanvas();
+    this.createParticles();
+    if (this.particles.length === 0) return;
+
+    this.originalImage.style.opacity = "0";
+    this.visible = true;
+    if (this.animationId === null) this.animate();
+  }
+
+  private pause() {
+    if (this.animationId !== null) {
+      cancelAnimationFrame(this.animationId);
+      this.animationId = null;
+    }
   }
 
   private sizeCanvas() {
@@ -205,12 +220,6 @@ export class PhotoParticleController {
     this.canvas.style.top = (expandedHeight - rect.height) / -2 + "px";
     this.canvas.style.left = (expandedWidth - rect.width) / -2 + "px";
     this.canvas.style.zIndex = "2";
-  }
-
-  private handleResize() {
-    if (!this.canvas) return;
-    this.sizeCanvas();
-    this.createParticles();
   }
 
   private extractImageColors(): Promise<void> {
@@ -352,17 +361,11 @@ export class PhotoParticleController {
 
     if (enabled) {
       this.canvas.style.display = "block";
-      this.originalImage.style.opacity = "0";
-      if (!this.animationId && this.visible) {
-        this.animate();
-      }
+      this.refresh();
     } else {
       this.canvas.style.display = "none";
       this.originalImage.style.opacity = "1";
-      if (this.animationId) {
-        cancelAnimationFrame(this.animationId);
-        this.animationId = null;
-      }
+      this.pause();
     }
   }
 
