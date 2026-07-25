@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { defaultOpenTabIds, defaultActiveTabId, pinnedTabIds } from "./fileRegistry";
+import { defaultThemeId } from "./themes";
 
 export type WindowState = "normal" | "maximized" | "minimized" | "closed";
 
@@ -11,6 +12,8 @@ interface EditorStore {
   expandedFolders: Set<string>;
   windowState: WindowState;
   activePanel: "explorer" | "settings" | "account";
+  themeId: string;
+  terminalOpen: boolean;
 
   openFile: (id: string) => void;
   closeTab: (id: string) => void;
@@ -22,6 +25,8 @@ interface EditorStore {
   togglePalette: (open?: boolean) => void;
   toggleFolder: (id: string) => void;
   setWindowState: (state: WindowState) => void;
+  setTheme: (id: string) => void;
+  toggleTerminal: (open?: boolean) => void;
 }
 
 export const useEditorStore = create<EditorStore>((set, get) => ({
@@ -38,6 +43,8 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
   ]),
   windowState: "maximized",
   activePanel: "explorer",
+  themeId: defaultThemeId,
+  terminalOpen: false,
 
   openFile: (id) => {
     const { openTabIds } = get();
@@ -93,4 +100,8 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
     }),
 
   setWindowState: (state) => set({ windowState: state }),
+
+  setTheme: (id) => set({ themeId: id }),
+
+  toggleTerminal: (open) => set((s) => ({ terminalOpen: open ?? !s.terminalOpen })),
 }));

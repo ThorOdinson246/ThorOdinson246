@@ -27,6 +27,7 @@
   --text-body: #c9d1d9;
   --text-muted: #8b949e;
   --border: #30363d;
+  --panel: #161b22;
 
   --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Roboto, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
@@ -59,6 +60,7 @@
   --color-text-body: var(--text-body);
   --color-text-muted: var(--text-muted);
   --color-border: var(--border);
+  --color-panel: var(--panel);
 
   --font-ui: var(--font-ui);
   --font-mono: var(--font-mono);

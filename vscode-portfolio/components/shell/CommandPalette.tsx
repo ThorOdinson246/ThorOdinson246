@@ -61,7 +61,7 @@ export function CommandPalette() {
     <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/50 pt-24" onClick={close}>
       <div
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-lg overflow-hidden rounded-md border border-border bg-[#161b22] shadow-2xl"
+        className="w-full max-w-lg overflow-hidden rounded-md border border-border bg-panel shadow-2xl"
       >
         <input
           ref={inputRef}

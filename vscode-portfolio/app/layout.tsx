@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ThemeManager } from "@/components/ThemeManager";
 
 export const metadata: Metadata = {
   title: "Mukesh Poudel",
@@ -14,7 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased">
-      <body className="h-full">{children}</body>
+      <body className="h-full">
+        <ThemeManager />
+        {children}
+      </body>
     </html>
   );
 }

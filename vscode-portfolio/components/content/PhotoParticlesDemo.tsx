@@ -50,7 +50,7 @@ export function PhotoParticlesDemo({ size = 380 }: { size?: number }) {
         />
       </div>
 
-      <div className="relative z-20 mt-6 flex items-center gap-2 rounded-full border border-border bg-[#161b22] px-3 py-1.5 shadow-lg transition-transform hover:-translate-y-0.5">
+      <div className="relative z-20 mt-6 flex items-center gap-2 rounded-full border border-border bg-panel px-3 py-1.5 shadow-lg transition-transform hover:-translate-y-0.5">
         <label className="flex cursor-pointer items-center gap-2 text-[12px] font-medium text-text-muted">
           <span className="relative inline-flex h-4 w-8 items-center">
             <input
