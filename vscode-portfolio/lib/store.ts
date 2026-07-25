@@ -1,5 +1,7 @@
 import { create } from "zustand";
-import { defaultOpenTabId } from "./fileRegistry";
+import { defaultOpenTabIds, defaultActiveTabId } from "./fileRegistry";
+
+export type WindowState = "normal" | "maximized" | "minimized" | "closed";
 
 interface EditorStore {
   openTabIds: string[];
@@ -7,22 +9,34 @@ interface EditorStore {
   sidebarCollapsed: boolean;
   paletteOpen: boolean;
   expandedFolders: Set<string>;
+  windowState: WindowState;
+  activePanel: "explorer" | "settings" | "account";
 
   openFile: (id: string) => void;
   closeTab: (id: string) => void;
   setActiveTab: (id: string) => void;
   reorderTabs: (fromIndex: number, toIndex: number) => void;
   toggleSidebar: () => void;
+  setPanel: (panel: "explorer" | "settings" | "account") => void;
   togglePalette: (open?: boolean) => void;
   toggleFolder: (id: string) => void;
+  setWindowState: (state: WindowState) => void;
 }
 
 export const useEditorStore = create<EditorStore>((set, get) => ({
-  openTabIds: [defaultOpenTabId],
-  activeTabId: defaultOpenTabId,
+  openTabIds: [...defaultOpenTabIds],
+  activeTabId: defaultActiveTabId,
   sidebarCollapsed: false,
   paletteOpen: false,
-  expandedFolders: new Set(["root", "about", "projects", "projects/personal", "projects/client", "involvements", "contact", "components"]),
+  expandedFolders: new Set([
+    "root",
+    "about",
+    "projects",
+    "projects/research",
+    "involvements",
+  ]),
+  windowState: "normal",
+  activePanel: "explorer",
 
   openFile: (id) => {
     const { openTabIds } = get();
@@ -56,6 +70,14 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
 
   toggleSidebar: () => set((s) => ({ sidebarCollapsed: !s.sidebarCollapsed })),
 
+  setPanel: (panel) =>
+    set((s) => {
+      if (s.activePanel === panel && !s.sidebarCollapsed) {
+        return { sidebarCollapsed: true };
+      }
+      return { activePanel: panel, sidebarCollapsed: false };
+    }),
+
   togglePalette: (open) => set((s) => ({ paletteOpen: open ?? !s.paletteOpen })),
 
   toggleFolder: (id) =>
@@ -65,4 +87,6 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
       else next.add(id);
       return { expandedFolders: next };
     }),
+
+  setWindowState: (state) => set({ windowState: state }),
 }));
