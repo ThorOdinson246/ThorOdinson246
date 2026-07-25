@@ -12,7 +12,7 @@ export interface Project {
   tech: string[];
   image: string;
   links: ProjectLink[];
-  embedSrc?: string;
+  pageTabId?: string;
 }
 
 export const personalProjects: Project[] = [
@@ -34,11 +34,8 @@ export const personalProjects: Project[] = [
       "A machine learning and deep learning based approach using RF, SVC, CNNs and ResNets for AES key recovery using side-channel analysis on the ASCAD dataset. This project explores the use of ML and DL models to exploit EM side-channel leakage for cryptographic key recovery.",
     tech: ["Python", "PyTorch", "Scikit-learn", "Jupyter"],
     image: "/images/mldl-sca.png",
-    links: [
-      { label: "View On arXiv", href: "https://arxiv.org/abs/2508.11817", icon: "paper" },
-      { label: "View Project", href: "/demos/aeskeyrecovery/index.html", icon: "external" },
-    ],
-    embedSrc: "/demos/aeskeyrecovery/index.html",
+    links: [{ label: "View On arXiv", href: "https://arxiv.org/abs/2508.11817", icon: "paper" }],
+    pageTabId: "aes-key-recovery",
   },
   {
     slug: "sediment-flux-koshi",
@@ -48,8 +45,8 @@ export const personalProjects: Project[] = [
       "A Machine learning based approach to integrate sediment dynamics to model flood risk in Koshi River Basin. This project leverages advanced spectral indices and machine learning techniques for improved flood prediction accuracy.",
     tech: ["Python", "PyTorch", "GIS", "Azure"],
     image: "/images/basemap-koshi.png",
-    links: [{ label: "View Project", href: "/demos/sedimentflux/index.html", icon: "external" }],
-    embedSrc: "/demos/sedimentflux/index.html",
+    links: [],
+    pageTabId: "sediment-flux",
   },
   {
     slug: "unet-water-segmentation",
