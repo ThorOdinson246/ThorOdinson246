@@ -92,6 +92,17 @@ body {
   display: none;
 }
 
+@media (max-width: 899px) {
+  * {
+    scrollbar-width: none;
+  }
+  ::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+}
+
 @keyframes fade-rise {
   from {
     opacity: 0;
