@@ -38,18 +38,6 @@ function RemoteGlyph() {
     </svg>
   );
 }
-function ExtensionsGlyph() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M6 6h4V4.6a1.6 1.6 0 1 1 3.2 0V6H17a1 1 0 0 1 1 1v3.8h1.4a1.6 1.6 0 1 1 0 3.2H18V18a1 1 0 0 1-1 1h-3.8v1.4a1.6 1.6 0 1 1-3.2 0V19H6a1 1 0 0 1-1-1v-4h1.4a1.6 1.6 0 1 0 0-3.2H5V7a1 1 0 0 1 1-1z"
-        stroke="currentColor"
-        strokeWidth="1.3"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
 function GitHubGlyph() {
   return (
     <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor">
@@ -150,9 +138,6 @@ export function ActivityBar() {
         </BarButton>
         <BarButton active={activePanel === "remote" && !sidebarCollapsed} onClick={() => setPanel("remote")} title="Remote Explorer">
           <RemoteGlyph />
-        </BarButton>
-        <BarButton active={activePanel === "extensions" && !sidebarCollapsed} onClick={() => setPanel("extensions")} title="Extensions">
-          <ExtensionsGlyph />
         </BarButton>
       </div>
 

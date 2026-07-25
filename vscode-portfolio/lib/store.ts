@@ -11,7 +11,7 @@ interface EditorStore {
   paletteOpen: boolean;
   expandedFolders: Set<string>;
   windowState: WindowState;
-  activePanel: "explorer" | "settings" | "account" | "scm" | "extensions" | "remote";
+  activePanel: "explorer" | "settings" | "account" | "scm" | "remote";
   themeId: string;
   terminalOpen: boolean;
   musicOn: boolean;
@@ -22,7 +22,7 @@ interface EditorStore {
   reorderTabs: (fromIndex: number, toIndex: number) => void;
   toggleSidebar: () => void;
   setSidebarCollapsed: (collapsed: boolean) => void;
-  setPanel: (panel: "explorer" | "settings" | "account" | "scm" | "extensions" | "remote") => void;
+  setPanel: (panel: "explorer" | "settings" | "account" | "scm" | "remote") => void;
   togglePalette: (open?: boolean) => void;
   toggleFolder: (id: string) => void;
   setWindowState: (state: WindowState) => void;
