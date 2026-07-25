@@ -223,6 +223,21 @@ export function Terminal() {
         return "__CLEAR__";
       case "exit":
         return "__EXIT__";
+      case "sudo":
+        return (
+          <span className="text-diag-error">
+            {identity.name.split(" ")[0].toLowerCase()} is not in the sudoers file. This incident will be reported.
+          </span>
+        );
+      case "coffee":
+        return <pre className="text-text-muted">{"      ( (\n       ) )\n    ........\n    |      |]   ☕ always brewing\n    \\      /\n     `----'"}</pre>;
+      case "hire":
+        return (
+          <span className="text-text-body">
+            Open to interesting problems.{" "}
+            <Link href={`mailto:${identity.email}`}>{identity.email}</Link>
+          </span>
+        );
       default:
         return <span className="text-diag-error">zsh: command not found: {cmd}</span>;
     }
