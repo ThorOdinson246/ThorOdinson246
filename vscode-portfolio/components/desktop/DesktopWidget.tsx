@@ -26,7 +26,7 @@ export function DesktopWidget() {
           <span className="text-accent-link">os</span>      Ubuntu 25.10
         </div>
         <div>
-          <span className="text-accent-link">shell</span>   zsh · powerlevel10k
+          <span className="text-accent-link">shell</span>   zsh 
         </div>
         <div>
           <span className="text-accent-link">editor</span>  VS Code

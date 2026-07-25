@@ -336,7 +336,7 @@ function Neofetch() {
   const info: [string, string][] = [
     ["OS", "Ubuntu 25.10"],
     ["Host", "Portfolio (web)"],
-    ["Shell", "zsh + powerlevel10k"],
+    ["Shell", "zsh"],
     ["Editor", "VS Code"],
     ["DE", "Portfolio.app"],
     ["Languages", "Python, C++, JavaScript, Dart"],
