@@ -3,6 +3,7 @@
 import { useEditorStore } from "@/lib/store";
 import { fileMap } from "@/lib/fileRegistry";
 import { ThemePicker } from "./ThemePicker";
+import { MusicViz } from "./MusicViz";
 
 function BranchIcon() {
   return (
@@ -73,6 +74,7 @@ export function StatusBar() {
             <span>{activeFile.language}</span>
           </>
         )}
+        <MusicViz />
         <ThemePicker />
         <span className="flex items-center gap-1">
           <CopilotIcon />
