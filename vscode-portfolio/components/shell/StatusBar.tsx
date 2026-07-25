@@ -45,8 +45,8 @@ export function StatusBar() {
   const toggleTerminal = useEditorStore((s) => s.toggleTerminal);
 
   return (
-    <footer className="flex h-[22px] shrink-0 items-center justify-between border-l border-t border-border bg-statusbar-bg px-2 text-[12px] text-statusbar-fg">
-      <div className="flex items-center gap-3">
+    <footer className="flex h-[22px] shrink-0 items-center justify-between gap-2 overflow-hidden whitespace-nowrap border-l border-t border-border bg-statusbar-bg px-2 text-[12px] text-statusbar-fg">
+      <div className="flex min-w-0 items-center gap-3">
         <span className="flex items-center gap-1">
           <BranchIcon />
           main
@@ -65,21 +65,23 @@ export function StatusBar() {
         <span className="flex items-center gap-1 text-diag-warning">⚠ 0</span>
         <span className="flex items-center gap-1 text-diag-error">⊘ 0</span>
       </div>
-      <div className="flex items-center gap-3">
+      <div className="flex min-w-0 items-center gap-3">
         {activeFile && (
           <>
             <span className="hidden sm:inline">Ln 1, Col 1</span>
             <span className="hidden sm:inline">Spaces: 2</span>
             <span className="hidden sm:inline">UTF-8</span>
-            <span>{activeFile.language}</span>
+            <span className="hidden truncate sm:inline">{activeFile.language}</span>
           </>
         )}
         <MusicViz />
         <ThemePicker />
-        <span className="flex items-center gap-1">
+        <span className="hidden items-center gap-1 sm:flex">
           <CopilotIcon />
         </span>
-        <BellIcon />
+        <span className="hidden sm:block">
+          <BellIcon />
+        </span>
       </div>
     </footer>
   );
