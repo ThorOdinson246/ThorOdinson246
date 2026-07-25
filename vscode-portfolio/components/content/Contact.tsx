@@ -73,7 +73,6 @@ export function Contact() {
                 {identity.email}
               </a>
             </p>
-            <p>Tel: {identity.phone}</p>
           </div>
 
           <form onSubmit={handleSubmit} className="mt-8 space-y-3">

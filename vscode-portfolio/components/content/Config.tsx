@@ -28,11 +28,6 @@ export function Config() {
         </CodeLine>
         <CodeLine>
           <span className="pl-4">
-            phone: <span className="text-[#d29922]">&quot;{identity.phone}&quot;</span>,
-          </span>
-        </CodeLine>
-        <CodeLine>
-          <span className="pl-4">
             links: {"{"}
           </span>
         </CodeLine>

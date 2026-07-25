@@ -18,7 +18,6 @@ export function Readme() {
             {identity.email}
           </a>
         </li>
-        <li>Phone: {identity.phone}</li>
         <li>
           LinkedIn:{" "}
           <a href={identity.linkedin} target="_blank" rel="noopener noreferrer" className="text-accent-link hover:underline">

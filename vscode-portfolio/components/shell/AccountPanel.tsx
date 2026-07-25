@@ -27,7 +27,6 @@ export function AccountPanel() {
       <Row label="GitHub" href={identity.github} value={identity.github.replace("https://", "")} />
       <Row label="LinkedIn" href={identity.linkedin} value={identity.linkedin.replace("https://", "")} />
       <Row label="Email" href={`mailto:${identity.email}`} value={identity.email} />
-      <Row label="Phone" value={identity.phone} />
     </div>
   );
 }
