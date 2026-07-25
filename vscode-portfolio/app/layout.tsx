@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
+import { Ubuntu } from "next/font/google";
 import "./globals.css";
 import { ThemeManager } from "@/components/ThemeManager";
+
+const ubuntu = Ubuntu({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-ubuntu",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mukeshpoudel.com.np"),
@@ -33,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="en" className={`h-full antialiased ${ubuntu.variable}`}>
       <body className="h-full">
         <ThemeManager />
         {children}

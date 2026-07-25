@@ -81,7 +81,10 @@ export function TopBar() {
   }
 
   return (
-    <div className="flex h-7 shrink-0 items-center justify-between bg-[#1b1b1b] px-2 text-[12.5px] font-medium text-white/85">
+    <div
+      className="flex h-7 shrink-0 items-center justify-between bg-[#1b1b1b] px-2 text-[12.5px] font-medium text-white/85"
+      style={{ fontFamily: "var(--font-ubuntu), system-ui, sans-serif" }}
+    >
       <audio ref={audioRef} src="/audio/lofi.mp3" loop preload="none" />
       <div className="flex items-center gap-1">
         <button onClick={toggleActivities} className="rounded px-2 py-0.5 hover:bg-white/10">
