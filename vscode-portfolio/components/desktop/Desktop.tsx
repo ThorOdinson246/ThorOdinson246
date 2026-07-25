@@ -22,7 +22,13 @@ export function Desktop() {
   }, [isMobile, windowState, setWindowState]);
 
   return (
-    <div className="relative flex h-full flex-col overflow-hidden bg-[radial-gradient(circle_at_75%_15%,#772953_0%,#3b1f34_38%,#1a1420_100%)]">
+    <div
+      className="relative flex h-full flex-col overflow-hidden"
+      style={{
+        background:
+          "radial-gradient(ellipse at 82% 88%, rgba(119,41,83,0.28) 0%, transparent 52%), radial-gradient(ellipse at 12% 8%, rgba(40,42,54,0.5) 0%, transparent 45%), linear-gradient(135deg, #101013 0%, #0a0a0c 55%, #050506 100%)",
+      }}
+    >
       <UrlSync />
       <TopBar />
 
