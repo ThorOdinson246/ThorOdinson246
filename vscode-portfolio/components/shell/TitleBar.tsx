@@ -3,15 +3,26 @@
 import { useEditorStore } from "@/lib/store";
 import { fileMap } from "@/lib/fileRegistry";
 
-function TrafficLight({ color, symbol, onClick, title }: { color: string; symbol: string; onClick: () => void; title: string }) {
+function WindowButton({
+  onClick,
+  title,
+  danger,
+  children,
+}: {
+  onClick: () => void;
+  title: string;
+  danger?: boolean;
+  children: React.ReactNode;
+}) {
   return (
     <button
       onClick={onClick}
       title={title}
-      className="group flex h-3 w-3 items-center justify-center rounded-full"
-      style={{ backgroundColor: color }}
+      className={`flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-text-body transition-colors ${
+        danger ? "hover:bg-[#e01b24] hover:text-white" : "hover:bg-white/20"
+      }`}
     >
-      <span className="text-[8px] font-bold leading-none text-black/60 opacity-0 group-hover:opacity-100">{symbol}</span>
+      {children}
     </button>
   );
 }
@@ -25,23 +36,41 @@ export function TitleBar() {
 
   return (
     <header className="flex h-8 shrink-0 items-center justify-between border-b border-border bg-titlebar-bg px-3 text-[13px] text-text-muted">
-      <div className="flex items-center gap-2">
-        <TrafficLight color="#ff5f57" symbol="×" title="Close" onClick={() => setWindowState("closed")} />
-        <TrafficLight color="#febc2e" symbol="−" title="Minimize" onClick={() => setWindowState("minimized")} />
-        <TrafficLight
-          color="#28c840"
-          symbol="+"
-          title={windowState === "maximized" ? "Restore" : "Maximize"}
-          onClick={() => setWindowState(windowState === "maximized" ? "normal" : "maximized")}
-        />
+      <div className="flex min-w-[70px] items-center gap-2">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" className="text-accent-link">
+          <path d="M17 3l4 2v14l-4 2-9-8 9-10z" fill="currentColor" opacity="0.85" />
+          <path d="M7 8.5L9 7.5l4 4.5-4 4.5-2-1v-7z" fill="currentColor" opacity="0.5" />
+        </svg>
+        <span className="hidden text-text-muted sm:inline">Portfolio</span>
       </div>
+
       <button
         onClick={() => togglePalette(true)}
         className="min-w-[40%] rounded bg-white/5 px-3 py-0.5 text-center text-[12px] text-text-muted transition-colors hover:bg-white/10"
       >
         {activeFile ? `mukesh-poudel — ${activeFile.name}` : "mukesh-poudel"}
       </button>
-      <div className="w-[54px]" />
+
+      <div className="flex min-w-[70px] items-center justify-end gap-2">
+        <WindowButton onClick={() => setWindowState("minimized")} title="Minimize">
+          <svg width="10" height="10" viewBox="0 0 16 16">
+            <path d="M3 8h10" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+          </svg>
+        </WindowButton>
+        <WindowButton
+          onClick={() => setWindowState(windowState === "maximized" ? "normal" : "maximized")}
+          title={windowState === "maximized" ? "Restore" : "Maximize"}
+        >
+          <svg width="10" height="10" viewBox="0 0 16 16">
+            <rect x="3.5" y="3.5" width="9" height="9" rx="1" fill="none" stroke="currentColor" strokeWidth="1.3" />
+          </svg>
+        </WindowButton>
+        <WindowButton onClick={() => setWindowState("closed")} title="Close" danger>
+          <svg width="10" height="10" viewBox="0 0 16 16">
+            <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+          </svg>
+        </WindowButton>
+      </div>
     </header>
   );
 }
