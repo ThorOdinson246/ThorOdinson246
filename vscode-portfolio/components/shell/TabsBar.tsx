@@ -37,7 +37,7 @@ export function TabsBar() {
       onWheel={handleWheel}
       className="no-scrollbar flex h-9 shrink-0 overflow-x-auto border-b border-border bg-tabsbar-bg"
     >
-      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+      <DndContext id="tabs-dnd" sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext items={openTabIds} strategy={horizontalListSortingStrategy}>
           {openTabIds.map((id) => {
             const file = fileMap[id];
