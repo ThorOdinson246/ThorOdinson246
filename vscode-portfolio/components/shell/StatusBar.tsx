@@ -58,8 +58,10 @@ export function StatusBar() {
           </svg>
           <span className="hidden sm:inline">zsh</span>
         </button>
-        <span className="hidden items-center gap-1 sm:flex">
-          <svg width="14" height="14" viewBox="0 0 16 16"><path d="M8 2l1.5 5H14l-3.7 3 1.4 5-3.7-3-3.7 3 1.4-5L2 7h4.5z" fill="none" stroke="currentColor" strokeWidth="0.9" /></svg>
+        <span className="hidden items-center sm:flex">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round">
+            <path d="M12 2.5l2.9 5.88 6.49.94-4.7 4.58 1.11 6.46L12 17.8l-5.8 3.06 1.11-6.46-4.7-4.58 6.49-.94z" />
+          </svg>
         </span>
         <span className="hidden sm:inline">0 ↓ 0 ↑</span>
         <span className="flex items-center gap-1 text-diag-warning">⚠ 0</span>
