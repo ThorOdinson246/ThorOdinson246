@@ -11,9 +11,10 @@ interface EditorStore {
   paletteOpen: boolean;
   expandedFolders: Set<string>;
   windowState: WindowState;
-  activePanel: "explorer" | "settings" | "account";
+  activePanel: "explorer" | "settings" | "account" | "scm" | "extensions" | "remote";
   themeId: string;
   terminalOpen: boolean;
+  musicOn: boolean;
 
   openFile: (id: string) => void;
   closeTab: (id: string) => void;
@@ -21,12 +22,13 @@ interface EditorStore {
   reorderTabs: (fromIndex: number, toIndex: number) => void;
   toggleSidebar: () => void;
   setSidebarCollapsed: (collapsed: boolean) => void;
-  setPanel: (panel: "explorer" | "settings" | "account") => void;
+  setPanel: (panel: "explorer" | "settings" | "account" | "scm" | "extensions" | "remote") => void;
   togglePalette: (open?: boolean) => void;
   toggleFolder: (id: string) => void;
   setWindowState: (state: WindowState) => void;
   setTheme: (id: string) => void;
   toggleTerminal: (open?: boolean) => void;
+  setMusicOn: (on: boolean) => void;
 }
 
 export const useEditorStore = create<EditorStore>((set, get) => ({
@@ -45,6 +47,7 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
   activePanel: "explorer",
   themeId: defaultThemeId,
   terminalOpen: false,
+  musicOn: false,
 
   openFile: (id) => {
     const { openTabIds } = get();
@@ -104,4 +107,6 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
   setTheme: (id) => set({ themeId: id }),
 
   toggleTerminal: (open) => set((s) => ({ terminalOpen: open ?? !s.terminalOpen })),
+
+  setMusicOn: (on) => set({ musicOn: on }),
 }));

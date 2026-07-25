@@ -19,6 +19,37 @@ function SearchGlyph() {
     </svg>
   );
 }
+function SourceControlGlyph() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <circle cx="6" cy="6" r="2.2" stroke="currentColor" strokeWidth="1.5" />
+      <circle cx="6" cy="18" r="2.2" stroke="currentColor" strokeWidth="1.5" />
+      <circle cx="17" cy="9" r="2.2" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M6 8.2v7.6M17 11.2c0 3.3-3 3.8-6 3.8" stroke="currentColor" strokeWidth="1.5" />
+    </svg>
+  );
+}
+function RemoteGlyph() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <rect x="3" y="4" width="18" height="12" rx="1.5" stroke="currentColor" strokeWidth="1.4" />
+      <path d="M8 20h8M12 16v4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+      <path d="M6 8l2 2-2 2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+function ExtensionsGlyph() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path
+        d="M6 6h4V4.6a1.6 1.6 0 1 1 3.2 0V6H17a1 1 0 0 1 1 1v3.8h1.4a1.6 1.6 0 1 1 0 3.2H18V18a1 1 0 0 1-1 1h-3.8v1.4a1.6 1.6 0 1 1-3.2 0V19H6a1 1 0 0 1-1-1v-4h1.4a1.6 1.6 0 1 0 0-3.2H5V7a1 1 0 0 1 1-1z"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 function GitHubGlyph() {
   return (
     <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor">
@@ -114,12 +145,21 @@ export function ActivityBar() {
         <BarButton onClick={() => togglePalette(true)} title="Search files (Ctrl+P)">
           <SearchGlyph />
         </BarButton>
-        <BarLink href={identity.github} title="Source Control · GitHub">
-          <GitHubGlyph />
-        </BarLink>
+        <BarButton active={activePanel === "scm" && !sidebarCollapsed} onClick={() => setPanel("scm")} title="Source Control">
+          <SourceControlGlyph />
+        </BarButton>
+        <BarButton active={activePanel === "remote" && !sidebarCollapsed} onClick={() => setPanel("remote")} title="Remote Explorer">
+          <RemoteGlyph />
+        </BarButton>
+        <BarButton active={activePanel === "extensions" && !sidebarCollapsed} onClick={() => setPanel("extensions")} title="Extensions">
+          <ExtensionsGlyph />
+        </BarButton>
       </div>
 
       <div className="flex flex-col items-center">
+        <BarLink href={identity.github} title="GitHub">
+          <GitHubGlyph />
+        </BarLink>
         <BarLink href={identity.linkedin} title="LinkedIn">
           <LinkedInGlyph />
         </BarLink>

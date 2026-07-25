@@ -5,12 +5,18 @@ import { useEditorStore } from "@/lib/store";
 import { FileTree } from "./FileTree";
 import { AccountPanel } from "./AccountPanel";
 import { SettingsPanel } from "./SettingsPanel";
+import { SourceControlPanel } from "./SourceControlPanel";
+import { ExtensionsPanel } from "./ExtensionsPanel";
+import { RemotePanel } from "./RemotePanel";
 import clsx from "clsx";
 
 const titles: Record<string, string> = {
   explorer: "MUKESH-POUDEL",
   account: "ACCOUNT",
   settings: "SETTINGS",
+  scm: "SOURCE CONTROL",
+  extensions: "EXTENSIONS",
+  remote: "REMOTE EXPLORER",
 };
 
 export function Sidebar({ mobile = false }: { mobile?: boolean }) {
@@ -44,6 +50,9 @@ export function Sidebar({ mobile = false }: { mobile?: boolean }) {
       {activePanel === "explorer" && <FileTree root={fileTree} />}
       {activePanel === "account" && <AccountPanel />}
       {activePanel === "settings" && <SettingsPanel />}
+      {activePanel === "scm" && <SourceControlPanel />}
+      {activePanel === "extensions" && <ExtensionsPanel />}
+      {activePanel === "remote" && <RemotePanel />}
     </aside>
   );
 }
