@@ -192,40 +192,17 @@ export class PhotoParticleController {
   private sizeCanvas() {
     if (!this.canvas) return;
     const rect = this.featuredImageEl.getBoundingClientRect();
-    const isMobile = window.innerWidth <= 900;
 
-    let expandedWidth: number;
-    let expandedHeight: number;
-
-    if (isMobile) {
-      expandedWidth = window.innerWidth;
-      expandedHeight = window.innerHeight * 0.9;
-    } else {
-      expandedWidth = rect.width * 1.5;
-      expandedHeight = window.innerHeight * 0.7;
-    }
+    const expandedWidth = rect.width * 1.35;
+    const expandedHeight = rect.height * 1.35;
 
     this.canvas.width = expandedWidth;
     this.canvas.height = expandedHeight;
     this.canvas.style.width = expandedWidth + "px";
     this.canvas.style.height = expandedHeight + "px";
 
-    if (isMobile) {
-      const offsetX = (expandedWidth - rect.width) / -2;
-      const offsetY = -window.innerHeight * 0.15;
-      this.canvas.style.top = offsetY + "px";
-      this.canvas.style.left = offsetX + "px";
-
-      const toggleSpace = 100;
-      this.canvas.height = Math.max(expandedHeight - toggleSpace, rect.height);
-      this.canvas.style.height = this.canvas.height + "px";
-    } else {
-      const offsetX = (expandedWidth - rect.width) / -2;
-      const offsetY = -window.innerHeight * 0.1;
-      this.canvas.style.top = offsetY + "px";
-      this.canvas.style.left = offsetX + "px";
-    }
-
+    this.canvas.style.top = (expandedHeight - rect.height) / -2 + "px";
+    this.canvas.style.left = (expandedWidth - rect.width) / -2 + "px";
     this.canvas.style.zIndex = "2";
   }
 
