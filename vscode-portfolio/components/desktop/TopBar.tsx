@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useEditorStore } from "@/lib/store";
-import { getLofi } from "@/lib/lofi";
 
 function WifiGlyph() {
   return (
@@ -42,6 +41,7 @@ export function TopBar() {
   const setWindowState = useEditorStore((s) => s.setWindowState);
   const musicOn = useEditorStore((s) => s.musicOn);
   const setMusicOn = useEditorStore((s) => s.setMusicOn);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const [now, setNow] = useState<Date | null>(null);
   const [net, setNet] = useState("0 B/s");
   const [ghz, setGhz] = useState("2.9 GHz");
@@ -68,14 +68,21 @@ export function TopBar() {
     setWindowState(windowState === "minimized" || windowState === "closed" ? "maximized" : "minimized");
 
   function toggleMusic() {
+    const audio = audioRef.current;
+    if (!audio) return;
     const next = !musicOn;
     setMusicOn(next);
-    if (next) getLofi().start();
-    else getLofi().stop();
+    if (next) {
+      audio.volume = 0.35;
+      audio.play().catch(() => setMusicOn(false));
+    } else {
+      audio.pause();
+    }
   }
 
   return (
     <div className="flex h-7 shrink-0 items-center justify-between bg-[#1b1b1b] px-2 text-[12.5px] font-medium text-white/85">
+      <audio ref={audioRef} src="/audio/lofi.mp3" loop preload="none" />
       <div className="flex items-center gap-1">
         <button onClick={toggleActivities} className="rounded px-2 py-0.5 hover:bg-white/10">
           Activities
