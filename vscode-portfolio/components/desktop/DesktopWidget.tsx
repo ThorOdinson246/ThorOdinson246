@@ -17,8 +17,8 @@ export function DesktopWidget() {
   }, []);
 
   return (
-    <div className="pointer-events-none absolute bottom-8 right-8 hidden w-72 select-none font-mono text-[12px] text-white/70 md:block">
-      <div className="mb-2 text-4xl font-semibold tabular-nums text-white/90">{time}</div>
+    <div className="pointer-events-none absolute bottom-6 right-4 w-64 max-w-[calc(100vw-2rem)] select-none font-mono text-[12px] text-white/70 sm:bottom-8 sm:right-8 sm:w-72">
+      <div className="mb-2 text-3xl font-semibold tabular-nums text-white/90 sm:text-4xl">{time}</div>
       <div className="text-white/60">thorodinson@portfolio</div>
       <div className="mb-3 text-white/40">─────────────────────────</div>
       <div className="space-y-1">
