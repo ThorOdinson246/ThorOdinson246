@@ -79,7 +79,7 @@ function BarButton({
       onClick={onClick}
       title={title}
       className={clsx(
-        "flex h-11 w-12 items-center justify-center border-l-2 transition-colors",
+        "flex h-11 w-12 shrink-0 items-center justify-center border-l-2 transition-colors",
         active ? "border-l-accent-link text-text-body" : "border-l-transparent text-text-muted hover:text-text-body"
       )}
     >
@@ -95,7 +95,7 @@ function BarLink({ href, title, children }: { href: string; title: string; child
       target={href.startsWith("http") ? "_blank" : undefined}
       rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
       title={title}
-      className="flex h-11 w-12 items-center justify-center border-l-2 border-l-transparent text-text-muted transition-colors hover:text-text-body"
+      className="flex h-11 w-12 shrink-0 items-center justify-center border-l-2 border-l-transparent text-text-muted transition-colors hover:text-text-body"
     >
       {children}
     </a>
@@ -111,7 +111,7 @@ export function ActivityBar() {
   const explorerActive = activePanel === "explorer" && !sidebarCollapsed;
 
   return (
-    <nav className="flex w-12 shrink-0 flex-col items-center justify-between border-l border-border bg-activitybar-bg py-1.5">
+    <nav className="no-scrollbar flex w-12 shrink-0 flex-col items-center justify-between gap-2 overflow-y-auto border-l border-border bg-activitybar-bg py-1.5">
       <div className="flex flex-col items-center">
         <BarButton active={explorerActive} onClick={() => setPanel("explorer")} title="Explorer">
           <ExplorerGlyph />
