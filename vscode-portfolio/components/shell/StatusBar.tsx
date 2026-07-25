@@ -44,7 +44,7 @@ export function StatusBar() {
   const toggleTerminal = useEditorStore((s) => s.toggleTerminal);
 
   return (
-    <footer className="flex h-[22px] shrink-0 items-center justify-between border-l border-border bg-statusbar-bg px-2 text-[12px] text-statusbar-fg">
+    <footer className="flex h-[22px] shrink-0 items-center justify-between border-l border-t border-border bg-statusbar-bg px-2 text-[12px] text-statusbar-fg">
       <div className="flex items-center gap-3">
         <span className="flex items-center gap-1">
           <BranchIcon />
