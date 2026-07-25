@@ -10,7 +10,6 @@ import { Skills } from "../content/Skills";
 import { Projects } from "../content/Projects";
 import { Involvements } from "../content/Involvements";
 import { Contact } from "../content/Contact";
-import { PhotoParticlesFile } from "../content/PhotoParticlesFile";
 import { AesKeyRecovery } from "../content/research/AesKeyRecovery";
 import { SedimentFlux } from "../content/research/SedimentFlux";
 
@@ -41,8 +40,6 @@ function renderComponentKey(key: string) {
       return <Involvements />;
     case "contact":
       return <Contact />;
-    case "photo-particles":
-      return <PhotoParticlesFile />;
     case "research:aes":
       return <AesKeyRecovery />;
     case "research:sediment":

@@ -31,8 +31,6 @@ export const files: FileEntry[] = [
   { id: "involvements", name: "involvements.tsx", folder: "involvements", icon: "react_ts", language: "TypeScript React", contentType: "native", componentKey: "involvements" },
 
   { id: "contact", name: "contact.tsx", folder: "contact", icon: "react_ts", language: "TypeScript React", contentType: "native", componentKey: "contact" },
-
-  { id: "photo-particles", name: "photo-particles.ts", folder: "components", icon: "typescript", language: "TypeScript", contentType: "native", componentKey: "photo-particles" },
 ];
 
 export const fileTree: FolderNode = {
@@ -57,7 +55,6 @@ export const fileTree: FolderNode = {
     },
     { id: "involvements", name: "involvements", children: ["involvements"] },
     { id: "contact", name: "contact", children: ["contact"] },
-    { id: "components", name: "components", children: ["photo-particles"] },
   ],
 };
 
