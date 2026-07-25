@@ -9,20 +9,20 @@ export function Home() {
   const ref = useReveal();
 
   return (
-    <div ref={ref} className="mx-auto max-w-5xl px-8 py-16">
+    <div ref={ref} className="mx-auto max-w-5xl px-5 py-10 sm:px-8 sm:py-16">
       <section className="flex flex-col-reverse items-center gap-10 lg:flex-row lg:justify-between lg:gap-6">
-        <div className="max-w-xl text-center lg:text-left" data-reveal>
+        <div className="relative z-10 max-w-xl text-center lg:text-left" data-reveal>
           <p className="mb-3 font-mono text-[13px] text-text-muted">{"// home.tsx"}</p>
           <h1 className="text-4xl font-semibold leading-tight text-text-body sm:text-5xl">
             I&apos;m <span className="text-accent-link">{identity.name}</span>
           </h1>
           <p className="mt-5 text-lg leading-relaxed text-text-muted">{identity.tagline}</p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
+          <div className="mt-8 flex flex-wrap justify-center gap-2.5 lg:justify-start">
             <a
               href={identity.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-md border border-border bg-white/[0.04] px-4 py-2 text-[13px] text-text-body transition-colors hover:border-accent-focus hover:text-accent-link"
+              className="rounded border border-border bg-sidebar-bg px-4 py-2 text-[13px] text-text-body transition-colors hover:border-accent-focus hover:text-accent-link"
             >
               GitHub
             </a>
@@ -30,13 +30,13 @@ export function Home() {
               href={identity.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-md border border-border bg-white/[0.04] px-4 py-2 text-[13px] text-text-body transition-colors hover:border-accent-focus hover:text-accent-link"
+              className="rounded border border-border bg-sidebar-bg px-4 py-2 text-[13px] text-text-body transition-colors hover:border-accent-focus hover:text-accent-link"
             >
               LinkedIn
             </a>
             <a
               href={`mailto:${identity.email}`}
-              className="rounded-md border border-border bg-white/[0.04] px-4 py-2 text-[13px] text-text-body transition-colors hover:border-accent-focus hover:text-accent-link"
+              className="rounded border border-border bg-sidebar-bg px-4 py-2 text-[13px] text-text-body transition-colors hover:border-accent-focus hover:text-accent-link"
             >
               Email
             </a>
@@ -60,7 +60,7 @@ export function Home() {
           {skillGroups.map((group) => (
             <div
               key={group.category}
-              className="rounded-lg border border-border bg-white/[0.02] p-5"
+              className="rounded border border-border bg-sidebar-bg p-5"
               data-reveal
             >
               <h3 className="mb-3 text-[13px] font-semibold text-accent-link">{group.category}</h3>
@@ -68,7 +68,7 @@ export function Home() {
                 {group.items.map((item) => (
                   <span
                     key={item}
-                    className="rounded-full border border-border bg-white/[0.04] px-3 py-1 text-[12px] text-text-body"
+                    className="rounded-full border border-border bg-black/30 px-3 py-1 text-[12px] text-text-body"
                   >
                     {item}
                   </span>

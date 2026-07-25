@@ -35,23 +35,22 @@ export function PhotoParticlesDemo({ size = 380 }: { size?: number }) {
   }
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="relative flex flex-col items-center">
       <div
         ref={containerRef}
-        className="relative flex items-center justify-center"
-        style={{ width: size, height: size }}
+        className="relative z-0 flex items-center justify-center"
+        style={{ width: `min(${size}px, 78vw)`, height: `min(${size}px, 78vw)` }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           ref={imgRef}
           src="/images/me.jpg"
           alt={identity.name}
-          className="relative z-[1] rounded-full object-cover ring-2 ring-accent-focus/30 shadow-2xl"
-          style={{ width: size, height: size }}
+          className="relative z-[1] h-full w-full rounded-full object-cover ring-2 ring-accent-focus/30 shadow-2xl"
         />
       </div>
 
-      <div className="mt-6 flex items-center gap-2 rounded-full border border-border bg-white/[0.04] px-3 py-1.5 shadow-lg transition-transform hover:-translate-y-0.5">
+      <div className="relative z-20 mt-6 flex items-center gap-2 rounded-full border border-border bg-[#161b22] px-3 py-1.5 shadow-lg transition-transform hover:-translate-y-0.5">
         <label className="flex cursor-pointer items-center gap-2 text-[12px] font-medium text-text-muted">
           <span className="relative inline-flex h-4 w-8 items-center">
             <input
