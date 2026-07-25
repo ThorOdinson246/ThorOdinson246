@@ -30,7 +30,7 @@ export function Desktop() {
       }}
     >
       <UrlSync />
-      <TopBar />
+      {!visible && <TopBar />}
 
       <div className="relative flex-1 overflow-hidden">
         {!visible && (
