@@ -13,7 +13,6 @@ import { Resume } from "../content/Resume";
 import { Contact } from "../content/Contact";
 import { AesKeyRecovery } from "../content/research/AesKeyRecovery";
 import { SedimentFlux } from "../content/research/SedimentFlux";
-import { AfmSuperResolution } from "../content/research/AfmSuperResolution";
 
 function EmptyState() {
   return (
@@ -48,8 +47,6 @@ function renderComponentKey(key: string) {
       return <AesKeyRecovery />;
     case "research:sediment":
       return <SedimentFlux />;
-    case "research:afm":
-      return <AfmSuperResolution />;
     default:
       return null;
   }

@@ -27,7 +27,6 @@ export const files: FileEntry[] = [
   { id: "projects", name: "projects.tsx", folder: "projects", icon: "react_ts", language: "TypeScript React", contentType: "native", componentKey: "projects" },
   { id: "aes-key-recovery", name: "aes-key-recovery.tsx", folder: "projects/research", icon: "react_ts", language: "TypeScript React", contentType: "native", componentKey: "research:aes" },
   { id: "sediment-flux", name: "sediment-flux-koshi.tsx", folder: "projects/research", icon: "react_ts", language: "TypeScript React", contentType: "native", componentKey: "research:sediment" },
-  { id: "afm-super-resolution", name: "afm-super-resolution.tsx", folder: "projects/research", icon: "react_ts", language: "TypeScript React", contentType: "native", componentKey: "research:afm" },
 
   { id: "open-source", name: "open-source.tsx", folder: "", icon: "react_ts", language: "TypeScript React", contentType: "native", componentKey: "open-source" },
   { id: "resume", name: "resume.md", folder: "", icon: "markdown", language: "Markdown", contentType: "native", componentKey: "resume" },
@@ -52,7 +51,7 @@ export const fileTree: FolderNode = {
         {
           id: "projects/research",
           name: "research",
-          children: ["aes-key-recovery", "sediment-flux", "afm-super-resolution"],
+          children: ["aes-key-recovery", "sediment-flux"],
         },
       ],
     },
