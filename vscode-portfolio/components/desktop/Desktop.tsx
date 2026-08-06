@@ -10,7 +10,6 @@ import { DesktopIcons } from "./DesktopIcons";
 import { DesktopWidget } from "./DesktopWidget";
 import { UrlSync } from "../UrlSync";
 import { SketchFilters } from "../easter/SketchFilters";
-import { SketchTransition } from "../easter/SketchTransition";
 
 const DESKTOP_BG_DARK =
   "radial-gradient(ellipse at 82% 88%, rgba(119,41,83,0.28) 0%, transparent 52%), radial-gradient(ellipse at 12% 8%, rgba(40,42,54,0.5) 0%, transparent 45%), linear-gradient(135deg, #101013 0%, #0a0a0c 55%, #050506 100%)";
@@ -38,7 +37,6 @@ export function Desktop() {
     >
       <UrlSync />
       <SketchFilters />
-      <SketchTransition />
       {!visible && <TopBar />}
 
       <div className="relative flex-1 overflow-hidden">

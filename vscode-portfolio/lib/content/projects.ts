@@ -14,6 +14,7 @@ export interface Project {
   description: string;
   tech: string[];
   image?: string;
+  install?: string;
   links: ProjectLink[];
   pageTabId?: string;
 }
@@ -77,6 +78,7 @@ export const projects: Project[] = [
       "A published JavaScript library that turns any image into an interactive, physics-driven particle cloud. Zero dependencies and plug-and-play. It powers the photo on this site's home page.",
     tech: ["JavaScript", "Canvas", "Physics", "esbuild"],
     image: "/images/photo-particles.webp",
+    install: "npm install photo-particles",
     links: [
       { label: "npm", href: "https://www.npmjs.com/package/photo-particles", icon: "npm" },
       { label: "GitHub", href: "https://github.com/ThorOdinson246/photo-particles", icon: "github" },
@@ -91,6 +93,7 @@ export const projects: Project[] = [
       "Local-first semantic search for your shell history. It finds commands by what you were trying to do rather than the exact text you typed, using ONNX embeddings alongside FTS5 keyword search, an interactive TUI, and fully offline inference. Published on PyPI.",
     tech: ["Python", "ONNX", "Embeddings", "SQLite FTS5"],
     image: "/images/whatwasit.png",
+    install: "pip install whatwasit",
     links: [{ label: "GitHub", href: "https://github.com/ThorOdinson246/whatwasit", icon: "github" }],
   },
   {

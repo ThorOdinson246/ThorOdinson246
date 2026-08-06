@@ -178,24 +178,6 @@ body {
     box-shadow 0.5s ease !important;
 }
 
-/* A pencil zips diagonally across the screen as the morph happens. */
-@keyframes pencil-fly {
-  0% {
-    transform: translate(42vw, 34vh) rotate(-24deg) scale(0.9);
-    opacity: 0;
-  }
-  18% {
-    opacity: 1;
-  }
-  82% {
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-46vw, -38vh) rotate(-24deg) scale(1.15);
-    opacity: 0;
-  }
-}
-
 @keyframes note-fall {
   from {
     top: -12%;

@@ -39,7 +39,9 @@ export function PhotoParticlesDemo({ size = 380 }: { size?: number }) {
       <div
         ref={containerRef}
         className="relative z-0 flex items-center justify-center"
-        style={{ width: `min(${size}px, 78vw)`, height: `min(${size}px, 78vw)` }}
+        // Cap leaves room for the activity bar + padding (and the shell's zoom) so
+        // the photo never slips behind the sidebar on narrow screens.
+        style={{ width: `min(${size}px, calc(100vw - 9rem))`, height: `min(${size}px, calc(100vw - 9rem))` }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img

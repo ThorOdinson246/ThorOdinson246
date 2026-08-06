@@ -1,7 +1,30 @@
 "use client";
 
+import { useState } from "react";
 import { Project } from "@/lib/content/projects";
 import { useEditorStore } from "@/lib/store";
+
+function InstallLine({ cmd }: { cmd: string }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <button
+      onClick={() => {
+        navigator.clipboard?.writeText(cmd).then(() => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 1400);
+        });
+      }}
+      title="Copy"
+      className="group mt-4 flex w-full items-center gap-2 rounded border border-border bg-black/40 px-3 py-2 text-left font-mono text-[12px] transition-colors hover:border-accent-focus/60"
+    >
+      <span className="select-none text-accent-link">$</span>
+      <span className="flex-1 truncate text-text-body">{cmd}</span>
+      <span className="shrink-0 text-[11px] text-text-muted group-hover:text-accent-link">
+        {copied ? "copied" : "copy"}
+      </span>
+    </button>
+  );
+}
 
 function LinkIcon({ kind }: { kind: Project["links"][number]["icon"] }) {
   if (kind === "github") {
@@ -62,6 +85,8 @@ export function ProjectCard({ project }: { project: Project }) {
       <div className="flex flex-1 flex-col p-5">
         <h3 className="text-[15px] font-semibold text-text-body">{project.title}</h3>
         <p className="mt-2 flex-1 text-[13px] leading-relaxed text-text-muted">{project.description}</p>
+
+        {project.install && <InstallLine cmd={project.install} />}
 
         <div className="mt-4 flex flex-wrap gap-1.5">
           {project.tech.map((t) => (
