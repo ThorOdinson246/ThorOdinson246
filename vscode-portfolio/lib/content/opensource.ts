@@ -8,8 +8,6 @@ export interface Contribution {
   work: string;
 }
 
-export const totalMergedPrs = 31;
-
 export const contributions: Contribution[] = [
   {
     name: "csconfs",

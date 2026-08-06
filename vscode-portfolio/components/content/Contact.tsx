@@ -113,7 +113,7 @@ export function Contact() {
 
             {status === "error" && (
               <p className="text-[13px] text-diag-error">
-                Something went wrong — please email me directly at {identity.email}.
+                Something went wrong. Please email me directly at {identity.email}.
               </p>
             )}
           </form>

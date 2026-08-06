@@ -30,7 +30,6 @@ const openAliases: Record<string, string> = {
   sediment: "sediment-flux",
   "sediment-flux": "sediment-flux",
   koshi: "sediment-flux",
-  afm: "afm-super-resolution",
 };
 
 function Prompt({ command }: { command: string }) {
@@ -127,7 +126,7 @@ export function Terminal() {
       case "whoami":
         return (
           <div className="space-y-1 text-text-muted">
-            <p className="text-text-body">{identity.name} — Software · AI · Web · Geospatial</p>
+            <p className="text-text-body">{identity.name} · Software · AI · Web · Geospatial</p>
             <p>{identity.intro}</p>
           </div>
         );
@@ -192,7 +191,8 @@ export function Terminal() {
           </div>
         );
       case "resume":
-        return <span className="text-text-muted">Résumé isn&apos;t posted yet — reach out at {identity.email}.</span>;
+        openFile("resume");
+        return <span className="text-text-muted">Opening resume.md…</span>;
       case "theme": {
         if (!arg || arg === "list") {
           return (

@@ -96,7 +96,7 @@ export function TopBar() {
         <WifiGlyph />
         <button
           onClick={toggleMusic}
-          title={musicOn ? "Lo-fi: on — click to mute" : "Lo-fi coding music: click to play"}
+          title={musicOn ? "Lo-fi: on (click to mute)" : "Lo-fi coding music: click to play"}
           className={musicOn ? "text-accent-link" : "hover:text-white"}
         >
           <VolumeGlyph on={musicOn} />

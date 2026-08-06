@@ -16,7 +16,7 @@ export function MusicViz() {
   return (
     <button
       onClick={toggle}
-      title={musicOn ? "Lo-fi: playing — click to pause" : "Lo-fi coding music — click to play"}
+      title={musicOn ? "Lo-fi: playing (click to pause)" : "Lo-fi coding music (click to play)"}
       className="flex h-[14px] items-end gap-[2px]"
     >
       {bars.map((b, i) => (

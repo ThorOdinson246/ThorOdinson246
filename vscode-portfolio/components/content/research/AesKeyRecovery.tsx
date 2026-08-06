@@ -1,9 +1,10 @@
 "use client";
 
-import { ResearchLayout, Section, Block, Figure, StatusNote, BulletList } from "./ResearchLayout";
+import { ResearchLayout, Section, Block, Figure, BulletList } from "./ResearchLayout";
 import { InlineMath, BlockMath } from "./Math";
 
 const ARXIV = "https://arxiv.org/abs/2508.11817";
+const SPRINGER = "https://link.springer.com/chapter/10.1007/978-3-032-08649-5_21";
 const GITHUB = "https://github.com/ThorOdinson246/AES-Key-Recovery-using-Machine-Learning/";
 
 function OutLink({ href, children }: { href: string; children: React.ReactNode }) {
@@ -35,7 +36,7 @@ const results = [
 const references = [
   "Obaid, Z.M., Ali Alheeti, K.M.: Enhancing malware detection through electromagnetic side-channel analysis using random forest classifier. Journal of Cybersecurity & Information Management 15(2) (2025)",
   "Berreby, Y.E., Sauvage, L.: Investigating efficient deep learning architectures for side-channel attacks on aes. arXiv preprint arXiv:2309.13170 (2023)",
-  "Kocher, P., Jaffe, J., Jun, B.: Differential power analysis. In: Advances in Cryptology—CRYPTO'99: 19th Annual International Cryptology Conference Santa Barbara, California, USA, August 15–19, 1999 Proceedings 19. pp. 388–397. Springer (1999)",
+  "Kocher, P., Jaffe, J., Jun, B.: Differential power analysis. In: Advances in Cryptology - CRYPTO'99: 19th Annual International Cryptology Conference Santa Barbara, California, USA, August 15–19, 1999 Proceedings 19. pp. 388–397. Springer (1999)",
   "Benadjila, R., Prouff, E., Strullu, R., Cagli, E., Dumas, C.: Deep learning for side-channel analysis and introduction to ascad database. Journal of Cryptographic Engineering 10(2), 163–188 (2020)",
   "Huang, H., Wu, J., Tang, X., Zhao, S., Liu, Z., Yu, B.: Deep learning-based improved side-channel attacks using data denoising and feature fusion. PloS one 20(4), e0315340 (2025)",
   "Picek, S., Heuser, A., Jovic, A., Bhasin, S., Regazzoni, F.: The curse of class imbalance and conflicting metrics with machine learning for side-channel evaluations. IACR Transactions on Cryptographic Hardware and Embedded Systems pp. 209–237 (2019)",
@@ -60,16 +61,16 @@ export function AesKeyRecovery() {
             and focuses on the Key Rank metric for evaluation.
           </p>
           <p className="mt-3 text-[13px] italic text-text-muted">
-            A paper detailing this work is currently available in arXiv.
+            Published at the 34th SEDE Conference (AI Track), 2025, in Springer CCIS (vol. 2720, pp. 334-352).
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
+            <OutLink href={SPRINGER}>View on Springer</OutLink>
             <OutLink href={ARXIV}>View on arXiv</OutLink>
             <OutLink href={GITHUB}>View on GitHub</OutLink>
           </div>
         </>
       }
     >
-      <StatusNote>**Status: Paper in progress, preliminary results available.**</StatusNote>
 
       <Section title="The Vulnerability">
         <p>
@@ -239,7 +240,7 @@ export function AesKeyRecovery() {
                 <th className="px-4 py-2 font-semibold">Model</th>
                 <th className="px-4 py-2 font-semibold">Dataset</th>
                 <th className="px-4 py-2 font-semibold">Feature Type</th>
-                <th className="px-4 py-2 font-semibold">Attack Traces for Rank 0*</th>
+                <th className="px-4 py-2 font-semibold">Attack Traces for Rank 0</th>
               </tr>
             </thead>
             <tbody>
@@ -256,10 +257,9 @@ export function AesKeyRecovery() {
           </table>
         </div>
         <p>
-          Note: The Key Rank metric is crucial for evaluating side-channel attacks, demonstrating that models with low
-          per-trace classification accuracy can still recover the key when evidence is aggregated across multiple traces.
+          The Key Rank metric is central to evaluating side-channel attacks: models with low per-trace classification
+          accuracy can still recover the key once evidence is aggregated across many traces.
         </p>
-        <p className="text-[12px]">*The results are preliminary and may vary from the final paper.</p>
       </Section>
 
       <Section title="Key Contributions">
@@ -298,7 +298,11 @@ export function AesKeyRecovery() {
           ))}
         </ol>
         <p>
-          For a comprehensive results and methodologies please refer{" "}
+          For the full results and methodology, see the paper on{" "}
+          <a href={SPRINGER} target="_blank" rel="noopener noreferrer" className="text-accent-link hover:underline">
+            Springer
+          </a>{" "}
+          or{" "}
           <a href={ARXIV} target="_blank" rel="noopener noreferrer" className="text-accent-link hover:underline">
             arXiv
           </a>

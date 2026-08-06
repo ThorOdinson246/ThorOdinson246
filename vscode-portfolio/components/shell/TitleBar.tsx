@@ -46,7 +46,7 @@ export function TitleBar() {
         onClick={() => togglePalette(true)}
         className="min-w-0 max-w-md flex-1 truncate whitespace-nowrap rounded bg-white/5 px-3 py-0.5 text-center text-[12px] text-text-muted transition-colors hover:bg-white/10"
       >
-        {activeFile ? `mukesh-poudel — ${activeFile.name}` : "mukesh-poudel"}
+        {activeFile ? `mukesh-poudel - ${activeFile.name}` : "mukesh-poudel"}
       </button>
 
       <div className="flex shrink-0 items-center justify-end gap-2">

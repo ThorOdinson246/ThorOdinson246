@@ -1,6 +1,6 @@
 "use client";
 
-import { contributions, totalMergedPrs } from "@/lib/content/opensource";
+import { contributions } from "@/lib/content/opensource";
 import { identity } from "@/lib/content/identity";
 import { useReveal } from "@/lib/useReveal";
 
@@ -12,9 +12,7 @@ export function OpenSource() {
       <p className="mb-2 font-mono text-[13px] text-text-muted">{"// open-source.tsx"}</p>
       <h1 className="text-3xl font-semibold text-text-body">Open Source</h1>
       <p className="mt-2 max-w-2xl text-[14px] text-text-muted">
-        Beyond my own repos, I contribute to projects I use.{" "}
-        <span className="text-text-body">{totalMergedPrs} pull requests</span> merged across open-source codebases —
-        a few highlights below.
+        Beyond my own repos, I contribute to open-source projects I use. A few highlights below.
       </p>
 
       <div className="mt-10 space-y-5">
