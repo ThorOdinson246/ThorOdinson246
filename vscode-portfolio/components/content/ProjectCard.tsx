@@ -77,7 +77,7 @@ export function ProjectCard({ project }: { project: Project }) {
             </span>
           </div>
         )}
-        <span className="absolute left-3 top-3 rounded-sm border border-border bg-black/70 px-2 py-0.5 text-[11px] font-medium text-accent-link backdrop-blur">
+        <span className="sketch-chip absolute left-3 top-3 rounded-sm border border-border bg-black/70 px-2 py-0.5 text-[11px] font-medium text-accent-link backdrop-blur">
           {project.badge}
         </span>
       </div>
@@ -90,7 +90,7 @@ export function ProjectCard({ project }: { project: Project }) {
 
         <div className="mt-4 flex flex-wrap gap-1.5">
           {project.tech.map((t) => (
-            <span key={t} className="rounded-sm border border-border bg-black/30 px-2 py-0.5 text-[11px] text-text-body">
+            <span key={t} className="sketch-chip rounded-sm border border-border bg-black/30 px-2 py-0.5 text-[11px] text-text-body">
               {t}
             </span>
           ))}

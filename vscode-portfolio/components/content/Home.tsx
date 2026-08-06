@@ -98,7 +98,7 @@ export function Home() {
                 {group.items.map((item) => (
                   <span
                     key={item}
-                    className="rounded-full border border-border bg-black/30 px-3 py-1 text-[12px] text-text-body"
+                    className="sketch-chip rounded-full border border-border bg-black/30 px-3 py-1 text-[12px] text-text-body"
                   >
                     {item}
                   </span>

@@ -20,6 +20,7 @@ interface EditorStore {
   sketchMode: boolean;
   prevThemeId: string;
   exitHintDismissed: boolean;
+  sketchTabHighlight: boolean;
 
   openFile: (id: string) => void;
   closeTab: (id: string) => void;
@@ -59,6 +60,7 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
   sketchMode: false,
   prevThemeId: defaultThemeId,
   exitHintDismissed: false,
+  sketchTabHighlight: false,
 
   openFile: (id) => {
     const { openTabIds } = get();
@@ -129,14 +131,19 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
   enterSketch: () => {
     const { sketchMode, themeId, openTabIds } = get();
     if (sketchMode) return;
+    // Morph the theme but stay on the current page: just unlock the sketchbook
+    // tab and highlight it briefly so it's easy to find when you want it.
     set({
       prevThemeId: themeId,
       themeId: sketchThemeId,
       sketchMode: true,
       exitHintDismissed: false,
+      sketchTabHighlight: true,
       openTabIds: openTabIds.includes(SKETCH_TAB_ID) ? openTabIds : [...openTabIds, SKETCH_TAB_ID],
-      activeTabId: SKETCH_TAB_ID,
     });
+    setTimeout(() => {
+      if (get().sketchMode) set({ sketchTabHighlight: false });
+    }, 1500);
   },
 
   exitSketch: () => {
@@ -151,6 +158,7 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
     set({
       themeId: prevThemeId || defaultThemeId,
       sketchMode: false,
+      sketchTabHighlight: false,
       openTabIds: nextTabs,
       activeTabId: nextActive,
     });

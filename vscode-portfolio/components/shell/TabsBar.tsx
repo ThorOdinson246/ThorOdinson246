@@ -13,6 +13,7 @@ export function TabsBar() {
   const setActiveTab = useEditorStore((s) => s.setActiveTab);
   const closeTab = useEditorStore((s) => s.closeTab);
   const reorderTabs = useEditorStore((s) => s.reorderTabs);
+  const sketchTabHighlight = useEditorStore((s) => s.sketchTabHighlight);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 4 } }));
@@ -47,6 +48,7 @@ export function TabsBar() {
                 key={id}
                 file={file}
                 active={activeTabId === id}
+                highlight={sketchTabHighlight && id === "sketchbook"}
                 onSelect={() => setActiveTab(id)}
                 onClose={() => closeTab(id)}
               />

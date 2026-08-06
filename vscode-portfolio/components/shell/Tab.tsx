@@ -9,11 +9,13 @@ import { FileIcon } from "./FileIcon";
 export function Tab({
   file,
   active,
+  highlight,
   onSelect,
   onClose,
 }: {
   file: FileEntry;
   active: boolean;
+  highlight?: boolean;
   onSelect: () => void;
   onClose: () => void;
 }) {
@@ -24,6 +26,7 @@ export function Tab({
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
+    ...(highlight ? { animation: "tab-unlock 0.75s ease-out 2" } : {}),
   };
 
   return (
