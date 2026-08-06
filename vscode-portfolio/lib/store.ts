@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { defaultOpenTabIds, defaultActiveTabId, pinnedTabIds } from "./fileRegistry";
-import { defaultThemeId } from "./themes";
+import { defaultThemeId, sketchThemeId } from "./themes";
+
+const SKETCH_TAB_ID = "sketchbook";
 
 export type WindowState = "normal" | "maximized" | "minimized" | "closed";
 
@@ -15,6 +17,8 @@ interface EditorStore {
   themeId: string;
   terminalOpen: boolean;
   musicOn: boolean;
+  sketchMode: boolean;
+  prevThemeId: string;
 
   openFile: (id: string) => void;
   closeTab: (id: string) => void;
@@ -29,6 +33,9 @@ interface EditorStore {
   setTheme: (id: string) => void;
   toggleTerminal: (open?: boolean) => void;
   setMusicOn: (on: boolean) => void;
+  enterSketch: () => void;
+  exitSketch: () => void;
+  toggleSketch: () => void;
 }
 
 export const useEditorStore = create<EditorStore>((set, get) => ({
@@ -47,6 +54,8 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
   themeId: defaultThemeId,
   terminalOpen: false,
   musicOn: false,
+  sketchMode: false,
+  prevThemeId: defaultThemeId,
 
   openFile: (id) => {
     const { openTabIds } = get();
@@ -59,6 +68,11 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
 
   closeTab: (id) => {
     if (pinnedTabIds.has(id)) return;
+    // Closing the sketchbook tab also leaves sketch mode (restores the theme).
+    if (id === SKETCH_TAB_ID && get().sketchMode) {
+      get().exitSketch();
+      return;
+    }
     const { openTabIds, activeTabId } = get();
     const index = openTabIds.indexOf(id);
     if (index === -1) return;
@@ -108,4 +122,38 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
   toggleTerminal: (open) => set((s) => ({ terminalOpen: open ?? !s.terminalOpen })),
 
   setMusicOn: (on) => set({ musicOn: on }),
+
+  enterSketch: () => {
+    const { sketchMode, themeId, openTabIds } = get();
+    if (sketchMode) return;
+    set({
+      prevThemeId: themeId,
+      themeId: sketchThemeId,
+      sketchMode: true,
+      openTabIds: openTabIds.includes(SKETCH_TAB_ID) ? openTabIds : [...openTabIds, SKETCH_TAB_ID],
+      activeTabId: SKETCH_TAB_ID,
+    });
+  },
+
+  exitSketch: () => {
+    const { sketchMode, prevThemeId, openTabIds, activeTabId } = get();
+    if (!sketchMode) return;
+    const index = openTabIds.indexOf(SKETCH_TAB_ID);
+    const nextTabs = openTabIds.filter((t) => t !== SKETCH_TAB_ID);
+    let nextActive = activeTabId;
+    if (activeTabId === SKETCH_TAB_ID) {
+      nextActive = nextTabs[index] ?? nextTabs[index - 1] ?? nextTabs[0] ?? null;
+    }
+    set({
+      themeId: prevThemeId || defaultThemeId,
+      sketchMode: false,
+      openTabIds: nextTabs,
+      activeTabId: nextActive,
+    });
+  },
+
+  toggleSketch: () => {
+    if (get().sketchMode) get().exitSketch();
+    else get().enterSketch();
+  },
 }));

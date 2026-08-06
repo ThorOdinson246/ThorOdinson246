@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Ubuntu } from "next/font/google";
+import { Ubuntu, Shantell_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeManager } from "@/components/ThemeManager";
 
@@ -7,6 +7,12 @@ const ubuntu = Ubuntu({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   variable: "--font-ubuntu",
+});
+
+const shantell = Shantell_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-shantell",
 });
 
 export const metadata: Metadata = {
@@ -40,7 +46,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`h-full antialiased ${ubuntu.variable}`}>
+    <html lang="en" className={`h-full antialiased ${ubuntu.variable} ${shantell.variable}`}>
       <body className="h-full">
         <ThemeManager />
         {children}

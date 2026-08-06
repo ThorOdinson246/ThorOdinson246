@@ -32,6 +32,9 @@ export const files: FileEntry[] = [
   { id: "resume", name: "resume.md", folder: "", icon: "markdown", language: "Markdown", contentType: "native", componentKey: "resume" },
 
   { id: "contact", name: "contact.tsx", folder: "contact", icon: "react_ts", language: "TypeScript React", contentType: "native", componentKey: "contact" },
+
+  // Hidden easter-egg tab. Not part of the file tree; opened by the pencil.
+  { id: "sketchbook", name: "sketchbook", folder: "", icon: "image", language: "Sketchbook", contentType: "native", componentKey: "sketchbook" },
 ];
 
 export const fileTree: FolderNode = {

@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useEditorStore } from "@/lib/store";
-import { themes, themeMap } from "@/lib/themes";
+import { themes, themeMap, sketchThemeId } from "@/lib/themes";
+
+const pickerThemes = themes.filter((t) => t.id !== sketchThemeId);
 
 export function ThemePicker() {
   const themeId = useEditorStore((s) => s.themeId);
@@ -39,7 +41,7 @@ export function ThemePicker() {
       {open && (
         <div className="absolute bottom-[140%] right-0 z-50 w-56 overflow-hidden rounded-md border border-border bg-panel py-1 shadow-2xl">
           <p className="px-3 py-1 text-[11px] uppercase tracking-wide text-text-muted">Color Theme</p>
-          {themes.map((t) => (
+          {pickerThemes.map((t) => (
             <button
               key={t.id}
               onClick={() => {

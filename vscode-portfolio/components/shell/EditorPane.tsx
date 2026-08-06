@@ -13,6 +13,7 @@ import { Resume } from "../content/Resume";
 import { Contact } from "../content/Contact";
 import { AesKeyRecovery } from "../content/research/AesKeyRecovery";
 import { SedimentFlux } from "../content/research/SedimentFlux";
+import { Sketchbook } from "../content/Sketchbook";
 
 function EmptyState() {
   return (
@@ -47,6 +48,8 @@ function renderComponentKey(key: string) {
       return <AesKeyRecovery />;
     case "research:sediment":
       return <SedimentFlux />;
+    case "sketchbook":
+      return <Sketchbook />;
     default:
       return null;
   }

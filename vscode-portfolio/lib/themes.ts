@@ -102,9 +102,36 @@ export const themes: Theme[] = [
       panel: "#f6f8fa",
     },
   },
+  {
+    // Easter-egg theme. Not shown in the theme picker; entered via the pencil.
+    id: "sketchbook",
+    name: "Sketchbook",
+    kind: "light",
+    tokens: {
+      "editor-bg": "#f4ecd8",
+      "sidebar-bg": "#ece2ca",
+      "activitybar-bg": "#e7dcc0",
+      "tabsbar-bg": "#ece2ca",
+      "tab-active-bg": "#f4ecd8",
+      "tab-inactive-bg": "#e4d9bf",
+      "tab-active-border": "#33538a",
+      "statusbar-bg": "#e2d5b6",
+      "statusbar-fg": "#4a453c",
+      "titlebar-bg": "#ece2ca",
+      "accent-focus": "#33538a",
+      "accent-hover": "#4a6ea8",
+      "accent-link": "#33538a",
+      selection: "#33538a26",
+      "text-body": "#36322b",
+      "text-muted": "#6b6455",
+      border: "#a89a72",
+      panel: "#ece2ca",
+    },
+  },
 ];
 
 export const defaultThemeId = "github-dark-colorblind";
+export const sketchThemeId = "sketchbook";
 
 export const themeMap: Record<string, Theme> = Object.fromEntries(themes.map((t) => [t.id, t]));
 

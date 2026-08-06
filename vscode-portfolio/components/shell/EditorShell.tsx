@@ -41,7 +41,7 @@ export function EditorShell({ rounded = false }: { rounded?: boolean }) {
 
   return (
     <div
-      className={clsx("flex h-full w-full flex-col bg-editor-bg", rounded && "overflow-hidden rounded-lg")}
+      className={clsx("editor-shell-root flex h-full w-full flex-col bg-editor-bg", rounded && "overflow-hidden rounded-lg")}
       style={{ zoom: 1.1 }}
     >
       <TitleBar />
