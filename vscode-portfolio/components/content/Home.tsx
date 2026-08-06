@@ -4,6 +4,7 @@ import { identity } from "@/lib/content/identity";
 import { skillGroups } from "@/lib/content/skills";
 import { useReveal } from "@/lib/useReveal";
 import { PhotoParticlesDemo } from "./PhotoParticlesDemo";
+import { ExperienceTimeline } from "./ExperienceTimeline";
 
 const socials = [
   {
@@ -72,6 +73,13 @@ export function Home() {
       <section className="mt-28" data-reveal>
         <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest text-text-muted">Intro</h2>
         <p className="max-w-3xl text-[15px] leading-relaxed text-text-body">{identity.intro}</p>
+      </section>
+
+      <section className="mt-20">
+        <h2 className="mb-6 text-sm font-semibold uppercase tracking-widest text-text-muted" data-reveal>
+          Experience
+        </h2>
+        <ExperienceTimeline />
       </section>
 
       <section className="mt-20">

@@ -19,6 +19,13 @@ function LinkIcon({ kind }: { kind: Project["links"][number]["icon"] }) {
       </svg>
     );
   }
+  if (kind === "npm") {
+    return (
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M0 0v16h16V0H0zm13 13h-2V5H8v8H3V3h10v10z" />
+      </svg>
+    );
+  }
   return (
     <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
       <path d="M6.5 3H3v10h10V9.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -36,8 +43,17 @@ export function ProjectCard({ project }: { project: Project }) {
       data-reveal
     >
       <div className="relative aspect-video overflow-hidden border-b border-border bg-black/40">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={project.image} alt={project.title} className="h-full w-full object-cover" loading="lazy" />
+        {project.image ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={project.image} alt={project.title} className="h-full w-full object-cover" loading="lazy" />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(ellipse_at_30%_20%,rgba(31,111,235,0.18),transparent_60%)]">
+            <span className="font-mono text-[15px] text-text-muted">
+              <span className="text-accent-link">~/</span>
+              {project.slug}
+            </span>
+          </div>
+        )}
         <span className="absolute left-3 top-3 rounded-sm border border-border bg-black/70 px-2 py-0.5 text-[11px] font-medium text-accent-link backdrop-blur">
           {project.badge}
         </span>
