@@ -1,8 +1,8 @@
 export const identity = {
   name: "Mukesh Poudel",
-  tagline: "Looking for ways to combine creativity and technology to make a difference.",
+  tagline: "Software & ML/AI engineer — I build machine-learning systems and ship full-stack products.",
   intro:
-    "I love exploring how technology can be used to solve real-life problems and transform complex challenges into elegant solutions. I excel at applying tech in interdisciplinary industries and projects. Most of my projects are in Software development, AI or Geospatial Analysis and Intelligence. I thrive on finding creative ways to make technology work for people.",
+    "I'm a software and machine-learning engineer who likes taking things from research to production — training computer-vision and deep-learning models, then wrapping them in real, usable software. My work spans ML research (side-channel analysis, super-resolution, remote sensing), full-stack web apps, and developer tools, with a bias toward shipping things people actually use.",
   email: "mukeshpoudel246@gmail.com",
   linkedin: "https://linkedin.com/in/mukesh-poudel-246mp",
   github: "https://github.com/ThorOdinson246",
