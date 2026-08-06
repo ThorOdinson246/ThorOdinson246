@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Ubuntu, Shantell_Sans } from "next/font/google";
+import { Ubuntu, Kalam, Caveat } from "next/font/google";
 import "./globals.css";
 import { ThemeManager } from "@/components/ThemeManager";
 
@@ -9,10 +9,18 @@ const ubuntu = Ubuntu({
   variable: "--font-ubuntu",
 });
 
-const shantell = Shantell_Sans({
+// Pencil handwriting for the sketchbook easter egg: Kalam for readable body/UI,
+// Caveat for looser hand-lettered display and captions.
+const kalam = Kalam({
+  subsets: ["latin"],
+  weight: ["300", "400", "700"],
+  variable: "--font-kalam",
+});
+
+const caveat = Caveat({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-  variable: "--font-shantell",
+  variable: "--font-caveat",
 });
 
 export const metadata: Metadata = {
@@ -46,7 +54,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`h-full antialiased ${ubuntu.variable} ${shantell.variable}`}>
+    <html lang="en" className={`h-full antialiased ${ubuntu.variable} ${kalam.variable} ${caveat.variable}`}>
       <body className="h-full">
         <ThemeManager />
         {children}

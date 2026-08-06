@@ -4,8 +4,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { sketches } from "@/lib/content/sketches";
 import { useEditorStore } from "@/lib/store";
+import { PencilBox } from "./PencilBox";
 
 const INK = "#3a2f10";
+const HAND = "var(--font-caveat), cursive";
 
 function TapeCorner({ side }: { side: "left" | "right" }) {
   return (
@@ -24,15 +26,12 @@ function TapeCorner({ side }: { side: "left" | "right" }) {
 
 function EmptyFrame() {
   return (
-    <div
-      className="flex aspect-[4/3] w-full flex-col items-center justify-center gap-3"
-      style={{ color: INK }}
-    >
+    <div className="flex aspect-[4/3] w-full flex-col items-center justify-center gap-3" style={{ color: INK }}>
       <svg width="72" height="72" viewBox="0 0 24 24" fill="none" opacity="0.5">
         <path d="M4 17l4.5-6 3 3.5L15 9l5 8" stroke={INK} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
         <circle cx="8" cy="7.5" r="1.6" stroke={INK} strokeWidth="1.2" />
       </svg>
-      <p className="text-[15px] opacity-70" style={{ fontFamily: "var(--font-shantell), cursive" }}>
+      <p className="text-[19px] opacity-70" style={{ fontFamily: HAND }}>
         ( drawing coming soon )
       </p>
     </div>
@@ -45,10 +44,7 @@ export function SketchCarousel() {
   const [errored, setErrored] = useState<Record<number, boolean>>({});
   const count = sketches.length;
 
-  const go = useCallback(
-    (dir: number) => setIndex((i) => (i + dir + count) % count),
-    [count]
-  );
+  const go = useCallback((dir: number) => setIndex((i) => (i + dir + count) % count), [count]);
 
   useEffect(() => {
     if (!active) return;
@@ -69,16 +65,14 @@ export function SketchCarousel() {
         <ArrowButton dir="left" onClick={() => go(-1)} />
 
         <div
-          className="relative w-full max-w-md rounded-[14px] bg-[#fbf6e6] p-4 pt-6"
-          style={{
-            border: `1.5px solid ${INK}`,
-            filter: "url(#sketch-rough)",
-            boxShadow: "3px 4px 0 rgba(58,47,16,0.18)",
-          }}
+          className="relative w-full max-w-md rounded-[16px] bg-[#fbf6e6] p-4 pt-6"
+          style={{ boxShadow: "3px 4px 0 rgba(58,47,16,0.16)" }}
         >
+          <PencilBox radius={16} />
           <TapeCorner side="left" />
           <TapeCorner side="right" />
-          <div className="overflow-hidden rounded-[8px]" style={{ border: `1px solid ${INK}` }}>
+          <div className="relative overflow-hidden rounded-[9px]">
+            <PencilBox radius={9} strokeWidth={1.3} />
             {showImage ? (
               <img
                 src={current.file}
@@ -90,10 +84,7 @@ export function SketchCarousel() {
               <EmptyFrame />
             )}
           </div>
-          <p
-            className="mt-3 text-center text-[17px]"
-            style={{ fontFamily: "var(--font-shantell), cursive" }}
-          >
+          <p className="mt-3 text-center text-[21px]" style={{ fontFamily: HAND }}>
             {current?.caption}
           </p>
         </div>
@@ -112,7 +103,7 @@ export function SketchCarousel() {
           />
         ))}
       </div>
-      <p className="mt-2 text-[13px] opacity-60" style={{ fontFamily: "var(--font-shantell), cursive" }}>
+      <p className="mt-2 text-[16px] opacity-60" style={{ fontFamily: HAND }}>
         {index + 1} / {count} · use ← → to flip
       </p>
     </div>
@@ -124,9 +115,10 @@ function ArrowButton({ dir, onClick }: { dir: "left" | "right"; onClick: () => v
     <button
       onClick={onClick}
       aria-label={dir === "left" ? "Previous drawing" : "Next drawing"}
-      className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#fbf6e6] transition-transform hover:scale-110 active:scale-95"
-      style={{ border: `1.5px solid ${INK}`, color: INK }}
+      className="relative grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#fbf6e6] transition-transform hover:scale-110 active:scale-95"
+      style={{ color: INK }}
     >
+      <PencilBox radius={22} strokeWidth={1.5} />
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ transform: dir === "right" ? "scaleX(-1)" : undefined }}>
         <path d="M15 5l-7 7 7 7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
       </svg>

@@ -5,10 +5,10 @@ export interface PianoKey {
   note: string; // e.g. "C4"
   freq: number;
   black: boolean;
-  keyboard: string; // computer key that plays it
+  keyboard?: string; // computer key that plays it (lower octave only)
 }
 
-// One octave plus the top C, C4..C5.
+// Two octaves, C4..C6.
 export const KEYS: PianoKey[] = [
   { note: "C4", freq: 261.63, black: false, keyboard: "a" },
   { note: "C#4", freq: 277.18, black: true, keyboard: "w" },
@@ -23,10 +23,22 @@ export const KEYS: PianoKey[] = [
   { note: "A#4", freq: 466.16, black: true, keyboard: "u" },
   { note: "B4", freq: 493.88, black: false, keyboard: "j" },
   { note: "C5", freq: 523.25, black: false, keyboard: "k" },
+  { note: "C#5", freq: 554.37, black: true },
+  { note: "D5", freq: 587.33, black: false },
+  { note: "D#5", freq: 622.25, black: true },
+  { note: "E5", freq: 659.25, black: false },
+  { note: "F5", freq: 698.46, black: false },
+  { note: "F#5", freq: 739.99, black: true },
+  { note: "G5", freq: 783.99, black: false },
+  { note: "G#5", freq: 830.61, black: true },
+  { note: "A5", freq: 880.0, black: false },
+  { note: "A#5", freq: 932.33, black: true },
+  { note: "B5", freq: 987.77, black: false },
+  { note: "C6", freq: 1046.5, black: false },
 ];
 
 export const keyByKeyboard: Record<string, PianoKey> = Object.fromEntries(
-  KEYS.map((k) => [k.keyboard, k])
+  KEYS.filter((k) => k.keyboard).map((k) => [k.keyboard as string, k])
 );
 export const keyByNote: Record<string, PianoKey> = Object.fromEntries(
   KEYS.map((k) => [k.note, k])
@@ -37,7 +49,9 @@ let ctx: AudioContext | null = null;
 export function getAudioCtx(): AudioContext | null {
   if (typeof window === "undefined") return null;
   if (!ctx) {
-    const AC = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+    const AC =
+      window.AudioContext ||
+      (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
     if (!AC) return null;
     ctx = new AC();
   }
@@ -53,14 +67,13 @@ export function playFreq(freq: number, when = 0, duration = 1.5) {
 
   const master = ac.createGain();
   master.gain.setValueAtTime(0.0001, t0);
-  master.gain.exponentialRampToValueAtTime(0.28, t0 + 0.012);
+  master.gain.exponentialRampToValueAtTime(0.26, t0 + 0.012);
   master.gain.exponentialRampToValueAtTime(0.0001, t0 + duration);
   master.connect(ac.destination);
 
-  // A warm fundamental plus a quieter octave partial for body.
   const partials: Array<[OscillatorType, number, number]> = [
     ["triangle", 1, 1],
-    ["sine", 2, 0.35],
+    ["sine", 2, 0.32],
   ];
   for (const [type, mult, gain] of partials) {
     const osc = ac.createOscillator();
@@ -74,40 +87,7 @@ export function playFreq(freq: number, when = 0, duration = 1.5) {
   }
 }
 
-export interface MelodyStep {
-  note: string;
-  beats: number;
-}
-
-// "Twinkle, Twinkle, Little Star" — first two phrases, in C major.
-export const TWINKLE: MelodyStep[] = [
-  { note: "C4", beats: 1 }, { note: "C4", beats: 1 }, { note: "G4", beats: 1 }, { note: "G4", beats: 1 },
-  { note: "A4", beats: 1 }, { note: "A4", beats: 1 }, { note: "G4", beats: 2 },
-  { note: "F4", beats: 1 }, { note: "F4", beats: 1 }, { note: "E4", beats: 1 }, { note: "E4", beats: 1 },
-  { note: "D4", beats: 1 }, { note: "D4", beats: 1 }, { note: "C4", beats: 2 },
-];
-
-/**
- * Play a melody, calling `onNote(note)` as each note sounds so the UI can light
- * the key. Returns a cancel function.
- */
-export function playMelody(
-  steps: MelodyStep[],
-  onNote: (note: string) => void,
-  secondsPerBeat = 0.42
-): () => void {
-  const ac = getAudioCtx();
-  if (!ac) return () => {};
-  const timers: ReturnType<typeof setTimeout>[] = [];
-  let elapsed = 0;
-  for (const step of steps) {
-    const k = keyByNote[step.note];
-    const dur = step.beats * secondsPerBeat;
-    if (k) {
-      playFreq(k.freq, elapsed, Math.min(dur * 1.15, 1.8));
-      timers.push(setTimeout(() => onNote(step.note), elapsed * 1000));
-    }
-    elapsed += dur;
-  }
-  return () => timers.forEach(clearTimeout);
+export function playNote(note: string, when = 0, duration = 1.5) {
+  const k = keyByNote[note];
+  if (k) playFreq(k.freq, when, duration);
 }

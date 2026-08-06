@@ -74,15 +74,25 @@ body {
 
 /* ---- Sketchbook easter egg: whole-UI pencil morph ---- */
 :root[data-sketch] {
-  --font-ui: var(--font-shantell), "Comic Sans MS", "Segoe Print", cursive;
+  --font-ui: var(--font-kalam), "Bradley Hand", "Segoe Print", cursive;
+  --font-hand: var(--font-caveat), var(--font-kalam), cursive;
 }
 
 /* Hand-drawn wobble on the whole editor surface. Tuned subtle so borders and
-   lines waver like pencil strokes while text stays legible. */
+   lines waver like pencil strokes while text stays legible. Two texture layers:
+   a fine graphite grain plus faint diagonal shading streaks, like paper. */
 :root[data-sketch] .editor-shell-root {
   filter: url(#sketch-rough);
   background-color: var(--editor-bg);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.045'/%3E%3C/svg%3E");
+  background-image:
+    repeating-linear-gradient(
+      48deg,
+      rgba(58, 47, 16, 0.035) 0px,
+      rgba(58, 47, 16, 0.035) 1px,
+      transparent 1px,
+      transparent 5px
+    ),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.06'/%3E%3C/svg%3E");
 }
 
 /* Keep code and other monospace readable; only the UI chrome goes handwritten. */
@@ -99,6 +109,20 @@ body {
   }
   50% {
     transform: translateY(-5px) rotate(-8deg);
+  }
+}
+
+@keyframes note-fall {
+  from {
+    top: -12%;
+    opacity: 0.25;
+  }
+  12% {
+    opacity: 1;
+  }
+  to {
+    top: 100%;
+    opacity: 1;
   }
 }
 
