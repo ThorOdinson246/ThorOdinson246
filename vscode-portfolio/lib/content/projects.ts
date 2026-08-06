@@ -90,6 +90,7 @@ export const projects: Project[] = [
     description:
       "Local-first semantic search for your shell history. It finds commands by what you were trying to do rather than the exact text you typed, using ONNX embeddings alongside FTS5 keyword search, an interactive TUI, and fully offline inference. Published on PyPI.",
     tech: ["Python", "ONNX", "Embeddings", "SQLite FTS5"],
+    image: "/images/whatwasit.png",
     links: [{ label: "GitHub", href: "https://github.com/ThorOdinson246/whatwasit", icon: "github" }],
   },
   {
