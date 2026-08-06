@@ -67,8 +67,8 @@ export function SketchWall() {
                       <path d="M4 17l4.5-6 3 3.5L15 9l5 8" stroke={INK} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                       <circle cx="8" cy="7.5" r="1.6" stroke={INK} strokeWidth="1.2" />
                     </svg>
-                    <span className="text-[16px] opacity-60" style={{ fontFamily: HAND }}>
-                      coming soon
+                    <span className="max-w-[80%] text-center text-[15px] leading-tight opacity-60" style={{ fontFamily: HAND }}>
+                      trouble loading sketches, come back later
                     </span>
                   </div>
                 )}

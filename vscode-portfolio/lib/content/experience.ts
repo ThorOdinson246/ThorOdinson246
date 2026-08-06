@@ -18,7 +18,7 @@ export const experience: ExperienceEntry[] = [
     role: "Web & AI Developer",
     org: "Center for Entrepreneurship, University of Southern Mississippi",
     location: "Hattiesburg, MS",
-    period: "2025 – Present",
+    period: "2026 – Present",
     current: true,
     summary:
       "Build and maintain the Center's web platforms and internal tools, and develop and manage AI-agent workflows that support its entrepreneurship programs.",

@@ -103,11 +103,20 @@ export function SketchPad({ enabled }: { enabled: boolean }) {
     };
 
     const down = (e: PointerEvent) => {
+      // Only start on a primary press directly on the canvas (empty paper).
+      if (e.button !== 0) return;
       drawing.current = true;
       last.current = toLocal(e);
     };
     const move = (e: PointerEvent) => {
-      if (!drawing.current || !last.current) return;
+      if (!drawing.current) return;
+      // If the button was released outside our reach, stop cleanly (never get stuck).
+      if (e.buttons === 0) {
+        drawing.current = false;
+        last.current = null;
+        return;
+      }
+      if (!last.current) return;
       const p = toLocal(e);
       const dx = p.x - last.current.x;
       const dy = p.y - last.current.y;
@@ -129,10 +138,14 @@ export function SketchPad({ enabled }: { enabled: boolean }) {
     canvas.addEventListener("pointerdown", down);
     window.addEventListener("pointermove", move);
     window.addEventListener("pointerup", up);
+    window.addEventListener("pointercancel", up);
+    window.addEventListener("blur", up);
     return () => {
       canvas.removeEventListener("pointerdown", down);
       window.removeEventListener("pointermove", move);
       window.removeEventListener("pointerup", up);
+      window.removeEventListener("pointercancel", up);
+      window.removeEventListener("blur", up);
     };
   }, [enabled]);
 

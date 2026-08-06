@@ -166,20 +166,33 @@ body {
   }
 }
 
-/* Morph wipe when entering/leaving sketch mode: a sheet covers the screen while
-   the theme swaps underneath, then sweeps away to reveal the new world. */
-@keyframes sketch-wipe {
+/* Smoothly morph theme colours during a theme swap (enabled only briefly). */
+:root.theme-morphing,
+:root.theme-morphing * {
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease,
+    border-color 0.5s ease,
+    fill 0.5s ease,
+    stroke 0.5s ease,
+    box-shadow 0.5s ease !important;
+}
+
+/* A pencil zips diagonally across the screen as the morph happens. */
+@keyframes pencil-fly {
   0% {
-    clip-path: inset(0 0 0 0);
+    transform: translate(42vw, 34vh) rotate(-24deg) scale(0.9);
+    opacity: 0;
+  }
+  18% {
     opacity: 1;
   }
-  8% {
-    clip-path: inset(0 0 0 0);
+  82% {
     opacity: 1;
   }
   100% {
-    clip-path: inset(0 100% 0 0);
-    opacity: 1;
+    transform: translate(-46vw, -38vh) rotate(-24deg) scale(1.15);
+    opacity: 0;
   }
 }
 
