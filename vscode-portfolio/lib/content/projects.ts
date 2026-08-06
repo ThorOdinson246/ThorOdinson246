@@ -75,6 +75,7 @@ export const projects: Project[] = [
     description:
       "A published JavaScript library that turns any image into an interactive, physics-driven particle cloud. Zero dependencies and plug-and-play. It powers the photo on this site's home page.",
     tech: ["JavaScript", "Canvas", "Physics", "esbuild"],
+    image: "/images/photo-particles.webp",
     links: [
       { label: "npm", href: "https://www.npmjs.com/package/photo-particles", icon: "npm" },
       { label: "GitHub", href: "https://github.com/ThorOdinson246/photo-particles", icon: "github" },
@@ -109,6 +110,7 @@ export const projects: Project[] = [
     description:
       "A Linux CLI and terminal-UI tool for controlling external-monitor brightness over DDC/CI, built for people who live in the terminal. It offers a keyboard-driven TUI, JSON and plain-text output for scripting, and a small native binary.",
     tech: ["Rust", "ddcutil", "DDC/CI", "TUI"],
+    image: "/images/xtmonctl.png",
     links: [{ label: "GitHub", href: "https://github.com/ThorOdinson246/xtmonctl", icon: "github" }],
   },
   {
