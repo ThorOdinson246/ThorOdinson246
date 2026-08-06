@@ -58,6 +58,16 @@ export const projects: Project[] = [
 
   // ---- Software & Tools ----
   {
+    slug: "benefitflow",
+    group: "software",
+    badge: "Startup · Founder",
+    title: "BenefitFlow",
+    description:
+      "A platform that automates the federal benefits lifecycle, screening, enrollment, and renewal, so people don't lose SNAP, Medicaid, and Medicare to processing errors and missed deadlines, and states cut the error rates that trigger federal penalties. Applications are pre-filled by ML models fine-tuned on federal regulations, with a human reviewer before every submission. My startup; winner of USM's Golden Idea Pitch and Checkpoint programs.",
+    tech: ["Next.js", "TypeScript", "Machine Learning", "HIPAA"],
+    links: [{ label: "Visit benefitflow.us", href: "https://www.benefitflow.us", icon: "external" }],
+  },
+  {
     slug: "photo-particles",
     group: "software",
     badge: "Open Source · npm",
