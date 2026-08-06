@@ -65,6 +65,6 @@ export const fileTree: FolderNode = {
 
 export const fileMap: Record<string, FileEntry> = Object.fromEntries(files.map((f) => [f.id, f]));
 
-export const defaultOpenTabIds = ["home", "projects", "contact"];
+export const defaultOpenTabIds = ["home", "projects", "resume", "contact"];
 export const defaultActiveTabId = "home";
-export const pinnedTabIds = new Set(["home", "projects", "contact"]);
+export const pinnedTabIds = new Set(["home", "projects", "resume", "contact"]);

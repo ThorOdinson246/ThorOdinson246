@@ -17,10 +17,10 @@ export function Projects() {
 
       <section className="mt-12">
         <h2 className="mb-6 text-sm font-semibold uppercase tracking-widest text-text-muted" data-reveal>
-          Research &amp; ML
+          Software &amp; Tools
         </h2>
         <div className="grid gap-6 md:grid-cols-2">
-          {researchProjects.map((p) => (
+          {softwareProjects.map((p) => (
             <ProjectCard key={p.slug} project={p} />
           ))}
         </div>
@@ -28,10 +28,10 @@ export function Projects() {
 
       <section className="mt-16">
         <h2 className="mb-6 text-sm font-semibold uppercase tracking-widest text-text-muted" data-reveal>
-          Software &amp; Tools
+          Research &amp; ML
         </h2>
         <div className="grid gap-6 md:grid-cols-2">
-          {softwareProjects.map((p) => (
+          {researchProjects.map((p) => (
             <ProjectCard key={p.slug} project={p} />
           ))}
         </div>

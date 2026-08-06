@@ -49,6 +49,26 @@ export function PianoStage() {
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const busRef = useRef<GainNode | null>(null);
   const stageRef = useRef<HTMLDivElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+  const [innerH, setInnerH] = useState(0);
+
+  // Scale the fixed-width keyboard + falling lanes down to fit narrow screens.
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    const inner = innerRef.current;
+    if (!wrap || !inner) return;
+    const update = () => {
+      setScale(Math.min(1, wrap.clientWidth / TOTAL_W));
+      setInnerH(inner.offsetHeight);
+    };
+    const ro = new ResizeObserver(update);
+    ro.observe(wrap);
+    ro.observe(inner);
+    update();
+    return () => ro.disconnect();
+  }, []);
 
   const flash = useCallback((note: string) => {
     setLit((l) => ({ ...l, [note]: true }));
@@ -137,9 +157,13 @@ export function PianoStage() {
 
   return (
     <div ref={stageRef} className="flex w-full flex-col items-center scroll-mt-20" style={{ color: INK }}>
-      {/* stage: falling notes + keyboard */}
-      <div className="max-w-full overflow-x-auto pb-2">
-        <div style={{ width: TOTAL_W }}>
+      {/* stage: falling notes + keyboard, scaled to fit the available width */}
+      <div
+        ref={wrapRef}
+        className="flex w-full justify-center overflow-hidden"
+        style={{ height: innerH ? innerH * scale : undefined }}
+      >
+        <div ref={innerRef} style={{ width: TOTAL_W, transform: `scale(${scale})`, transformOrigin: "top center" }}>
           {/* falling notes area */}
           <div className="relative overflow-hidden" style={{ height: "clamp(200px, 34vh, 360px)" }}>
             {/* faint lane guides */}

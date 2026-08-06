@@ -29,9 +29,11 @@ export function PencilBox({
     const el = ref.current;
     const parent = el?.parentElement;
     if (!parent) return;
-    const ro = new ResizeObserver(([entry]) => {
-      const { width, height } = entry.contentRect;
-      setSize({ w: width, h: height });
+    // Measure the border box (offsetWidth/Height), not contentRect: the SVG fills
+    // the parent's padding box, so using the content box would draw the border
+    // shrunk and offset toward the top-left on padded buttons.
+    const ro = new ResizeObserver(() => {
+      setSize({ w: parent.offsetWidth, h: parent.offsetHeight });
     });
     ro.observe(parent);
     return () => ro.disconnect();

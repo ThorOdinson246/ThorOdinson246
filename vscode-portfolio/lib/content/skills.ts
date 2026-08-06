@@ -4,12 +4,23 @@ export const skillGroups = [
     items: ["Python", "C++", "TypeScript", "JavaScript", "SQL", "Rust", "Dart", "Bash"],
   },
   {
-    category: "ML & Deep Learning",
-    items: ["PyTorch", "TensorFlow", "Hugging Face", "Scikit-Learn", "XGBoost"],
+    category: "ML, Deep Learning & CV",
+    items: [
+      "PyTorch",
+      "TensorFlow",
+      "Hugging Face",
+      "Scikit-Learn",
+      "XGBoost",
+      "U-Net",
+      "YOLO",
+      "Vision Transformers",
+      "Super-Resolution",
+      "OpenCV",
+    ],
   },
   {
-    category: "Computer Vision",
-    items: ["U-Net", "Mask R-CNN", "YOLO", "DETR", "Vision Transformers", "Super-Resolution", "OpenCV"],
+    category: "LLMs & Agents",
+    items: ["LangChain", "LlamaIndex", "Ollama"],
   },
   {
     category: "Cloud & Infra",
