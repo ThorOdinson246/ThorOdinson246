@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import clsx from "clsx";
 import { useEditorStore } from "@/lib/store";
 
@@ -26,16 +25,11 @@ function EraserGlyph() {
 export function SketchBarToggle() {
   const sketchMode = useEditorStore((s) => s.sketchMode);
   const toggleSketch = useEditorStore((s) => s.toggleSketch);
-  const [hovered, setHovered] = useState(false);
-
-  const tag = sketchMode ? "rub it out" : "don't click";
 
   return (
     <button
       onClick={toggleSketch}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      title={tag}
+      title={sketchMode ? "rub it out" : "don't click"}
       aria-label={sketchMode ? "Leave sketch mode" : "Enter sketch mode"}
       className={clsx(
         "relative flex h-11 w-12 shrink-0 items-center justify-center border-l-2 transition-colors",
@@ -51,15 +45,6 @@ export function SketchBarToggle() {
       >
         {sketchMode ? <EraserGlyph /> : <PencilGlyph />}
       </span>
-
-      {hovered && (
-        <span
-          className="pointer-events-none absolute right-full top-1/2 mr-2 -translate-y-1/2 whitespace-nowrap rounded-md bg-panel px-2 py-1 text-[12px] text-text-body shadow-md"
-          style={{ border: "1px solid var(--border)" }}
-        >
-          {tag} {sketchMode ? "✏️" : "👀"}
-        </span>
-      )}
     </button>
   );
 }

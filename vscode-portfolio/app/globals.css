@@ -166,6 +166,23 @@ body {
   }
 }
 
+/* Morph wipe when entering/leaving sketch mode: a sheet covers the screen while
+   the theme swaps underneath, then sweeps away to reveal the new world. */
+@keyframes sketch-wipe {
+  0% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+  8% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+  100% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 1;
+  }
+}
+
 @keyframes note-fall {
   from {
     top: -12%;

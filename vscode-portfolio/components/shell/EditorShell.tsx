@@ -12,6 +12,7 @@ import { EditorPane } from "./EditorPane";
 import { StatusBar } from "./StatusBar";
 import { CommandPalette } from "./CommandPalette";
 import { Terminal } from "./Terminal";
+import { SketchExitHint } from "../easter/SketchExitHint";
 
 export function EditorShell({ rounded = false }: { rounded?: boolean }) {
   const isMobile = useIsMobile();
@@ -66,6 +67,7 @@ export function EditorShell({ rounded = false }: { rounded?: boolean }) {
         )}
         <Sidebar mobile={isMobile} />
         <ActivityBar />
+        <SketchExitHint />
       </div>
       <StatusBar />
       <CommandPalette />

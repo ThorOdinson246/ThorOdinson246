@@ -19,6 +19,7 @@ interface EditorStore {
   musicOn: boolean;
   sketchMode: boolean;
   prevThemeId: string;
+  exitHintDismissed: boolean;
 
   openFile: (id: string) => void;
   closeTab: (id: string) => void;
@@ -36,6 +37,7 @@ interface EditorStore {
   enterSketch: () => void;
   exitSketch: () => void;
   toggleSketch: () => void;
+  dismissExitHint: () => void;
 }
 
 export const useEditorStore = create<EditorStore>((set, get) => ({
@@ -56,6 +58,7 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
   musicOn: false,
   sketchMode: false,
   prevThemeId: defaultThemeId,
+  exitHintDismissed: false,
 
   openFile: (id) => {
     const { openTabIds } = get();
@@ -130,6 +133,7 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
       prevThemeId: themeId,
       themeId: sketchThemeId,
       sketchMode: true,
+      exitHintDismissed: false,
       openTabIds: openTabIds.includes(SKETCH_TAB_ID) ? openTabIds : [...openTabIds, SKETCH_TAB_ID],
       activeTabId: SKETCH_TAB_ID,
     });
@@ -156,4 +160,6 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
     if (get().sketchMode) get().exitSketch();
     else get().enterSketch();
   },
+
+  dismissExitHint: () => set({ exitHintDismissed: true }),
 }));
