@@ -130,6 +130,7 @@ export const projects: Project[] = [
     description:
       "A voice-first AI scheduling platform where autonomous agents negotiate meeting times in real time using Gemini. Built at MHacks 2025.",
     tech: ["TypeScript", "Gemini", "Voice", "Multi-agent"],
+    image: "/images/delagent.jpg",
     links: [{ label: "View on GitHub", href: "https://github.com/ThorOdinson246/Delagent_MHacks25", icon: "github" }],
   },
   {
