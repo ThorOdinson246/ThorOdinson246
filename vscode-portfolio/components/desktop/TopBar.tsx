@@ -68,7 +68,7 @@ export function TopBar() {
 
   return (
     <div
-      className="flex h-7 shrink-0 items-center justify-between bg-[#1b1b1b] px-2 text-[12.5px] font-medium text-white/85"
+      className="desk-topbar flex h-7 shrink-0 items-center justify-between bg-[#1b1b1b] px-2 text-[12.5px] font-medium text-white/85"
       style={{ fontFamily: "var(--font-ubuntu), system-ui, sans-serif" }}
     >
       <div className="flex items-center gap-1">

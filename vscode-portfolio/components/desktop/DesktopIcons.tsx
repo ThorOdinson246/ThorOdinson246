@@ -16,10 +16,10 @@ function IconTile({
 }) {
   const body = (
     <div className="flex w-[74px] flex-col items-center gap-1.5">
-      <div className="flex h-14 w-14 items-center justify-center rounded-lg border border-white/10 bg-[#17171b] text-white/80 shadow-md transition-colors duration-150 group-hover:border-white/25 group-hover:bg-[#212127] group-hover:text-white">
+      <div className="desk-tile flex h-14 w-14 items-center justify-center rounded-lg border border-white/10 bg-[#17171b] text-white/80 shadow-md transition-colors duration-150 group-hover:border-white/25 group-hover:bg-[#212127] group-hover:text-white">
         {children}
       </div>
-      <span className="rounded px-1 text-center text-[12px] text-white/85 [text-shadow:0_1px_2px_rgba(0,0,0,0.7)] group-hover:bg-white/15">
+      <span className="desk-tile-label rounded px-1 text-center text-[12px] text-white/85 [text-shadow:0_1px_2px_rgba(0,0,0,0.7)] group-hover:bg-white/15">
         {label}
       </span>
     </div>

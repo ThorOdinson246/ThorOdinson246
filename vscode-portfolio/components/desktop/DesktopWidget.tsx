@@ -17,7 +17,7 @@ export function DesktopWidget() {
   }, []);
 
   return (
-    <div className="pointer-events-none absolute bottom-6 right-4 w-64 max-w-[calc(100vw-2rem)] select-none font-mono text-[12px] text-white/70 sm:bottom-8 sm:right-8 sm:w-72">
+    <div className="desk-widget pointer-events-none absolute bottom-6 right-4 w-64 max-w-[calc(100vw-2rem)] select-none font-mono text-[12px] text-white/70 sm:bottom-8 sm:right-8 sm:w-72">
       <div className="mb-2 text-3xl font-semibold tabular-nums text-white/90 sm:text-4xl">{time}</div>
       <div className="text-white/60">thorodinson@portfolio</div>
       <div className="mb-3 text-white/40">─────────────────────────</div>
@@ -38,7 +38,7 @@ export function DesktopWidget() {
       </div>
       <div className="mt-3 flex items-end gap-1">
         {bars.map((h, i) => (
-          <span key={i} className="w-2 rounded-sm bg-accent-focus/60" style={{ height: `${h / 4}px` }} />
+          <span key={i} className="desk-cpu-bar w-2 rounded-sm bg-accent-focus/60" style={{ height: `${h / 4}px` }} />
         ))}
         <span className="ml-2 text-white/40">cpu</span>
       </div>

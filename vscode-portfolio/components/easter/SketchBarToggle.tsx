@@ -1,49 +1,65 @@
 "use client";
 
+import { useState } from "react";
 import clsx from "clsx";
 import { useEditorStore } from "@/lib/store";
 
+// Line icons in the same style as the other activity-bar glyphs.
 function PencilGlyph() {
   return (
-    <svg width="23" height="23" viewBox="0 0 24 24" fill="none">
-      <path d="M15.5 4.5l4 4-9.7 9.7-4-4L15.5 4.5z" fill="#f2b705" stroke="#3a2f10" strokeWidth="1.2" strokeLinejoin="round" />
-      <path d="M5.8 14.2l4 4L4 20l1.8-5.8z" fill="#e9d6a8" stroke="#3a2f10" strokeWidth="1.2" strokeLinejoin="round" />
-      <path d="M4 20l1.15-3.7L7.7 18.85 4 20z" fill="#2b2b2b" />
-      <path d="M15.4 4.6l1.7-1.7 4 4-1.7 1.7-4-4z" fill="#d94a8c" stroke="#3a2f10" strokeWidth="1.2" strokeLinejoin="round" />
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16.5 4.5l3 3L9 18l-4 1 1-4 10.5-10.5z" />
+      <path d="M14.3 6.7l3 3" />
     </svg>
   );
 }
-
 function EraserGlyph() {
   return (
-    <svg width="23" height="23" viewBox="0 0 24 24" fill="none">
-      <path d="M3.5 15.5l8-8a2.2 2.2 0 0 1 3.1 0l4 4a2.2 2.2 0 0 1 0 3.1l-3.6 3.6H7.1L3.5 15.5z" fill="#ec6f9c" stroke="#3a2f10" strokeWidth="1.2" strokeLinejoin="round" />
-      <path d="M7.1 18.2h11.5" stroke="#3a2f10" strokeWidth="1.2" strokeLinecap="round" />
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 15.5l7.6-7.6a2 2 0 0 1 2.8 0l3.2 3.2a2 2 0 0 1 0 2.8L15 17.5H7.5L4 15.5z" />
+      <path d="M7.5 17.5H19" />
     </svg>
   );
 }
 
-/** Sketch-mode toggle that lives in the activity bar, beside Settings. */
+/** Sketch-mode toggle in the activity bar, styled like the other icons. */
 export function SketchBarToggle() {
   const sketchMode = useEditorStore((s) => s.sketchMode);
   const toggleSketch = useEditorStore((s) => s.toggleSketch);
+  const [hovered, setHovered] = useState(false);
+
+  const tag = sketchMode ? "rub it out" : "don't click";
 
   return (
     <button
       onClick={toggleSketch}
-      title={sketchMode ? "rub it out" : "don't click me"}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      title={tag}
       aria-label={sketchMode ? "Leave sketch mode" : "Enter sketch mode"}
       className={clsx(
-        "flex h-11 w-12 shrink-0 items-center justify-center border-l-2 transition-colors",
-        sketchMode ? "border-l-accent-link" : "border-l-transparent hover:bg-white/5"
+        "relative flex h-11 w-12 shrink-0 items-center justify-center border-l-2 transition-colors",
+        sketchMode ? "border-l-accent-link text-text-body" : "border-l-transparent text-text-muted hover:text-text-body"
       )}
     >
       <span
         className="inline-flex"
-        style={{ animation: sketchMode ? undefined : "attention-wiggle 5.5s ease-in-out infinite", transformOrigin: "70% 70%" }}
+        style={{
+          animation: sketchMode ? undefined : "attention-wiggle 4.5s ease-in-out infinite",
+          transformOrigin: "70% 70%",
+        }}
       >
         {sketchMode ? <EraserGlyph /> : <PencilGlyph />}
       </span>
+
+      {hovered && (
+        <span
+          className="pointer-events-none absolute right-full top-1/2 mr-2 -translate-y-1/2 whitespace-nowrap rounded-md bg-panel px-2 py-1 text-[12px] text-text-body shadow-md"
+          style={{ border: "1px solid var(--border)" }}
+        >
+          {tag} {sketchMode ? "✏️" : "👀"}
+        </span>
+      )}
     </button>
   );
 }

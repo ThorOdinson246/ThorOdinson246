@@ -78,9 +78,4 @@ export interface SelectedWork {
   note: string;
 }
 
-export const selectedWork: SelectedWork[] = [
-  {
-    title: "Fleet of One Mind",
-    note: "Maritime threat-identification and decision-support system for the Designing Solutions for Defense (DS4D) program, pitched at SOF Week 2026.",
-  },
-];
+export const selectedWork: SelectedWork[] = [];

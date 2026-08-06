@@ -102,6 +102,33 @@ body {
   font-family: var(--font-mono);
 }
 
+/* Sketch-mode theming for the desktop behind the window: the GNOME bar, the
+   desktop icons, and the widget all go paper + graphite. */
+:root[data-sketch] .desk-topbar {
+  background: #e6dabb !important;
+  color: #3a2f10 !important;
+  border-bottom: 1px solid rgba(58, 47, 16, 0.18);
+}
+:root[data-sketch] .desk-topbar * {
+  color: #3a2f10 !important;
+}
+:root[data-sketch] .desk-tile {
+  background: #f4ecd8 !important;
+  border-color: rgba(58, 47, 16, 0.3) !important;
+  color: #3a2f10 !important;
+}
+:root[data-sketch] .desk-tile-label {
+  color: #3a2f10 !important;
+  text-shadow: none !important;
+}
+:root[data-sketch] .desk-widget,
+:root[data-sketch] .desk-widget * {
+  color: #4a4034 !important;
+}
+:root[data-sketch] .desk-widget .desk-cpu-bar {
+  background: rgba(58, 47, 16, 0.45) !important;
+}
+
 /* A pencil follows the cursor while sketching. */
 :root[data-sketch] .editor-shell-root,
 :root[data-sketch] .editor-shell-root * {

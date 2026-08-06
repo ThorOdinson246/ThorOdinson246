@@ -162,15 +162,19 @@ export function Resume() {
         ))}
       </div>
 
-      <SectionTitle>Selected Work</SectionTitle>
-      <div className="space-y-3">
-        {selectedWork.map((w, i) => (
-          <div key={i} data-reveal>
-            <h3 className="text-[14px] font-semibold text-text-body">{w.title}</h3>
-            <p className="mt-1 text-[13px] leading-relaxed text-text-muted">{w.note}</p>
+      {selectedWork.length > 0 && (
+        <>
+          <SectionTitle>Selected Work</SectionTitle>
+          <div className="space-y-3">
+            {selectedWork.map((w, i) => (
+              <div key={i} data-reveal>
+                <h3 className="text-[14px] font-semibold text-text-body">{w.title}</h3>
+                <p className="mt-1 text-[13px] leading-relaxed text-text-muted">{w.note}</p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </>
+      )}
     </div>
   );
 }
