@@ -1,8 +1,11 @@
 "use client";
 
+import { useState } from "react";
+import clsx from "clsx";
 import { useEditorStore } from "@/lib/store";
-import { SketchCarousel } from "../easter/SketchCarousel";
+import { SketchWall } from "../easter/SketchWall";
 import { PianoStage } from "../easter/PianoStage";
+import { SketchPad } from "../easter/SketchPad";
 import { PencilBox } from "../easter/PencilBox";
 
 const INK = "#3a2f10";
@@ -10,10 +13,18 @@ const HAND = "var(--font-caveat), cursive";
 
 export function Sketchbook() {
   const exitSketch = useEditorStore((s) => s.exitSketch);
+  const [doodle, setDoodle] = useState(true);
 
   return (
-    <div className="min-h-full w-full px-6 py-12 sm:px-10" style={{ color: INK }}>
-      <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+    <div className="relative min-h-full w-full" style={{ color: INK }}>
+      <SketchPad enabled={doodle} />
+
+      <div
+        className={clsx(
+          "relative z-10 mx-auto flex max-w-3xl flex-col items-center px-6 py-12 text-center sm:px-10",
+          doodle && "pointer-events-none"
+        )}
+      >
         <p className="text-[19px] opacity-70" style={{ fontFamily: HAND }}>
           you found the pencil.
         </p>
@@ -24,8 +35,18 @@ export function Sketchbook() {
           a few drawings, and a little piano I&rsquo;m still learning. poke around.
         </p>
 
-        <section className="mt-12 w-full">
-          <SketchCarousel />
+        {/* doodle toggle */}
+        <button
+          onClick={() => setDoodle((d) => !d)}
+          className="pointer-events-auto relative mt-5 rounded-full bg-[#fbf6e6] px-4 py-1.5 text-[16px] transition-transform hover:scale-105 active:scale-95"
+          style={{ color: INK, fontFamily: HAND }}
+        >
+          <PencilBox radius={16} strokeWidth={1.4} />
+          {doodle ? "✎ doodling on — drag the paper (click to stop)" : "✎ doodle on the paper?"}
+        </button>
+
+        <section className="pointer-events-auto mt-12 w-full">
+          <SketchWall />
         </section>
 
         <div className="my-16 flex w-full items-center gap-4 opacity-50">
@@ -39,13 +60,13 @@ export function Sketchbook() {
         <h2 className="mb-2 text-4xl" style={{ fontFamily: HAND, fontWeight: 700 }}>
           the piano
         </h2>
-        <section className="mt-6 w-full">
+        <section className="pointer-events-auto mt-6 w-full">
           <PianoStage />
         </section>
 
         <button
           onClick={exitSketch}
-          className="relative mt-16 rounded-full bg-[#fbf6e6] px-5 py-2 text-[18px] transition-transform hover:scale-105 active:scale-95"
+          className="pointer-events-auto relative mt-16 rounded-full bg-[#fbf6e6] px-6 py-2.5 text-[18px] transition-transform hover:scale-105 active:scale-95"
           style={{ color: INK, fontFamily: HAND }}
         >
           <PencilBox radius={22} strokeWidth={1.5} />

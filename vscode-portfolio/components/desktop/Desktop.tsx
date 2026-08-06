@@ -9,7 +9,6 @@ import { TopBar } from "./TopBar";
 import { DesktopIcons } from "./DesktopIcons";
 import { DesktopWidget } from "./DesktopWidget";
 import { UrlSync } from "../UrlSync";
-import { SketchToggle } from "../easter/SketchToggle";
 import { SketchFilters } from "../easter/SketchFilters";
 
 export function Desktop() {
@@ -33,7 +32,6 @@ export function Desktop() {
     >
       <UrlSync />
       <SketchFilters />
-      <SketchToggle />
       {!visible && <TopBar />}
 
       <div className="relative flex-1 overflow-hidden">

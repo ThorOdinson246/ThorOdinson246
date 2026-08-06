@@ -47,6 +47,7 @@ export function PianoStage() {
   const [tiles, setTiles] = useState<Tile[]>([]);
   const [playingId, setPlayingId] = useState<string | null>(null);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const stageRef = useRef<HTMLDivElement>(null);
 
   const flash = useCallback((note: string) => {
     setLit((l) => ({ ...l, [note]: true }));
@@ -88,6 +89,8 @@ export function PianoStage() {
         timers.current.push(setTimeout(() => flash(n.note), (n.start + LEAD) * 1000));
       }
       timers.current.push(setTimeout(stop, (total + LEAD + 1.6) * 1000));
+      // Make sure the whole stage (falling notes + keys) is in view.
+      stageRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
     },
     [flash, stop]
   );
@@ -110,7 +113,7 @@ export function PianoStage() {
   useEffect(() => () => timers.current.forEach(clearTimeout), []);
 
   return (
-    <div className="flex w-full flex-col items-center" style={{ color: INK }}>
+    <div ref={stageRef} className="flex w-full flex-col items-center scroll-mt-20" style={{ color: INK }}>
       {/* stage: falling notes + keyboard */}
       <div className="max-w-full overflow-x-auto pb-2">
         <div style={{ width: TOTAL_W }}>
@@ -199,7 +202,7 @@ export function PianoStage() {
             <button
               key={song.id}
               onClick={() => (on ? stop() : play(song))}
-              className="relative rounded-full bg-[#fbf6e6] px-3.5 py-1.5 text-[17px] transition-transform hover:scale-105 active:scale-95"
+              className="relative rounded-full bg-[#fbf6e6] px-6 py-2.5 text-[17px] leading-none transition-transform hover:scale-105 active:scale-95"
               style={{ color: INK, fontFamily: HAND }}
               title={song.subtitle}
             >

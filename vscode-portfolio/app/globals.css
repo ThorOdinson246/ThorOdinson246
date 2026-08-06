@@ -102,6 +102,12 @@ body {
   font-family: var(--font-mono);
 }
 
+/* A pencil follows the cursor while sketching. */
+:root[data-sketch] .editor-shell-root,
+:root[data-sketch] .editor-shell-root * {
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='28'%20height='28'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M15.5%204.5l4%204-9.7%209.7-4-4L15.5%204.5z'%20fill='%23f2b705'%20stroke='%233a2f10'%20stroke-width='1.1'/%3E%3Cpath%20d='M5.8%2014.2l4%204L4%2020l1.8-5.8z'%20fill='%23e9d6a8'%20stroke='%233a2f10'%20stroke-width='1.1'/%3E%3Cpath%20d='M4%2020l1.15-3.7L7.7%2018.85%204%2020z'%20fill='%232b2b2b'/%3E%3Cpath%20d='M15.4%204.6l1.7-1.7%204%204-1.7%201.7-4-4z'%20fill='%23d94a8c'%20stroke='%233a2f10'%20stroke-width='1.1'/%3E%3C/svg%3E") 5 23, auto !important;
+}
+
 @keyframes pencil-bob {
   0%,
   100% {

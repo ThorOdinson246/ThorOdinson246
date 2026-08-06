@@ -4,6 +4,7 @@ import { useEditorStore } from "@/lib/store";
 import { fileMap } from "@/lib/fileRegistry";
 import { ThemePicker } from "./ThemePicker";
 import { MusicViz } from "./MusicViz";
+import { SketchStatusToggle } from "../easter/SketchStatusToggle";
 
 function BranchIcon() {
   return (
@@ -84,6 +85,7 @@ export function StatusBar() {
         <span className="hidden sm:block">
           <BellIcon />
         </span>
+        <SketchStatusToggle />
       </div>
     </footer>
   );

@@ -59,29 +59,42 @@ export function getAudioCtx(): AudioContext | null {
   return ctx;
 }
 
-/** Play a single note at `freq` Hz, starting `when` seconds from now. */
-export function playFreq(freq: number, when = 0, duration = 1.5) {
+/**
+ * Play a single note at `freq` Hz, starting `when` seconds from now.
+ * A struck-string tone: a stack of sine partials with mild inharmonicity, shaped
+ * by a fast attack + long exponential decay and a lowpass that closes over time,
+ * so it reads as a soft piano rather than a synth beep.
+ */
+export function playFreq(freq: number, when = 0, duration = 1.9) {
   const ac = getAudioCtx();
   if (!ac) return;
   const t0 = ac.currentTime + when;
 
   const master = ac.createGain();
   master.gain.setValueAtTime(0.0001, t0);
-  master.gain.exponentialRampToValueAtTime(0.26, t0 + 0.012);
-  master.gain.exponentialRampToValueAtTime(0.0001, t0 + duration);
+  master.gain.exponentialRampToValueAtTime(0.3, t0 + 0.006); // fast hammer attack
+  master.gain.exponentialRampToValueAtTime(0.14, t0 + 0.32); // initial decay
+  master.gain.exponentialRampToValueAtTime(0.0001, t0 + duration); // long release
+
+  const lp = ac.createBiquadFilter();
+  lp.type = "lowpass";
+  lp.frequency.setValueAtTime(Math.min(freq * 8, 9000), t0);
+  lp.frequency.exponentialRampToValueAtTime(Math.max(freq * 2.4, 700), t0 + duration * 0.7);
+  lp.Q.value = 0.5;
+  lp.connect(master);
   master.connect(ac.destination);
 
-  const partials: Array<[OscillatorType, number, number]> = [
-    ["triangle", 1, 1],
-    ["sine", 2, 0.32],
+  // Harmonic amplitudes roughly following a piano's spectrum.
+  const harmonics: Array<[number, number]> = [
+    [1, 1], [2, 0.55], [3, 0.33], [4, 0.2], [5, 0.11], [6, 0.06],
   ];
-  for (const [type, mult, gain] of partials) {
+  for (const [n, amp] of harmonics) {
     const osc = ac.createOscillator();
-    osc.type = type;
-    osc.frequency.value = freq * mult;
+    osc.type = "sine";
+    osc.frequency.value = freq * n * (1 + n * n * 0.0004); // slight inharmonicity
     const g = ac.createGain();
-    g.gain.value = gain;
-    osc.connect(g).connect(master);
+    g.gain.value = amp;
+    osc.connect(g).connect(lp);
     osc.start(t0);
     osc.stop(t0 + duration + 0.05);
   }
