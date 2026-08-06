@@ -8,10 +8,12 @@ import { Config } from "../content/Config";
 import { About } from "../content/About";
 import { Skills } from "../content/Skills";
 import { Projects } from "../content/Projects";
-import { Involvements } from "../content/Involvements";
+import { OpenSource } from "../content/OpenSource";
+import { Resume } from "../content/Resume";
 import { Contact } from "../content/Contact";
 import { AesKeyRecovery } from "../content/research/AesKeyRecovery";
 import { SedimentFlux } from "../content/research/SedimentFlux";
+import { AfmSuperResolution } from "../content/research/AfmSuperResolution";
 
 function EmptyState() {
   return (
@@ -36,14 +38,18 @@ function renderComponentKey(key: string) {
       return <Skills />;
     case "projects":
       return <Projects />;
-    case "involvements":
-      return <Involvements />;
+    case "open-source":
+      return <OpenSource />;
+    case "resume":
+      return <Resume />;
     case "contact":
       return <Contact />;
     case "research:aes":
       return <AesKeyRecovery />;
     case "research:sediment":
       return <SedimentFlux />;
+    case "research:afm":
+      return <AfmSuperResolution />;
     default:
       return null;
   }

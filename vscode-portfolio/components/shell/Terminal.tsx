@@ -21,12 +21,16 @@ const openAliases: Record<string, string> = {
   contact: "contact",
   readme: "readme",
   config: "config",
-  involvements: "involvements",
+  resume: "resume",
+  "open-source": "open-source",
+  opensource: "open-source",
+  oss: "open-source",
   aes: "aes-key-recovery",
   "aes-key-recovery": "aes-key-recovery",
   sediment: "sediment-flux",
   "sediment-flux": "sediment-flux",
   koshi: "sediment-flux",
+  afm: "afm-super-resolution",
 };
 
 function Prompt({ command }: { command: string }) {

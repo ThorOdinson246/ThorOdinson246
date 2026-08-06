@@ -41,7 +41,6 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
     "about",
     "projects",
     "projects/research",
-    "involvements",
   ]),
   windowState: "maximized",
   activePanel: "explorer",
