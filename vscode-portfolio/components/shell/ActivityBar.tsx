@@ -3,6 +3,7 @@
 import { useEditorStore } from "@/lib/store";
 import { identity } from "@/lib/content/identity";
 import clsx from "clsx";
+import { SketchBarToggle } from "../easter/SketchBarToggle";
 
 function ExplorerGlyph() {
   return (
@@ -157,6 +158,7 @@ export function ActivityBar() {
         <BarButton active={activePanel === "settings" && !sidebarCollapsed} onClick={() => setPanel("settings")} title="Settings">
           <SettingsGlyph />
         </BarButton>
+        <SketchBarToggle />
       </div>
     </nav>
   );

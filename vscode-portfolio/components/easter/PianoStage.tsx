@@ -47,6 +47,7 @@ export function PianoStage() {
   const [tiles, setTiles] = useState<Tile[]>([]);
   const [playingId, setPlayingId] = useState<string | null>(null);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const busRef = useRef<GainNode | null>(null);
   const stageRef = useRef<HTMLDivElement>(null);
 
   const flash = useCallback((note: string) => {
@@ -65,6 +66,13 @@ export function PianoStage() {
   const stop = useCallback(() => {
     timers.current.forEach(clearTimeout);
     timers.current = [];
+    // Cut every scheduled note by disconnecting the song's audio bus.
+    if (busRef.current) {
+      try {
+        busRef.current.disconnect();
+      } catch {}
+      busRef.current = null;
+    }
     setTiles([]);
     setPlayingId(null);
   }, []);
@@ -72,7 +80,12 @@ export function PianoStage() {
   const play = useCallback(
     (song: Song) => {
       stop();
-      getAudioCtx(); // unlock audio inside the click gesture
+      const ac = getAudioCtx(); // unlock audio inside the click gesture
+      const bus = ac ? ac.createGain() : null;
+      if (ac && bus) {
+        bus.connect(ac.destination);
+        busRef.current = bus;
+      }
       const { notes, total } = timeline(song);
       setPlayingId(song.id);
       setTiles(
@@ -85,7 +98,7 @@ export function PianoStage() {
         }))
       );
       for (const n of notes) {
-        playNote(n.note, n.start + LEAD, n.duration);
+        playNote(n.note, n.start + LEAD, n.duration, bus ?? undefined);
         timers.current.push(setTimeout(() => flash(n.note), (n.start + LEAD) * 1000));
       }
       timers.current.push(setTimeout(stop, (total + LEAD + 1.6) * 1000));
@@ -110,7 +123,17 @@ export function PianoStage() {
     return () => window.removeEventListener("keydown", onKey);
   }, [active, strike]);
 
-  useEffect(() => () => timers.current.forEach(clearTimeout), []);
+  useEffect(
+    () => () => {
+      timers.current.forEach(clearTimeout);
+      if (busRef.current) {
+        try {
+          busRef.current.disconnect();
+        } catch {}
+      }
+    },
+    []
+  );
 
   return (
     <div ref={stageRef} className="flex w-full flex-col items-center scroll-mt-20" style={{ color: INK }}>

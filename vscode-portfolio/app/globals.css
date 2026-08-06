@@ -118,6 +118,27 @@ body {
   }
 }
 
+/* A brief wiggle once per cycle to draw the eye to the sketch pencil. */
+@keyframes attention-wiggle {
+  0%,
+  86%,
+  100% {
+    transform: rotate(0deg);
+  }
+  89% {
+    transform: rotate(-15deg);
+  }
+  92% {
+    transform: rotate(11deg);
+  }
+  95% {
+    transform: rotate(-7deg);
+  }
+  98% {
+    transform: rotate(3deg);
+  }
+}
+
 @keyframes note-fall {
   from {
     top: -12%;

@@ -65,7 +65,7 @@ export function getAudioCtx(): AudioContext | null {
  * by a fast attack + long exponential decay and a lowpass that closes over time,
  * so it reads as a soft piano rather than a synth beep.
  */
-export function playFreq(freq: number, when = 0, duration = 1.9) {
+export function playFreq(freq: number, when = 0, duration = 1.9, destination?: AudioNode) {
   const ac = getAudioCtx();
   if (!ac) return;
   const t0 = ac.currentTime + when;
@@ -82,7 +82,7 @@ export function playFreq(freq: number, when = 0, duration = 1.9) {
   lp.frequency.exponentialRampToValueAtTime(Math.max(freq * 2.4, 700), t0 + duration * 0.7);
   lp.Q.value = 0.5;
   lp.connect(master);
-  master.connect(ac.destination);
+  master.connect(destination ?? ac.destination);
 
   // Harmonic amplitudes roughly following a piano's spectrum.
   const harmonics: Array<[number, number]> = [
@@ -100,7 +100,7 @@ export function playFreq(freq: number, when = 0, duration = 1.9) {
   }
 }
 
-export function playNote(note: string, when = 0, duration = 1.5) {
+export function playNote(note: string, when = 0, duration = 1.5, destination?: AudioNode) {
   const k = keyByNote[note];
-  if (k) playFreq(k.freq, when, duration);
+  if (k) playFreq(k.freq, when, duration, destination);
 }
