@@ -70,6 +70,16 @@ export const projects: Project[] = [
     links: [{ label: "Visit benefitflow.us", href: "https://www.benefitflow.us", icon: "external" }],
   },
   {
+    slug: "nl2sh",
+    group: "software",
+    badge: "Efficient AI · ML",
+    title: "nl2sh",
+    description:
+      "An efficient natural-language-to-shell model that runs entirely on CPU. I fine-tuned and 4-bit quantized Qwen2.5-Coder-1.5B (LoRA, GGUF Q4_K_M) into a 941 MB model with roughly 1-second latency. It scores 0.620 on the 300-task InterCode-ALFA execution benchmark, a statistically significant lift over the untuned baseline and on par with an untuned 7B model.",
+    tech: ["Python", "PyTorch", "LoRA", "GGUF"],
+    links: [{ label: "GitHub", href: "https://github.com/ThorOdinson246/nl2sh", icon: "github" }],
+  },
+  {
     slug: "photo-particles",
     group: "software",
     badge: "Open Source · npm",
